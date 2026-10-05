@@ -2,7 +2,7 @@
 
 Connect a LeetCode username and see your progress as a **solar system**: every topic is a planet, weak topics drift to the outer orbit, and the app suggests what to solve next. A **leaderboard** shows who is solving the most, a **progress page** charts your trajectory over time, and the **Ladder** is a CP-31-style checklist: fixed sets of 31 problems per difficulty level, worked through in order. The **Submissions** page shows the runtime and memory of each solve, and **Beat this** searches the web for faster solutions and turns them into hints.
 
-**Stack:** Next.js 15 (App Router) · TypeScript · React 19 · Prisma + PostgreSQL (Neon) · Zod · Vitest · Claude API with web search (hints)
+**Stack:** Next.js 15 (App Router) · TypeScript · React 19 · Prisma + SQLite (Postgres-ready) · Zod · Vitest · Claude API with web search (hints)
 
 > LeetLens is an independent project and is not affiliated with LeetCode. It only reads **public** profile data and never asks for a password or session cookie.
 
@@ -10,12 +10,12 @@ Connect a LeetCode username and see your progress as a **solar system**: every t
 
 ## Quick start
 
-Requires Node.js 20+ and a PostgreSQL database. A free [Neon](https://neon.tech) database works, and so does a local Postgres.
+Requires Node.js 20+.
 
 ```bash
 npm install
-cp .env.example .env        # Windows: copy .env.example .env, then set DATABASE_URL in it
-npm run db:push             # creates the tables
+cp .env.example .env        # Windows: copy .env.example .env
+npm run db:push             # creates prisma/dev.db
 npm run db:seed             # optional: a "demo" user with 12 weeks of history (sample users never appear in rankings)
 npm run dev
 ```
@@ -148,27 +148,20 @@ src/components/           SolarSystem, Leaderboard, TrajectoryChart, ProblemChec
 | `npm test` | unit tests (analysis, recommendations, ladder, history, leaderboard, LeetCode client) |
 | `npm run typecheck` | TypeScript check |
 
-## Deploying (Vercel + Neon)
+## Deploying
 
-The app runs on Vercel and stores data in a Neon Postgres database; both have free plans.
+SQLite is a local file, so it does **not** persist on serverless hosts such as Vercel. For production, switch to PostgreSQL:
 
-1. Log in to Vercel: `npx vercel login`.
-2. From the project folder, create the Vercel project: `npx vercel link`.
-3. In the Vercel dashboard, open the project → **Storage** → **Create Database** → **Neon** (free) and connect it. This adds `DATABASE_URL` (pooled) and `DATABASE_URL_UNPOOLED` to the project's environment.
-4. Add the other settings in **Settings → Environment Variables** (or `npx vercel env add NAME production`):
+1. In `prisma/schema.prisma` set `provider = "postgresql"` (and you may change the `...Json` String columns to `Json`).
+2. `npm i @prisma/adapter-pg pg`
+3. In `src/lib/db.ts` replace the adapter:
+   ```ts
+   import { PrismaPg } from "@prisma/adapter-pg";
+   export const db = globalForPrisma.prisma ?? new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }) });
+   ```
+4. Set `DATABASE_URL="postgresql://..."` and run `npm run db:push`.
 
-   | Variable | Value |
-   |---|---|
-   | `CRON_SECRET` | a long random string; turns on the daily sync (`vercel.json` runs it at 02:30 UTC) |
-   | `DAILY_TIMEZONE` | e.g. `Asia/Kolkata`; Vercel runs on UTC, so without it Today's 3 resets at UTC midnight |
-   | `ANTHROPIC_API_KEY` | optional; turns on the "Beat this" hints (paid). Add the username check before setting it on a public site |
-
-5. Create the tables once from your machine: `npx vercel env pull .env.vercel`, then `DATABASE_URL="<DATABASE_URL_UNPOOLED from that file>" npm run db:push`.
-6. Deploy: `npx vercel --prod`.
-
-LeetCode sometimes blocks requests from cloud servers (HTTP 403). If profiles fail to load on the live site but work locally, that's the cause; the app then shows the last saved data.
-
-The Prisma client is generated with `engineType = "client"` (the Rust-free engine), so `src/lib/db.ts` connects through the `@prisma/adapter-pg` driver adapter.
+(The Prisma client is generated with `engineType = "client"`, the Rust-free engine, which is why a driver adapter is used in both setups.)
 
 ## Ideas for next steps
 
@@ -185,7 +178,8 @@ Entering a username stores that public username and its stats in your database a
 
 ## Troubleshooting
 
+* **`better-sqlite3` fails to install:** it needs a prebuilt binary or a C++ toolchain. Use Node 20/22 LTS; on Linux install `build-essential python3`.
 * **"Couldn't reach LeetCode":** check your internet, or that your host isn't blocked. Use `USE_MOCK_LEETCODE=1` to develop offline.
 * **Empty leaderboard:** run `npm run db:seed`, or visit a few usernames first.
 * **Ladder shows fewer than 31 problems / looks stale:** run `npm run ladder:build` (needs internet) and restart.
-* **`The table ... does not exist` after updating:** run `npm run db:push` to add the new tables and columns.
+* **`no such table: ProblemMark` after updating:** run `npm run db:push` to add the new tables and column.
