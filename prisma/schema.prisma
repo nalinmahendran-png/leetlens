@@ -1,0 +1,111 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  /// Lower-cased username, used for lookups
+  usernameKey  String     @unique
+  /// Canonical username as LeetCode returns it
+  username     String
+  realName     String?
+  avatar       String?
+  isDemo       Boolean    @default(false)
+  /// JSON: [{ title, titleSlug, timestamp }]
+  recentAcJson String     @default("[]")
+  /// JSON: { "<unix day>": submissionCount } for the past year
+  calendarJson String     @default("{}")
+  lastSyncedAt DateTime?
+  /// Ladder level the user chose to start from (null = suggest one from their profile)
+  ladderStart  Int?
+  createdAt    DateTime   @default(now())
+  snapshots    Snapshot[]
+  marks        ProblemMark[]
+  submissions  Submission[]
+  dailyPicks   DailyPick[]
+}
+
+model Snapshot {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /// YYYY-MM-DD (UTC). One snapshot per user per day.
+  dayKey      String
+  takenAt     DateTime @default(now())
+  totalSolved Int
+  easy        Int
+  medium      Int
+  hard        Int
+  ranking     Int?
+  streak      Int      @default(0)
+  /// JSON: { "<tagSlug>": problemsSolved }
+  topicsJson  String   @default("{}")
+
+  @@unique([userId, dayKey])
+  @@index([userId, takenAt])
+}
+
+/// A problem the user has solved (or explicitly un-ticked). Rows with source "auto" come from
+/// LeetCode's recent accepted submissions; "manual" rows come from the user ticking boxes.
+model ProblemMark {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  titleSlug String
+  solved    Boolean  @default(true)
+  source    String   @default("manual")
+  updatedAt DateTime @default(now())
+
+  @@unique([userId, titleSlug])
+}
+
+/// A submission from LeetCode's public recent-submissions list (the newest ~20, accepted only).
+/// Saved on every sync, so history keeps growing past LeetCode's 20. The code itself is private.
+model Submission {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /// LeetCode's own submission id (from /submissions/detail/<id>/)
+  lcId        String   @unique
+  title       String
+  titleSlug   String
+  status      String
+  /// LeetCode language code, e.g. "cpp", "python3"
+  lang        String
+  /// as LeetCode shows them, e.g. "0 ms", "10.6 MB"
+  runtime     String
+  memory      String
+  submittedAt DateTime
+  /// JSON: cached Claude hints for beating this submission (null until someone asks)
+  hintsJson   String?
+
+  @@index([userId, submittedAt])
+}
+
+/// One problem of a user's daily set (see DAILY_SLOTS). A set is shown for 24 hours
+/// from `setAt`; the first visit after that picks a new one. Old rows are kept so new sets can skip
+/// recent suggestions.
+model DailyPick {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  setAt      DateTime
+  /// position in the set (index into DAILY_SLOTS in src/lib/recommend.ts)
+  slot       Int      @default(0)
+  /// "strong" (from a topic you've solved a lot) or "new" (from a topic you've barely touched)
+  kind       String   @default("strong")
+  difficulty String
+  titleSlug  String
+  title      String
+  /// the topic it was picked from
+  topicSlug  String   @default("")
+  topicName  String
+
+  @@index([userId, setAt])
+}

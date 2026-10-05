@@ -1,0 +1,4118 @@
+{
+ "generatedAt": "2026-09-30T10:30:04.889Z",
+ "source": "https://raw.githubusercontent.com/zerotrac/leetcode_problem_rating/main/data.json",
+ "levels": [
+  {
+   "id": 0,
+   "name": "Foundations",
+   "range": "Classics",
+   "minRating": null,
+   "problems": [
+    {
+     "slug": "two-sum",
+     "title": "Two Sum",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "hash-table",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "contains-duplicate",
+     "title": "Contains Duplicate",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "array",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "valid-anagram",
+     "title": "Valid Anagram",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "string",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "valid-palindrome",
+     "title": "Valid Palindrome",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "string",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "happy-number",
+     "title": "Happy Number",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "hash-table",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "move-zeroes",
+     "title": "Move Zeroes",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "two-pointers",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "binary-search",
+     "title": "Binary Search",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "binary-search",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "best-time-to-buy-and-sell-stock",
+     "title": "Best Time to Buy and Sell Stock",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "array",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "valid-parentheses",
+     "title": "Valid Parentheses",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "stack",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "reverse-linked-list",
+     "title": "Reverse Linked List",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "linked-list",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "merge-two-sorted-lists",
+     "title": "Merge Two Sorted Lists",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "linked-list",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "linked-list-cycle",
+     "title": "Linked List Cycle",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "linked-list",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "invert-binary-tree",
+     "title": "Invert Binary Tree",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "tree",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "maximum-depth-of-binary-tree",
+     "title": "Maximum Depth of Binary Tree",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "tree",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "same-tree",
+     "title": "Same Tree",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "tree",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "climbing-stairs",
+     "title": "Climbing Stairs",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "dynamic-programming",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "flood-fill",
+     "title": "Flood Fill",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "graph",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "find-if-path-exists-in-graph",
+     "title": "Find if Path Exists in Graph",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "graph",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "assign-cookies",
+     "title": "Assign Cookies",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "greedy",
+     "difficulty": "Easy"
+    },
+    {
+     "slug": "maximum-subarray",
+     "title": "Maximum Subarray",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "array",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "product-of-array-except-self",
+     "title": "Product of Array Except Self",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "array",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "group-anagrams",
+     "title": "Group Anagrams",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "string",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "top-k-frequent-elements",
+     "title": "Top K Frequent Elements",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "hash-table",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "longest-consecutive-sequence",
+     "title": "Longest Consecutive Sequence",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "hash-table",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "3sum",
+     "title": "3Sum",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "two-pointers",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "min-stack",
+     "title": "Min Stack",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "stack",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "binary-tree-level-order-traversal",
+     "title": "Binary Tree Level Order Traversal",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "tree",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "house-robber",
+     "title": "House Robber",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "dynamic-programming",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "coin-change",
+     "title": "Coin Change",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "dynamic-programming",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "number-of-islands",
+     "title": "Number of Islands",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "graph",
+     "difficulty": "Medium"
+    },
+    {
+     "slug": "subsets",
+     "title": "Subsets",
+     "rating": null,
+     "contest": null,
+     "q": null,
+     "topic": "backtracking",
+     "difficulty": "Medium"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "name": "1100",
+   "range": "1100-1199",
+   "minRating": 1100,
+   "problems": [
+    {
+     "slug": "ant-on-the-boundary",
+     "title": "Ant on the Boundary",
+     "rating": 1116,
+     "contest": "W383",
+     "q": "Q1"
+    },
+    {
+     "slug": "find-lucky-integer-in-an-array",
+     "title": "Find Lucky Integer in an Array",
+     "rating": 1118,
+     "contest": "W182",
+     "q": "Q1"
+    },
+    {
+     "slug": "shuffle-the-array",
+     "title": "Shuffle the Array",
+     "rating": 1121,
+     "contest": "W192",
+     "q": "Q1"
+    },
+    {
+     "slug": "n-th-tribonacci-number",
+     "title": "N-th Tribonacci Number",
+     "rating": 1143,
+     "contest": "W147",
+     "q": "Q1"
+    },
+    {
+     "slug": "smallest-even-multiple",
+     "title": "Smallest Even Multiple",
+     "rating": 1145,
+     "contest": "W311",
+     "q": "Q1"
+    },
+    {
+     "slug": "check-divisibility-by-digit-sum-and-product",
+     "title": "Check Divisibility by Digit Sum and Product",
+     "rating": 1149,
+     "contest": "W459",
+     "q": "Q1"
+    },
+    {
+     "slug": "count-commas-in-range",
+     "title": "Count Commas in Range",
+     "rating": 1149,
+     "contest": "W493",
+     "q": "Q1"
+    },
+    {
+     "slug": "minimum-operations-to-exceed-threshold-value-i",
+     "title": "Minimum Operations to Exceed Threshold Value I",
+     "rating": 1150,
+     "contest": "B125",
+     "q": "Q1"
+    },
+    {
+     "slug": "sum-of-squares-of-special-elements",
+     "title": "Sum of Squares of Special Elements ",
+     "rating": 1152,
+     "contest": "W354",
+     "q": "Q1"
+    },
+    {
+     "slug": "convert-the-temperature",
+     "title": "Convert the Temperature",
+     "rating": 1153,
+     "contest": "W319",
+     "q": "Q1"
+    },
+    {
+     "slug": "find-indices-with-index-and-value-difference-i",
+     "title": "Find Indices With Index and Value Difference I",
+     "rating": 1158,
+     "contest": "W367",
+     "q": "Q1"
+    },
+    {
+     "slug": "find-the-integer-added-to-array-i",
+     "title": "Find the Integer Added to Array I",
+     "rating": 1161,
+     "contest": "W395",
+     "q": "Q1"
+    },
+    {
+     "slug": "number-of-steps-to-reduce-a-number-to-zero",
+     "title": "Number of Steps to Reduce a Number to Zero",
+     "rating": 1164,
+     "contest": "B19",
+     "q": "Q1"
+    },
+    {
+     "slug": "the-two-sneaky-numbers-of-digitville",
+     "title": "The Two Sneaky Numbers of Digitville",
+     "rating": 1164,
+     "contest": "W415",
+     "q": "Q1"
+    },
+    {
+     "slug": "check-ascii-palindromic",
+     "title": "Check ASCII Palindromic",
+     "rating": 1165,
+     "contest": "W516",
+     "q": "Q1"
+    },
+    {
+     "slug": "check-adjacent-digit-differences",
+     "title": "Check Adjacent Digit Differences",
+     "rating": 1166,
+     "contest": "W502",
+     "q": "Q1"
+    },
+    {
+     "slug": "find-n-unique-integers-sum-up-to-zero",
+     "title": "Find N Unique Integers Sum up to Zero",
+     "rating": 1167,
+     "contest": "W169",
+     "q": "Q1"
+    },
+    {
+     "slug": "calculate-delayed-arrival-time",
+     "title": "Calculate Delayed Arrival Time",
+     "rating": 1169,
+     "contest": "W342",
+     "q": "Q1"
+    },
+    {
+     "slug": "find-anagram-mappings",
+     "title": "Find Anagram Mappings",
+     "rating": 1173,
+     "contest": "W66",
+     "q": "Q1"
+    },
+    {
+     "slug": "last-stone-weight",
+     "title": "Last Stone Weight",
+     "rating": 1173,
+     "contest": "W137",
+     "q": "Q1"
+    },
+    {
+     "slug": "univalued-binary-tree",
+     "title": "Univalued Binary Tree",
+     "rating": 1178,
+     "contest": "W117",
+     "q": "Q1"
+    },
+    {
+     "slug": "find-the-encrypted-string",
+     "title": "Find the Encrypted String",
+     "rating": 1179,
+     "contest": "W405",
+     "q": "Q1"
+    },
+    {
+     "slug": "maximum-number-of-balloons",
+     "title": "Maximum Number of Balloons",
+     "rating": 1182,
+     "contest": "W154",
+     "q": "Q1"
+    },
+    {
+     "slug": "check-if-word-equals-summation-of-two-words",
+     "title": "Check if Word Equals Summation of Two Words",
+     "rating": 1187,
+     "contest": "W243",
+     "q": "Q1"
+    },
+    {
+     "slug": "elevator-requests-i",
+     "title": "Elevator Requests I",
+     "rating": 1187,
+     "contest": "B189",
+     "q": "Q1"
+    },
+    {
+     "slug": "check-if-digits-are-equal-in-string-after-operations-i",
+     "title": "Check If Digits Are Equal in String After Operations I",
+     "rating": 1189,
+     "contest": "W438",
+     "q": "Q1"
+    },
+    {
+     "slug": "count-monobit-integers",
+     "title": "Count Monobit Integers",
+     "rating": 1191,
+     "contest": "W487",
+     "q": "Q1"
+    },
+    {
+     "slug": "shuffle-string",
+     "title": "Shuffle String",
+     "rating": 1193,
+     "contest": "W199",
+     "q": "Q1"
+    },
+    {
+     "slug": "number-of-senior-citizens",
+     "title": "Number of Senior Citizens",
+     "rating": 1199,
+     "contest": "B104",
+     "q": "Q1"
+    },
+    {
+     "slug": "reverse-prefix-of-word",
+     "title": "Reverse Prefix of Word",
+     "rating": 1199,
+     "contest": "W258",
+     "q": "Q1"
+    },
+    {
+     "slug": "count-operations-to-obtain-zero",
+     "title": "Count Operations to Obtain Zero",
+     "rating": 1200,
+     "contest": "W280",
+     "q": "Q1"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "1200",
+   "range": "1200-1299",
+   "minRating": 1200,
+   "problems": [
+    {
+     "slug": "sum-of-integers-with-maximum-digit-range",
+     "title": "Sum of Integers with Maximum Digit Range",
+     "rating": 1200,
+     "contest": "W509",
+     "q": "Q1"
+    },
+    {
+     "slug": "three-divisors",
+     "title": "Three Divisors",
+     "rating": 1204,
+     "contest": "W252",
+     "q": "Q1"
+    },
+    {
+     "slug": "left-and-right-sum-differences",
+     "title": "Left and Right Sum Differences",
+     "rating": 1206,
+     "contest": "W334",
+     "q": "Q1"
+    },
+    {
+     "slug": "minimum-deletions-for-at-most-k-distinct-characters",
+     "title": "Minimum Deletions for At Most K Distinct Characters",
+     "rating": 1211,
+     "contest": "W449",
+     "q": "Q1"
+    },
+    {
+     "slug": "final-prices-with-a-special-discount-in-a-shop",
+     "title": "Final Prices With a Special Discount in a Shop",
+     "rating": 1212,
+     "contest": "B28",
+     "q": "Q1"
+    },
+    {
+     "slug": "account-balance-after-rounded-purchase",
+     "title": "Account Balance After Rounded Purchase",
+     "rating": 1215,
+     "contest": "B110",
+     "q": "Q1"
+    },
+    {
+     "slug": "goal-parser-interpretation",
+     "title": "Goal Parser Interpretation",
+     "rating": 1222,
+     "contest": "W218",
+     "q": "Q1"
+    },
+    {
+     "slug": "find-the-score-difference-in-a-game",
+     "title": "Find the Score Difference in a Game",
+     "rating": 1223,
+     "contest": "W490",
+     "q": "Q1"
+    },
+    {
+     "slug": "apply-operations-to-an-array",
+     "title": "Apply Operations to an Array",
+     "rating": 1224,
+     "contest": "W318",
+     "q": "Q1"
+    },
+    {
+     "slug": "sum-of-unique-elements",
+     "title": "Sum of Unique Elements",
+     "rating": 1228,
+     "contest": "B45",
+     "q": "Q1"
+    },
+    {
+     "slug": "maximum-ascending-subarray-sum",
+     "title": "Maximum Ascending Subarray Sum",
+     "rating": 1229,
+     "contest": "W233",
+     "q": "Q1"
+    },
+    {
+     "slug": "armstrong-number",
+     "title": "Armstrong Number",
+     "rating": 1231,
+     "contest": "B5",
+     "q": "Q2"
+    },
+    {
+     "slug": "check-if-bitwise-or-has-trailing-zeros",
+     "title": "Check if Bitwise OR Has Trailing Zeros",
+     "rating": 1234,
+     "contest": "W378",
+     "q": "Q1"
+    },
+    {
+     "slug": "add-to-array-form-of-integer",
+     "title": "Add to Array-Form of Integer",
+     "rating": 1235,
+     "contest": "W123",
+     "q": "Q1"
+    },
+    {
+     "slug": "strong-password-checker-ii",
+     "title": "Strong Password Checker II",
+     "rating": 1242,
+     "contest": "B80",
+     "q": "Q1"
+    },
+    {
+     "slug": "count-valid-prefixes",
+     "title": "Count Valid Prefixes",
+     "rating": 1243,
+     "contest": "B188",
+     "q": "Q1"
+    },
+    {
+     "slug": "check-if-it-is-a-straight-line",
+     "title": "Check If It Is a Straight Line",
+     "rating": 1247,
+     "contest": "W159",
+     "q": "Q1"
+    },
+    {
+     "slug": "valid-word",
+     "title": "Valid Word",
+     "rating": 1250,
+     "contest": "W396",
+     "q": "Q1"
+    },
+    {
+     "slug": "compute-decimal-representation",
+     "title": "Compute Decimal Representation",
+     "rating": 1251,
+     "contest": "W469",
+     "q": "Q1"
+    },
+    {
+     "slug": "valid-boomerang",
+     "title": "Valid Boomerang",
+     "rating": 1256,
+     "contest": "W135",
+     "q": "Q1"
+    },
+    {
+     "slug": "transformed-array",
+     "title": "Transformed Array",
+     "rating": 1257,
+     "contest": "W427",
+     "q": "Q1"
+    },
+    {
+     "slug": "monotonic-array",
+     "title": "Monotonic Array",
+     "rating": 1259,
+     "contest": "W100",
+     "q": "Q1"
+    },
+    {
+     "slug": "minimum-cost-of-buying-candies-with-discount",
+     "title": "Minimum Cost of Buying Candies With Discount",
+     "rating": 1261,
+     "contest": "B70",
+     "q": "Q1"
+    },
+    {
+     "slug": "check-if-every-row-and-column-contains-all-numbers",
+     "title": "Check if Every Row and Column Contains All Numbers",
+     "rating": 1264,
+     "contest": "W275",
+     "q": "Q1"
+    },
+    {
+     "slug": "find-all-k-distant-indices-in-an-array",
+     "title": "Find All K-Distant Indices in an Array",
+     "rating": 1266,
+     "contest": "W284",
+     "q": "Q1"
+    },
+    {
+     "slug": "stone-removal-game",
+     "title": "Stone Removal Game",
+     "rating": 1267,
+     "contest": "B144",
+     "q": "Q1"
+    },
+    {
+     "slug": "decode-the-message",
+     "title": "Decode the Message",
+     "rating": 1268,
+     "contest": "W300",
+     "q": "Q1"
+    },
+    {
+     "slug": "convert-integer-to-the-sum-of-two-no-zero-integers",
+     "title": "Convert Integer to the Sum of Two No-Zero Integers",
+     "rating": 1278,
+     "contest": "W171",
+     "q": "Q1"
+    },
+    {
+     "slug": "lemonade-change",
+     "title": "Lemonade Change",
+     "rating": 1286,
+     "contest": "W91",
+     "q": "Q1"
+    },
+    {
+     "slug": "design-a-stack-with-increment-operation",
+     "title": "Design a Stack With Increment Operation",
+     "rating": 1286,
+     "contest": "W180",
+     "q": "Q2"
+    },
+    {
+     "slug": "max-pair-sum-in-an-array",
+     "title": "Max Pair Sum in an Array",
+     "rating": 1295,
+     "contest": "W358",
+     "q": "Q1"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "1300",
+   "range": "1300-1399",
+   "minRating": 1300,
+   "problems": [
+    {
+     "slug": "calculate-digit-sum-of-a-string",
+     "title": "Calculate Digit Sum of a String",
+     "rating": 1302,
+     "contest": "W289",
+     "q": "Q1"
+    },
+    {
+     "slug": "delete-greatest-value-in-each-row",
+     "title": "Delete Greatest Value in Each Row",
+     "rating": 1310,
+     "contest": "W323",
+     "q": "Q1"
+    },
+    {
+     "slug": "string-compression-iii",
+     "title": "String Compression III",
+     "rating": 1312,
+     "contest": "W399",
+     "q": "Q2"
+    },
+    {
+     "slug": "mirror-frequency-distance",
+     "title": "Mirror Frequency Distance",
+     "rating": 1312,
+     "contest": "W496",
+     "q": "Q1"
+    },
+    {
+     "slug": "adding-spaces-to-a-string",
+     "title": "Adding Spaces to a String",
+     "rating": 1315,
+     "contest": "W272",
+     "q": "Q2"
+    },
+    {
+     "slug": "generate-tag-for-video-caption",
+     "title": "Generate Tag for Video Caption",
+     "rating": 1317,
+     "contest": "W454",
+     "q": "Q1"
+    },
+    {
+     "slug": "number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold",
+     "title": "Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold",
+     "rating": 1317,
+     "contest": "B19",
+     "q": "Q2"
+    },
+    {
+     "slug": "count-square-sum-triples",
+     "title": "Count Square Sum Triples",
+     "rating": 1324,
+     "contest": "B56",
+     "q": "Q1"
+    },
+    {
+     "slug": "determine-the-winner-of-a-bowling-game",
+     "title": "Determine the Winner of a Bowling Game",
+     "rating": 1324,
+     "contest": "W343",
+     "q": "Q1"
+    },
+    {
+     "slug": "largest-local-values-in-a-matrix",
+     "title": "Largest Local Values in a Matrix",
+     "rating": 1331,
+     "contest": "W306",
+     "q": "Q1"
+    },
+    {
+     "slug": "number-of-ways-to-split-array",
+     "title": "Number of Ways to Split Array",
+     "rating": 1334,
+     "contest": "B78",
+     "q": "Q2"
+    },
+    {
+     "slug": "second-largest-digit-in-a-string",
+     "title": "Second Largest Digit in a String",
+     "rating": 1342,
+     "contest": "B48",
+     "q": "Q1"
+    },
+    {
+     "slug": "count-number-of-teams",
+     "title": "Count Number of Teams",
+     "rating": 1344,
+     "contest": "W182",
+     "q": "Q2"
+    },
+    {
+     "slug": "max-number-of-k-sum-pairs",
+     "title": "Max Number of K-Sum Pairs",
+     "rating": 1346,
+     "contest": "W218",
+     "q": "Q2"
+    },
+    {
+     "slug": "two-city-scheduling",
+     "title": "Two City Scheduling",
+     "rating": 1348,
+     "contest": "W133",
+     "q": "Q1"
+    },
+    {
+     "slug": "count-special-quadruplets",
+     "title": "Count Special Quadruplets",
+     "rating": 1352,
+     "contest": "W257",
+     "q": "Q1"
+    },
+    {
+     "slug": "count-total-number-of-colored-cells",
+     "title": "Count Total Number of Colored Cells",
+     "rating": 1356,
+     "contest": "B99",
+     "q": "Q2"
+    },
+    {
+     "slug": "finding-the-users-active-minutes",
+     "title": "Finding the Users Active Minutes",
+     "rating": 1360,
+     "contest": "W235",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximum-average-subtree",
+     "title": "Maximum Average Subtree",
+     "rating": 1362,
+     "contest": "B4",
+     "q": "Q3"
+    },
+    {
+     "slug": "shortest-completing-word",
+     "title": "Shortest Completing Word",
+     "rating": 1373,
+     "contest": "W63",
+     "q": "Q2"
+    },
+    {
+     "slug": "sequential-digits",
+     "title": "Sequential Digits",
+     "rating": 1374,
+     "contest": "W167",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximize-distance-to-closest-person",
+     "title": "Maximize Distance to Closest Person",
+     "rating": 1383,
+     "contest": "W88",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-operations-to-make-array-values-equal-to-k",
+     "title": "Minimum Operations to Make Array Values Equal to K",
+     "rating": 1383,
+     "contest": "B145",
+     "q": "Q1"
+    },
+    {
+     "slug": "find-the-k-or-of-an-array",
+     "title": "Find the K-or of an Array",
+     "rating": 1389,
+     "contest": "W369",
+     "q": "Q1"
+    },
+    {
+     "slug": "reverse-words-with-same-vowel-count",
+     "title": "Reverse Words With Same Vowel Count",
+     "rating": 1392,
+     "contest": "W480",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-suffix-flips",
+     "title": "Bulb Switcher IV",
+     "rating": 1393,
+     "contest": "W199",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-sensors-to-cover-grid",
+     "title": "Minimum Sensors to Cover Grid",
+     "rating": 1396,
+     "contest": "B163",
+     "q": "Q1"
+    },
+    {
+     "slug": "delete-columns-to-make-sorted",
+     "title": "Delete Columns to Make Sorted",
+     "rating": 1396,
+     "contest": "W111",
+     "q": "Q2"
+    },
+    {
+     "slug": "rotated-digits",
+     "title": "Rotated Digits",
+     "rating": 1397,
+     "contest": "W73",
+     "q": "Q1"
+    },
+    {
+     "slug": "make-array-elements-equal-to-zero",
+     "title": "Make Array Elements Equal to Zero",
+     "rating": 1397,
+     "contest": "W424",
+     "q": "Q1"
+    },
+    {
+     "slug": "minimum-operations-to-exceed-threshold-value-ii",
+     "title": "Minimum Operations to Exceed Threshold Value II",
+     "rating": 1400,
+     "contest": "B125",
+     "q": "Q2"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "1400",
+   "range": "1400-1499",
+   "minRating": 1400,
+   "problems": [
+    {
+     "slug": "find-smallest-common-element-in-all-rows",
+     "title": "Find Smallest Common Element in All Rows",
+     "rating": 1401,
+     "contest": "B9",
+     "q": "Q3"
+    },
+    {
+     "slug": "html-entity-parser",
+     "title": "HTML Entity Parser",
+     "rating": 1405,
+     "contest": "W184",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-maximum-number-of-string-pairs",
+     "title": "Find Maximum Number of String Pairs",
+     "rating": 1406,
+     "contest": "B107",
+     "q": "Q1"
+    },
+    {
+     "slug": "determine-whether-matrix-can-be-obtained-by-rotation",
+     "title": "Determine Whether Matrix Can Be Obtained By Rotation",
+     "rating": 1407,
+     "contest": "W244",
+     "q": "Q1"
+    },
+    {
+     "slug": "delete-leaves-with-a-given-value",
+     "title": "Delete Leaves With a Given Value",
+     "rating": 1407,
+     "contest": "W172",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-hours-of-training-to-win-a-competition",
+     "title": "Minimum Hours of Training to Win a Competition",
+     "rating": 1413,
+     "contest": "W307",
+     "q": "Q1"
+    },
+    {
+     "slug": "find-all-numbers-disappeared-in-an-array-ii",
+     "title": "Find All Numbers Disappeared in an Array II",
+     "rating": 1417,
+     "contest": "W516",
+     "q": "Q2"
+    },
+    {
+     "slug": "defuse-the-bomb",
+     "title": "Defuse the Bomb",
+     "rating": 1417,
+     "contest": "B39",
+     "q": "Q1"
+    },
+    {
+     "slug": "minimum-moves-to-reach-target-score",
+     "title": "Minimum Moves to Reach Target Score",
+     "rating": 1417,
+     "contest": "W276",
+     "q": "Q2"
+    },
+    {
+     "slug": "grumpy-bookstore-owner",
+     "title": "Grumpy Bookstore Owner",
+     "rating": 1418,
+     "contest": "W138",
+     "q": "Q2"
+    },
+    {
+     "slug": "magic-squares-in-grid",
+     "title": "Magic Squares In Grid",
+     "rating": 1426,
+     "contest": "W86",
+     "q": "Q1"
+    },
+    {
+     "slug": "merge-adjacent-equal-elements",
+     "title": "Merge Adjacent Equal Elements",
+     "rating": 1429,
+     "contest": "W488",
+     "q": "Q2"
+    },
+    {
+     "slug": "smallest-string-starting-from-leaf",
+     "title": "Smallest String Starting From Leaf",
+     "rating": 1429,
+     "contest": "W122",
+     "q": "Q2"
+    },
+    {
+     "slug": "find-the-winner-of-an-array-game",
+     "title": "Find the Winner of an Array Game",
+     "rating": 1433,
+     "contest": "W200",
+     "q": "Q2"
+    },
+    {
+     "slug": "count-vowel-strings-in-ranges",
+     "title": "Count Vowel Strings in Ranges",
+     "rating": 1435,
+     "contest": "W331",
+     "q": "Q2"
+    },
+    {
+     "slug": "number-of-pairs-of-interchangeable-rectangles",
+     "title": "Number of Pairs of Interchangeable Rectangles",
+     "rating": 1436,
+     "contest": "W258",
+     "q": "Q2"
+    },
+    {
+     "slug": "check-if-a-string-can-break-another-string",
+     "title": "Check If a String Can Break Another String",
+     "rating": 1436,
+     "contest": "B25",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-elements-in-a-contaminated-binary-tree",
+     "title": "Find Elements in a Contaminated Binary Tree",
+     "rating": 1440,
+     "contest": "W163",
+     "q": "Q2"
+    },
+    {
+     "slug": "partition-array-into-k-distinct-groups",
+     "title": "Partition Array Into K-Distinct Groups",
+     "rating": 1440,
+     "contest": "W464",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximum-enemy-forts-that-can-be-captured",
+     "title": "Maximum Enemy Forts That Can Be Captured",
+     "rating": 1450,
+     "contest": "B94",
+     "q": "Q1"
+    },
+    {
+     "slug": "count-beautiful-substrings-i",
+     "title": "Count Beautiful Substrings I",
+     "rating": 1451,
+     "contest": "W373",
+     "q": "Q2"
+    },
+    {
+     "slug": "count-substrings-with-k-frequency-characters-i",
+     "title": "Count Substrings With K-Frequency Characters I",
+     "rating": 1455,
+     "contest": "W420",
+     "q": "Q2"
+    },
+    {
+     "slug": "taking-maximum-energy-from-the-mystic-dungeon",
+     "title": "Taking Maximum Energy From the Mystic Dungeon",
+     "rating": 1460,
+     "contest": "W397",
+     "q": "Q2"
+    },
+    {
+     "slug": "smallest-string-with-a-given-numeric-value",
+     "title": "Smallest String With A Given Numeric Value",
+     "rating": 1461,
+     "contest": "W216",
+     "q": "Q2"
+    },
+    {
+     "slug": "remove-all-occurrences-of-a-substring",
+     "title": "Remove All Occurrences of a Substring",
+     "rating": 1461,
+     "contest": "B55",
+     "q": "Q2"
+    },
+    {
+     "slug": "sum-of-root-to-leaf-binary-numbers",
+     "title": "Sum of Root To Leaf Binary Numbers",
+     "rating": 1462,
+     "contest": "W131",
+     "q": "Q2"
+    },
+    {
+     "slug": "validate-binary-tree-nodes",
+     "title": "Validate Binary Tree Nodes",
+     "rating": 1465,
+     "contest": "W177",
+     "q": "Q2"
+    },
+    {
+     "slug": "longest-unequal-adjacent-groups-subsequence-i",
+     "title": "Longest Unequal Adjacent Groups Subsequence I",
+     "rating": 1469,
+     "contest": "B115",
+     "q": "Q2"
+    },
+    {
+     "slug": "largest-element-in-an-array-after-merge-operations",
+     "title": "Largest Element in an Array after Merge Operations",
+     "rating": 1485,
+     "contest": "W355",
+     "q": "Q2"
+    },
+    {
+     "slug": "prime-arrangements",
+     "title": "Prime Arrangements",
+     "rating": 1489,
+     "contest": "W152",
+     "q": "Q1"
+    },
+    {
+     "slug": "maximum-total-importance-of-roads",
+     "title": "Maximum Total Importance of Roads",
+     "rating": 1496,
+     "contest": "B79",
+     "q": "Q3"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "1500",
+   "range": "1500-1599",
+   "minRating": 1500,
+   "problems": [
+    {
+     "slug": "minimum-levels-to-gain-more-points",
+     "title": "Minimum Levels to Gain More Points",
+     "rating": 1501,
+     "contest": "B127",
+     "q": "Q2"
+    },
+    {
+     "slug": "largest-values-from-labels",
+     "title": "Largest Values From Labels",
+     "rating": 1501,
+     "contest": "W141",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-length-of-string-after-deleting-similar-ends",
+     "title": "Minimum Length of String After Deleting Similar Ends",
+     "rating": 1502,
+     "contest": "B45",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-the-longest-semi-repetitive-substring",
+     "title": "Find the Longest Semi-Repetitive Substring",
+     "rating": 1502,
+     "contest": "B106",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximum-number-of-groups-entering-a-competition",
+     "title": "Maximum Number of Groups Entering a Competition",
+     "rating": 1503,
+     "contest": "W304",
+     "q": "Q2"
+    },
+    {
+     "slug": "sum-of-subarray-ranges",
+     "title": "Sum of Subarray Ranges",
+     "rating": 1504,
+     "contest": "W271",
+     "q": "Q2"
+    },
+    {
+     "slug": "sort-integers-by-the-power-value",
+     "title": "Sort Integers by The Power Value",
+     "rating": 1507,
+     "contest": "B22",
+     "q": "Q3"
+    },
+    {
+     "slug": "lexicographically-smallest-string-after-operations-with-constraint",
+     "title": "Lexicographically Smallest String After Operations With Constraint",
+     "rating": 1515,
+     "contest": "W392",
+     "q": "Q2"
+    },
+    {
+     "slug": "find-the-number-of-distinct-colors-among-the-balls",
+     "title": "Find the Number of Distinct Colors Among the Balls",
+     "rating": 1517,
+     "contest": "B131",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-covered-buildings",
+     "title": "Count Covered Buildings",
+     "rating": 1519,
+     "contest": "W447",
+     "q": "Q1"
+    },
+    {
+     "slug": "maximum-xor-for-each-query",
+     "title": "Maximum XOR for Each Query",
+     "rating": 1523,
+     "contest": "B50",
+     "q": "Q3"
+    },
+    {
+     "slug": "check-array-formation-through-concatenation",
+     "title": "Check Array Formation Through Concatenation",
+     "rating": 1524,
+     "contest": "W213",
+     "q": "Q1"
+    },
+    {
+     "slug": "filter-occupied-intervals",
+     "title": "Filter Occupied Intervals",
+     "rating": 1533,
+     "contest": "W508",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximum-number-of-jumps-to-reach-the-last-index",
+     "title": "Maximum Number of Jumps to Reach the Last Index",
+     "rating": 1533,
+     "contest": "W353",
+     "q": "Q2"
+    },
+    {
+     "slug": "smallest-subtree-with-all-the-deepest-nodes",
+     "title": "Smallest Subtree with all the Deepest Nodes",
+     "rating": 1534,
+     "contest": "W92",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximize-sum-of-squares-of-digits",
+     "title": "Maximize Sum of Squares of Digits",
+     "rating": 1537,
+     "contest": "B168",
+     "q": "Q2"
+    },
+    {
+     "slug": "meeting-scheduler",
+     "title": "Meeting Scheduler",
+     "rating": 1541,
+     "contest": "B11",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-adjacent-swaps-to-alternate-parity",
+     "title": "Minimum Adjacent Swaps to Alternate Parity",
+     "rating": 1548,
+     "contest": "B159",
+     "q": "Q1"
+    },
+    {
+     "slug": "best-time-to-buy-and-sell-stock-using-strategy",
+     "title": "Best Time to Buy and Sell Stock using Strategy",
+     "rating": 1557,
+     "contest": "W463",
+     "q": "Q1"
+    },
+    {
+     "slug": "longest-palindrome-by-concatenating-two-letter-words",
+     "title": "Longest Palindrome by Concatenating Two Letter Words",
+     "rating": 1557,
+     "contest": "B69",
+     "q": "Q3"
+    },
+    {
+     "slug": "decrease-elements-to-make-array-zigzag",
+     "title": "Decrease Elements To Make Array Zigzag",
+     "rating": 1559,
+     "contest": "W148",
+     "q": "Q1"
+    },
+    {
+     "slug": "time-needed-to-inform-all-employees",
+     "title": "Time Needed to Inform All Employees",
+     "rating": 1561,
+     "contest": "W179",
+     "q": "Q3"
+    },
+    {
+     "slug": "people-whose-list-of-favorite-companies-is-not-a-subset-of-another-list",
+     "title": "People Whose List of Favorite Companies Is Not a Subset of Another List",
+     "rating": 1563,
+     "contest": "W189",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-of-substrings-containing-every-vowel-and-k-consonants-i",
+     "title": "Count of Substrings Containing Every Vowel and K Consonants I",
+     "rating": 1564,
+     "contest": "W417",
+     "q": "Q2"
+    },
+    {
+     "slug": "similar-rgb-color",
+     "title": "Similar RGB Color",
+     "rating": 1564,
+     "contest": "W76",
+     "q": "Q1"
+    },
+    {
+     "slug": "restore-the-array-from-adjacent-pairs",
+     "title": "Restore the Array From Adjacent Pairs",
+     "rating": 1579,
+     "contest": "W226",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximum-value-of-an-ordered-triplet-ii",
+     "title": "Maximum Value of an Ordered Triplet II",
+     "rating": 1583,
+     "contest": "W365",
+     "q": "Q2"
+    },
+    {
+     "slug": "increment-submatrices-by-one",
+     "title": "Increment Submatrices by One",
+     "rating": 1583,
+     "contest": "W328",
+     "q": "Q2"
+    },
+    {
+     "slug": "groups-of-special-equivalent-strings",
+     "title": "Groups of Special-Equivalent Strings",
+     "rating": 1590,
+     "contest": "W99",
+     "q": "Q2"
+    },
+    {
+     "slug": "pancake-sorting",
+     "title": "Pancake Sorting",
+     "rating": 1591,
+     "contest": "W118",
+     "q": "Q2"
+    },
+    {
+     "slug": "design-ride-sharing-system",
+     "title": "Design Ride Sharing System",
+     "rating": 1594,
+     "contest": "W487",
+     "q": "Q3"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "name": "1600",
+   "range": "1600-1699",
+   "minRating": 1600,
+   "problems": [
+    {
+     "slug": "find-a-safe-walk-through-a-grid",
+     "title": "Find a Safe Walk Through a Grid",
+     "rating": 1608,
+     "contest": "B139",
+     "q": "Q2"
+    },
+    {
+     "slug": "find-the-integer-added-to-array-ii",
+     "title": "Find the Integer Added to Array II",
+     "rating": 1620,
+     "contest": "W395",
+     "q": "Q2"
+    },
+    {
+     "slug": "is-graph-bipartite",
+     "title": "Is Graph Bipartite?",
+     "rating": 1625,
+     "contest": "W72",
+     "q": "Q2"
+    },
+    {
+     "slug": "push-dominoes",
+     "title": "Push Dominoes",
+     "rating": 1638,
+     "contest": "W85",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-discards-to-balance-inventory",
+     "title": " Minimum Discards to Balance Inventory",
+     "rating": 1639,
+     "contest": "B165",
+     "q": "Q2"
+    },
+    {
+     "slug": "construct-smallest-number-from-di-string",
+     "title": "Construct Smallest Number From DI String",
+     "rating": 1642,
+     "contest": "W306",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximize-the-confusion-of-an-exam",
+     "title": "Maximize the Confusion of an Exam",
+     "rating": 1643,
+     "contest": "B62",
+     "q": "Q3"
+    },
+    {
+     "slug": "smallest-common-region",
+     "title": "Smallest Common Region",
+     "rating": 1654,
+     "contest": "B13",
+     "q": "Q2"
+    },
+    {
+     "slug": "max-consecutive-ones-iii",
+     "title": "Max Consecutive Ones III",
+     "rating": 1656,
+     "contest": "W126",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-the-number-of-houses-at-a-certain-distance-i",
+     "title": "Count the Number of Houses at a Certain Distance I",
+     "rating": 1658,
+     "contest": "W381",
+     "q": "Q2"
+    },
+    {
+     "slug": "length-of-the-longest-subsequence-that-sums-to-target",
+     "title": "Length of the Longest Subsequence That Sums to Target",
+     "rating": 1659,
+     "contest": "B116",
+     "q": "Q3"
+    },
+    {
+     "slug": "append-k-integers-with-minimal-sum",
+     "title": "Append K Integers With Minimal Sum",
+     "rating": 1659,
+     "contest": "W283",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-operations-to-make-array-non-decreasing",
+     "title": "Minimum Operations to Make Array Non Decreasing",
+     "rating": 1662,
+     "contest": "W499",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-maximum-balanced-xor-subarray-length",
+     "title": "Find Maximum Balanced XOR Subarray Length",
+     "rating": 1663,
+     "contest": "W477",
+     "q": "Q2"
+    },
+    {
+     "slug": "number-of-unique-xor-triplets-i",
+     "title": "Number of Unique XOR Triplets I",
+     "rating": 1663,
+     "contest": "B154",
+     "q": "Q2"
+    },
+    {
+     "slug": "coordinate-with-maximum-network-quality",
+     "title": "Coordinate With Maximum Network Quality",
+     "rating": 1665,
+     "contest": "B37",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-operations-to-make-a-uni-value-grid",
+     "title": "Minimum Operations to Make a Uni-Value Grid",
+     "rating": 1672,
+     "contest": "W262",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximum-product-of-splitted-binary-tree",
+     "title": "Maximum Product of Splitted Binary Tree",
+     "rating": 1675,
+     "contest": "W174",
+     "q": "Q3"
+    },
+    {
+     "slug": "spiral-matrix-iii",
+     "title": "Spiral Matrix III",
+     "rating": 1678,
+     "contest": "W97",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximum-xor-after-operations",
+     "title": "Maximum XOR After Operations ",
+     "rating": 1679,
+     "contest": "B81",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-score-of-a-path-between-two-cities",
+     "title": "Minimum Score of a Path Between Two Cities",
+     "rating": 1680,
+     "contest": "W322",
+     "q": "Q3"
+    },
+    {
+     "slug": "finding-pairs-with-a-certain-sum",
+     "title": "Finding Pairs With a Certain Sum",
+     "rating": 1681,
+     "contest": "W241",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-lines-to-represent-a-line-chart",
+     "title": "Minimum Lines to Represent a Line Chart",
+     "rating": 1681,
+     "contest": "W294",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-number-of-frogs-croaking",
+     "title": "Minimum Number of Frogs Croaking",
+     "rating": 1690,
+     "contest": "W185",
+     "q": "Q3"
+    },
+    {
+     "slug": "complete-binary-tree-inserter",
+     "title": "Complete Binary Tree Inserter",
+     "rating": 1691,
+     "contest": "W105",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-multiplication-score",
+     "title": "Maximum Multiplication Score",
+     "rating": 1692,
+     "contest": "W415",
+     "q": "Q2"
+    },
+    {
+     "slug": "course-schedule-iv",
+     "title": "Course Schedule IV",
+     "rating": 1693,
+     "contest": "B27",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-ways-to-build-good-strings",
+     "title": "Count Ways To Build Good Strings",
+     "rating": 1694,
+     "contest": "B91",
+     "q": "Q2"
+    },
+    {
+     "slug": "count-the-number-of-beautiful-subarrays",
+     "title": "Count the Number of Beautiful Subarrays",
+     "rating": 1697,
+     "contest": "W336",
+     "q": "Q3"
+    },
+    {
+     "slug": "making-file-names-unique",
+     "title": "Making File Names Unique",
+     "rating": 1697,
+     "contest": "W194",
+     "q": "Q2"
+    },
+    {
+     "slug": "closest-equal-element-queries",
+     "title": "Closest Equal Element Queries",
+     "rating": 1699,
+     "contest": "W441",
+     "q": "Q2"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "1700",
+   "range": "1700-1799",
+   "minRating": 1700,
+   "problems": [
+    {
+     "slug": "maximum-number-of-operations-with-the-same-score-ii",
+     "title": "Maximum Number of Operations With the Same Score II",
+     "rating": 1709,
+     "contest": "B124",
+     "q": "Q3"
+    },
+    {
+     "slug": "most-profit-assigning-work",
+     "title": "Most Profit Assigning Work",
+     "rating": 1709,
+     "contest": "W82",
+     "q": "Q3"
+    },
+    {
+     "slug": "online-stock-span",
+     "title": "Online Stock Span",
+     "rating": 1709,
+     "contest": "W101",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximum-length-of-subarray-with-positive-product",
+     "title": "Maximum Length of Subarray With Positive Product",
+     "rating": 1710,
+     "contest": "W204",
+     "q": "Q2"
+    },
+    {
+     "slug": "number-of-orders-in-the-backlog",
+     "title": "Number of Orders in the Backlog",
+     "rating": 1711,
+     "contest": "W233",
+     "q": "Q2"
+    },
+    {
+     "slug": "divide-intervals-into-minimum-number-of-groups",
+     "title": "Divide Intervals Into Minimum Number of Groups",
+     "rating": 1713,
+     "contest": "W310",
+     "q": "Q3"
+    },
+    {
+     "slug": "construct-the-minimum-bitwise-array-ii",
+     "title": "Construct the Minimum Bitwise Array II",
+     "rating": 1715,
+     "contest": "B141",
+     "q": "Q2"
+    },
+    {
+     "slug": "number-of-perfect-pairs",
+     "title": "Number of Perfect Pairs",
+     "rating": 1716,
+     "contest": "B163",
+     "q": "Q2"
+    },
+    {
+     "slug": "frequency-balance-subarray",
+     "title": "Frequency Balance Subarray",
+     "rating": 1737,
+     "contest": "W506",
+     "q": "Q2"
+    },
+    {
+     "slug": "count-nice-pairs-in-an-array",
+     "title": "Count Nice Pairs in an Array",
+     "rating": 1738,
+     "contest": "B49",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-the-maximum-number-of-elements-in-subset",
+     "title": "Find the Maximum Number of Elements in Subset",
+     "rating": 1741,
+     "contest": "W382",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-swaps-to-group-all-1s-together-ii",
+     "title": "Minimum Swaps to Group All 1's Together II",
+     "rating": 1748,
+     "contest": "W275",
+     "q": "Q2"
+    },
+    {
+     "slug": "count-the-number-of-computer-unlocking-permutations",
+     "title": "Count the Number of Computer Unlocking Permutations",
+     "rating": 1750,
+     "contest": "W453",
+     "q": "Q2"
+    },
+    {
+     "slug": "largest-plus-sign",
+     "title": "Largest Plus Sign",
+     "rating": 1753,
+     "contest": "W67",
+     "q": "Q3"
+    },
+    {
+     "slug": "valid-palindrome-iii",
+     "title": "Valid Palindrome III",
+     "rating": 1754,
+     "contest": "B10",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-garden-perimeter-to-collect-enough-apples",
+     "title": "Minimum Garden Perimeter to Collect Enough Apples",
+     "rating": 1759,
+     "contest": "W252",
+     "q": "Q3"
+    },
+    {
+     "slug": "frog-jump-ii",
+     "title": "Frog Jump II",
+     "rating": 1759,
+     "contest": "B93",
+     "q": "Q3"
+    },
+    {
+     "slug": "bag-of-tokens",
+     "title": "Bag of Tokens",
+     "rating": 1762,
+     "contest": "W112",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-total-value-of-covered-indices",
+     "title": "Maximum Total Value of Covered Indices",
+     "rating": 1763,
+     "contest": "B184",
+     "q": "Q3"
+    },
+    {
+     "slug": "snapshot-array",
+     "title": "Snapshot Array",
+     "rating": 1771,
+     "contest": "W148",
+     "q": "Q3"
+    },
+    {
+     "slug": "prime-subtraction-operation",
+     "title": "Prime Subtraction Operation",
+     "rating": 1779,
+     "contest": "W338",
+     "q": "Q2"
+    },
+    {
+     "slug": "design-a-food-rating-system",
+     "title": "Design a Food Rating System",
+     "rating": 1782,
+     "contest": "W303",
+     "q": "Q3"
+    },
+    {
+     "slug": "flip-binary-tree-to-match-preorder-traversal",
+     "title": "Flip Binary Tree To Match Preorder Traversal",
+     "rating": 1787,
+     "contest": "W118",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-insertion-steps-to-make-a-string-palindrome",
+     "title": "Minimum Insertion Steps to Make a String Palindrome",
+     "rating": 1787,
+     "contest": "W170",
+     "q": "Q4"
+    },
+    {
+     "slug": "stone-game-iv",
+     "title": "Stone Game IV",
+     "rating": 1787,
+     "contest": "B30",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-amount-after-two-days-of-conversions",
+     "title": "Maximize Amount After Two Days of Conversions",
+     "rating": 1788,
+     "contest": "W428",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-cost-for-cutting-cake-ii",
+     "title": "Minimum Cost for Cutting Cake II",
+     "rating": 1789,
+     "contest": "W406",
+     "q": "Q4"
+    },
+    {
+     "slug": "longest-non-decreasing-subarray-from-two-arrays",
+     "title": "Longest Non-decreasing Subarray From Two Arrays",
+     "rating": 1792,
+     "contest": "W353",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-capacity-within-budget",
+     "title": "Maximum Capacity Within Budget",
+     "rating": 1796,
+     "contest": "W485",
+     "q": "Q2"
+    },
+    {
+     "slug": "recover-a-tree-from-preorder-traversal",
+     "title": "Recover a Tree From Preorder Traversal",
+     "rating": 1797,
+     "contest": "W132",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-subarray-sum-with-one-deletion",
+     "title": "Maximum Subarray Sum with One Deletion",
+     "rating": 1799,
+     "contest": "W153",
+     "q": "Q3"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "name": "1800",
+   "range": "1800-1899",
+   "minRating": 1800,
+   "problems": [
+    {
+     "slug": "design-task-manager",
+     "title": "Design Task Manager",
+     "rating": 1807,
+     "contest": "B147",
+     "q": "Q2"
+    },
+    {
+     "slug": "adding-two-negabinary-numbers",
+     "title": "Adding Two Negabinary Numbers",
+     "rating": 1807,
+     "contest": "W139",
+     "q": "Q3"
+    },
+    {
+     "slug": "toss-strange-coins",
+     "title": "Toss Strange Coins",
+     "rating": 1809,
+     "contest": "B11",
+     "q": "Q3"
+    },
+    {
+     "slug": "split-bst",
+     "title": "Split BST",
+     "rating": 1810,
+     "contest": "W70",
+     "q": "Q2"
+    },
+    {
+     "slug": "longest-non-decreasing-subarray-after-replacing-at-most-one-element",
+     "title": "Longest Non-Decreasing Subarray After Replacing at Most One Element",
+     "rating": 1811,
+     "contest": "B169",
+     "q": "Q3"
+    },
+    {
+     "slug": "number-of-subarrays-with-bounded-maximum",
+     "title": "Number of Subarrays with Bounded Maximum",
+     "rating": 1817,
+     "contest": "W74",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-palindrome-with-fixed-length",
+     "title": "Find Palindrome With Fixed Length",
+     "rating": 1822,
+     "contest": "W286",
+     "q": "Q3"
+    },
+    {
+     "slug": "stock-price-fluctuation",
+     "title": "Stock Price Fluctuation ",
+     "rating": 1832,
+     "contest": "W262",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-submatrices-with-all-ones",
+     "title": "Count Submatrices With All Ones",
+     "rating": 1845,
+     "contest": "W196",
+     "q": "Q3"
+    },
+    {
+     "slug": "number-of-ways-to-assign-edge-weights-i",
+     "title": "Number of Ways to Assign Edge Weights I",
+     "rating": 1845,
+     "contest": "B157",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximize-total-cost-of-alternating-subarrays",
+     "title": "Maximize Total Cost of Alternating Subarrays",
+     "rating": 1847,
+     "contest": "W403",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-bowl-subarrays",
+     "title": "Count Bowl Subarrays",
+     "rating": 1848,
+     "contest": "W466",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-manhattan-distance-after-k-changes",
+     "title": "Maximum Manhattan Distance After K Changes",
+     "rating": 1856,
+     "contest": "W435",
+     "q": "Q2"
+    },
+    {
+     "slug": "maximum-palindromes-after-operations",
+     "title": "Maximum Palindromes After Operations",
+     "rating": 1857,
+     "contest": "W384",
+     "q": "Q3"
+    },
+    {
+     "slug": "min-cost-to-connect-all-points",
+     "title": "Min Cost to Connect All Points",
+     "rating": 1858,
+     "contest": "W206",
+     "q": "Q3"
+    },
+    {
+     "slug": "can-you-eat-your-favorite-candy-on-your-favorite-day",
+     "title": "Can You Eat Your Favorite Candy on Your Favorite Day?",
+     "rating": 1859,
+     "contest": "W226",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-operations-to-sort-a-string",
+     "title": "Minimum Operations to Sort a String",
+     "rating": 1860,
+     "contest": "W492",
+     "q": "Q3"
+    },
+    {
+     "slug": "partition-string-into-minimum-beautiful-substrings",
+     "title": "Partition String Into Minimum Beautiful Substrings",
+     "rating": 1865,
+     "contest": "B108",
+     "q": "Q3"
+    },
+    {
+     "slug": "jump-game-v",
+     "title": "Jump Game V",
+     "rating": 1866,
+     "contest": "W174",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-number-of-increments-on-subarrays-to-form-a-target-array",
+     "title": "Minimum Number of Increments on Subarrays to Form a Target Array",
+     "rating": 1872,
+     "contest": "B31",
+     "q": "Q4"
+    },
+    {
+     "slug": "grid-illumination",
+     "title": "Grid Illumination",
+     "rating": 1873,
+     "contest": "W125",
+     "q": "Q4"
+    },
+    {
+     "slug": "longest-happy-prefix",
+     "title": "Longest Happy Prefix",
+     "rating": 1876,
+     "contest": "W181",
+     "q": "Q4"
+    },
+    {
+     "slug": "open-the-lock",
+     "title": "Open the Lock",
+     "rating": 1878,
+     "contest": "W64",
+     "q": "Q3"
+    },
+    {
+     "slug": "mirror-reflection",
+     "title": "Mirror Reflection",
+     "rating": 1881,
+     "contest": "W90",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-score-words-formed-by-letters",
+     "title": "Maximum Score Words Formed by Letters",
+     "rating": 1882,
+     "contest": "W162",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-robot-groups",
+     "title": "Count Robot Groups",
+     "rating": 1888,
+     "contest": "W518",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-absolute-difference-between-elements-with-constraint",
+     "title": "Minimum Absolute Difference Between Elements With Constraint",
+     "rating": 1889,
+     "contest": "W358",
+     "q": "Q3"
+    },
+    {
+     "slug": "jump-game-vii",
+     "title": "Jump Game VII",
+     "rating": 1896,
+     "contest": "W242",
+     "q": "Q3"
+    },
+    {
+     "slug": "longest-cycle-in-a-graph",
+     "title": "Longest Cycle in a Graph",
+     "rating": 1897,
+     "contest": "W304",
+     "q": "Q4"
+    },
+    {
+     "slug": "get-biggest-three-rhombus-sums-in-a-grid",
+     "title": "Get Biggest Three Rhombus Sums in a Grid",
+     "rating": 1898,
+     "contest": "B53",
+     "q": "Q3"
+    },
+    {
+     "slug": "longest-unequal-adjacent-groups-subsequence-ii",
+     "title": "Longest Unequal Adjacent Groups Subsequence II",
+     "rating": 1899,
+     "contest": "B115",
+     "q": "Q3"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "name": "1900",
+   "range": "1900-1999",
+   "minRating": 1900,
+   "problems": [
+    {
+     "slug": "count-pairs-of-connectable-servers-in-a-weighted-tree-network",
+     "title": "Count Pairs of Connectable Servers in a Weighted Tree Network",
+     "rating": 1909,
+     "contest": "B125",
+     "q": "Q3"
+    },
+    {
+     "slug": "number-of-ways-to-earn-points",
+     "title": "Number of Ways to Earn Points",
+     "rating": 1910,
+     "contest": "W335",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-nodes-with-the-highest-score",
+     "title": "Count Nodes With the Highest Score",
+     "rating": 1912,
+     "contest": "W264",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-or",
+     "title": "Maximum OR",
+     "rating": 1912,
+     "contest": "B104",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-number-of-removable-characters",
+     "title": "Maximum Number of Removable Characters",
+     "rating": 1913,
+     "contest": "W245",
+     "q": "Q2"
+    },
+    {
+     "slug": "minimum-time-to-repair-cars",
+     "title": "Minimum Time to Repair Cars",
+     "rating": 1915,
+     "contest": "B100",
+     "q": "Q4"
+    },
+    {
+     "slug": "partition-array-for-maximum-sum",
+     "title": "Partition Array for Maximum Sum",
+     "rating": 1916,
+     "contest": "W136",
+     "q": "Q3"
+    },
+    {
+     "slug": "check-if-grid-can-be-cut-into-sections",
+     "title": "Check if Grid can be Cut into Sections",
+     "rating": 1916,
+     "contest": "B146",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-number-of-robots-within-budget",
+     "title": "Maximum Number of Robots Within Budget",
+     "rating": 1917,
+     "contest": "B86",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-number-of-eaten-apples",
+     "title": "Maximum Number of Eaten Apples",
+     "rating": 1930,
+     "contest": "W221",
+     "q": "Q2"
+    },
+    {
+     "slug": "swap-adjacent-in-lr-string",
+     "title": "Swap Adjacent in LR String",
+     "rating": 1939,
+     "contest": "W70",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-subarray-sum-with-length-divisible-by-k",
+     "title": "Maximum Subarray Sum With Length Divisible by K",
+     "rating": 1943,
+     "contest": "W427",
+     "q": "Q3"
+    },
+    {
+     "slug": "divisible-game",
+     "title": "Divisible Game",
+     "rating": 1944,
+     "contest": "W509",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-score-of-a-good-subarray",
+     "title": "Maximum Score of a Good Subarray",
+     "rating": 1946,
+     "contest": "W232",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-bitwise-or-from-grid",
+     "title": "Minimum Bitwise OR From Grid",
+     "rating": 1947,
+     "contest": "W491",
+     "q": "Q3"
+    },
+    {
+     "slug": "cherry-pickup-ii",
+     "title": "Cherry Pickup II",
+     "rating": 1957,
+     "contest": "B27",
+     "q": "Q4"
+    },
+    {
+     "slug": "get-the-maximum-score",
+     "title": "Get the Maximum Score",
+     "rating": 1961,
+     "contest": "W200",
+     "q": "Q4"
+    },
+    {
+     "slug": "furthest-building-you-can-reach",
+     "title": "Furthest Building You Can Reach",
+     "rating": 1962,
+     "contest": "W213",
+     "q": "Q3"
+    },
+    {
+     "slug": "bus-routes",
+     "title": "Bus Routes",
+     "rating": 1964,
+     "contest": "W79",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-number-of-k-divisible-components",
+     "title": "Maximum Number of K-Divisible Components",
+     "rating": 1968,
+     "contest": "B114",
+     "q": "Q4"
+    },
+    {
+     "slug": "concatenate-non-zero-digits-and-multiply-by-sum-ii",
+     "title": "Concatenate Non-Zero Digits and Multiply by Sum II",
+     "rating": 1968,
+     "contest": "W477",
+     "q": "Q3"
+    },
+    {
+     "slug": "describe-the-painting",
+     "title": "Describe the Painting",
+     "rating": 1969,
+     "contest": "B57",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-the-maximum-length-of-valid-subsequence-ii",
+     "title": "Find the Maximum Length of Valid Subsequence II",
+     "rating": 1974,
+     "contest": "W404",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-the-longest-equal-subarray",
+     "title": "Find the Longest Equal Subarray",
+     "rating": 1976,
+     "contest": "W359",
+     "q": "Q4"
+    },
+    {
+     "slug": "palindrome-partitioning-iii",
+     "title": "Palindrome Partitioning III",
+     "rating": 1979,
+     "contest": "W165",
+     "q": "Q4"
+    },
+    {
+     "slug": "split-and-merge-array-transformation",
+     "title": "Split and Merge Array Transformation",
+     "rating": 1982,
+     "contest": "W468",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-the-number-of-good-partitions",
+     "title": "Count the Number of Good Partitions",
+     "rating": 1985,
+     "contest": "W375",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-ships-in-a-rectangle",
+     "title": "Number of Ships in a Rectangle",
+     "rating": 1997,
+     "contest": "B14",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-number-of-rectangles-containing-each-point",
+     "title": "Count Number of Rectangles Containing Each Point",
+     "rating": 1998,
+     "contest": "W290",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-value-of-concatenated-binary-segments",
+     "title": "Maximum Value of Concatenated Binary Segments",
+     "rating": 1998,
+     "contest": "B180",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-subarrays-with-median-k",
+     "title": "Count Subarrays With Median K",
+     "rating": 1999,
+     "contest": "W321",
+     "q": "Q4"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "name": "2000",
+   "range": "2000-2099",
+   "minRating": 2000,
+   "problems": [
+    {
+     "slug": "online-election",
+     "title": "Online Election",
+     "rating": 2001,
+     "contest": "W103",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-moves-to-spread-stones-over-grid",
+     "title": "Minimum Moves to Spread Stones Over Grid",
+     "rating": 2001,
+     "contest": "W362",
+     "q": "Q3"
+    },
+    {
+     "slug": "path-with-maximum-minimum-value",
+     "title": "Path With Maximum Minimum Value",
+     "rating": 2011,
+     "contest": "B3",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-consistent-columns-in-a-grid",
+     "title": "Maximum Consistent Columns in a Grid",
+     "rating": 2014,
+     "contest": "W510",
+     "q": "Q4"
+    },
+    {
+     "slug": "filling-bookcase-shelves",
+     "title": "Filling Bookcase Shelves",
+     "rating": 2014,
+     "contest": "W143",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-number-of-events-that-can-be-attended",
+     "title": "Maximum Number of Events That Can Be Attended",
+     "rating": 2016,
+     "contest": "W176",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-beautiful-indices-in-the-given-array-ii",
+     "title": "Find Beautiful Indices in the Given Array II",
+     "rating": 2016,
+     "contest": "W380",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-flowers-in-full-bloom",
+     "title": "Number of Flowers in Full Bloom",
+     "rating": 2022,
+     "contest": "W290",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-moves-to-reach-target-with-rotations",
+     "title": "Minimum Moves to Reach Target with Rotations",
+     "rating": 2022,
+     "contest": "W156",
+     "q": "Q4"
+    },
+    {
+     "slug": "the-number-of-beautiful-subsets",
+     "title": "The Number of Beautiful Subsets",
+     "rating": 2023,
+     "contest": "W337",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-distance-to-type-a-word-using-two-fingers",
+     "title": "Minimum Distance to Type a Word Using Two Fingers",
+     "rating": 2028,
+     "contest": "W171",
+     "q": "Q4"
+    },
+    {
+     "slug": "make-sum-divisible-by-p",
+     "title": "Make Sum Divisible by P",
+     "rating": 2039,
+     "contest": "B35",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-number-of-events-that-can-be-attended-ii",
+     "title": "Maximum Number of Events That Can Be Attended II",
+     "rating": 2041,
+     "contest": "B45",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-the-minimum-amount-of-time-to-brew-potions",
+     "title": "Find the Minimum Amount of Time to Brew Potions",
+     "rating": 2042,
+     "contest": "W442",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-number-of-days-to-eat-n-oranges",
+     "title": "Minimum Number of Days to Eat N Oranges",
+     "rating": 2048,
+     "contest": "W202",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-subarray-min-product",
+     "title": "Maximum Subarray Min-Product",
+     "rating": 2051,
+     "contest": "W240",
+     "q": "Q3"
+    },
+    {
+     "slug": "add-edges-to-make-degrees-of-all-nodes-even",
+     "title": "Add Edges to Make Degrees of All Nodes Even",
+     "rating": 2060,
+     "contest": "W324",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-replacements-to-sort-the-array",
+     "title": "Minimum Replacements to Sort the Array",
+     "rating": 2060,
+     "contest": "B84",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-fruits-harvested-after-at-most-k-steps",
+     "title": "Maximum Fruits Harvested After at Most K Steps",
+     "rating": 2062,
+     "contest": "W271",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-swaps-to-make-sequences-increasing",
+     "title": "Minimum Swaps To Make Sequences Increasing",
+     "rating": 2066,
+     "contest": "W76",
+     "q": "Q2"
+    },
+    {
+     "slug": "exam-room",
+     "title": "Exam Room",
+     "rating": 2067,
+     "contest": "W89",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-nth-smallest-integer-with-k-one-bits",
+     "title": "Find Nth Smallest Integer With K One Bits",
+     "rating": 2069,
+     "contest": "W486",
+     "q": "Q4"
+    },
+    {
+     "slug": "ways-to-split-array-into-three-subarrays",
+     "title": "Ways to Split Array Into Three Subarrays",
+     "rating": 2079,
+     "contest": "W222",
+     "q": "Q3"
+    },
+    {
+     "slug": "odd-even-jump",
+     "title": "Odd Even Jump",
+     "rating": 2079,
+     "contest": "W119",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-threshold-path-with-limited-heavy-edges",
+     "title": "Minimum Threshold Path With Limited Heavy Edges",
+     "rating": 2080,
+     "contest": "B182",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-number-of-flips-to-make-binary-grid-palindromic-ii",
+     "title": "Minimum Number of Flips to Make Binary Grid Palindromic II",
+     "rating": 2080,
+     "contest": "B136",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximize-win-from-two-segments",
+     "title": "Maximize Win From Two Segments",
+     "rating": 2081,
+     "contest": "B97",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-number-of-valid-strings-to-form-target-i",
+     "title": "Minimum Number of Valid Strings to Form Target I",
+     "rating": 2082,
+     "contest": "W415",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-number-of-operations-to-make-array-continuous",
+     "title": "Minimum Number of Operations to Make Array Continuous",
+     "rating": 2084,
+     "contest": "B61",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-integers-with-popcount-depth-equal-to-k-ii",
+     "title": "Number of Integers With Popcount-Depth Equal to K II",
+     "rating": 2086,
+     "contest": "W459",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-subarrays-with-fixed-bounds",
+     "title": "Count Subarrays With Fixed Bounds",
+     "rating": 2093,
+     "contest": "W315",
+     "q": "Q4"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "name": "2100",
+   "range": "2100-2199",
+   "minRating": 2100,
+   "problems": [
+    {
+     "slug": "minimum-cost-to-convert-string-iii",
+     "title": "Minimum Cost to Convert String III",
+     "rating": 2101,
+     "contest": "B187",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-cost-walk-in-weighted-graph",
+     "title": "Minimum Cost Walk in Weighted Graph",
+     "rating": 2109,
+     "contest": "W392",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-weighted-k-edge-path",
+     "title": "Maximum Weighted K-Edge Path",
+     "rating": 2110,
+     "contest": "B156",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-minimum-cost-to-remove-array-elements",
+     "title": "Find Minimum Cost to Remove Array Elements",
+     "rating": 2112,
+     "contest": "B151",
+     "q": "Q3"
+    },
+    {
+     "slug": "number-of-zigzag-arrays-i",
+     "title": "Number of ZigZag Arrays I",
+     "rating": 2123,
+     "contest": "W469",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-number-of-special-subsequences",
+     "title": "Count Number of Special Subsequences",
+     "rating": 2125,
+     "contest": "W252",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-xor-product",
+     "title": "Maximum Xor Product",
+     "rating": 2128,
+     "contest": "W372",
+     "q": "Q3"
+    },
+    {
+     "slug": "smallest-rotation-with-highest-score",
+     "title": "Smallest Rotation with Highest Score",
+     "rating": 2130,
+     "contest": "W75",
+     "q": "Q4"
+    },
+    {
+     "slug": "process-restricted-friend-requests",
+     "title": "Process Restricted Friend Requests",
+     "rating": 2131,
+     "contest": "W267",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-operations-to-make-the-integer-zero",
+     "title": "Minimum Operations to Make the Integer Zero",
+     "rating": 2132,
+     "contest": "W351",
+     "q": "Q2"
+    },
+    {
+     "slug": "smallest-range-ii",
+     "title": "Smallest Range II",
+     "rating": 2135,
+     "contest": "W103",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-obstacle-removal-to-reach-corner",
+     "title": "Minimum Obstacle Removal to Reach Corner",
+     "rating": 2138,
+     "contest": "W295",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-moves-to-clean-the-classroom",
+     "title": "Minimum Moves to Clean the Classroom",
+     "rating": 2143,
+     "contest": "W452",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-number-of-visible-points",
+     "title": "Maximum Number of Visible Points",
+     "rating": 2147,
+     "contest": "W209",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-the-number-of-incremovable-subarrays-ii",
+     "title": "Count the Number of Incremovable Subarrays II",
+     "rating": 2153,
+     "contest": "B120",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-the-number-of-winning-sequences",
+     "title": "Count The Number of Winning Sequences",
+     "rating": 2153,
+     "contest": "W419",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-subarrays-with-even-odd-ratio-ii",
+     "title": "Count Subarrays With Even Odd Ratio II",
+     "rating": 2156,
+     "contest": "W513",
+     "q": "Q4"
+    },
+    {
+     "slug": "best-position-for-a-service-centre",
+     "title": "Best Position for a Service Centre",
+     "rating": 2157,
+     "contest": "W197",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-inversion-count-in-subarrays-of-fixed-length",
+     "title": "Minimum Inversion Count in Subarrays of Fixed Length",
+     "rating": 2158,
+     "contest": "B171",
+     "q": "Q4"
+    },
+    {
+     "slug": "split-the-array-to-make-coprime-products",
+     "title": "Split the Array to Make Coprime Products",
+     "rating": 2159,
+     "contest": "W335",
+     "q": "Q3"
+    },
+    {
+     "slug": "count-good-integers-on-a-grid-path",
+     "title": "Count Good Integers on a Grid Path",
+     "rating": 2160,
+     "contest": "W498",
+     "q": "Q4"
+    },
+    {
+     "slug": "k-th-smallest-prime-fraction",
+     "title": "K-th Smallest Prime Fraction",
+     "rating": 2169,
+     "contest": "W72",
+     "q": "Q4"
+    },
+    {
+     "slug": "build-array-where-you-can-find-the-maximum-exactly-k-comparisons",
+     "title": "Build Array Where You Can Find The Maximum Exactly K Comparisons",
+     "rating": 2176,
+     "contest": "W185",
+     "q": "Q4"
+    },
+    {
+     "slug": "design-movie-rental-system",
+     "title": "Design Movie Rental System",
+     "rating": 2182,
+     "contest": "B55",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-palindrome-length-from-subsequences",
+     "title": "Maximize Palindrome Length From Subsequences",
+     "rating": 2182,
+     "contest": "W229",
+     "q": "Q4"
+    },
+    {
+     "slug": "sum-of-subsequence-widths",
+     "title": "Sum of Subsequence Widths",
+     "rating": 2183,
+     "contest": "W98",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-the-shortest-superstring",
+     "title": "Find the Shortest Superstring",
+     "rating": 2186,
+     "contest": "W111",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-submatrices-that-sum-to-target",
+     "title": "Number of Submatrices That Sum to Target",
+     "rating": 2189,
+     "contest": "W139",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-total-value",
+     "title": "Maximum Total Value",
+     "rating": 2195,
+     "contest": "W507",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-points-activated-with-one-addition",
+     "title": "Maximum Points Activated with One Addition",
+     "rating": 2198,
+     "contest": "W493",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-sets-of-k-non-overlapping-line-segments",
+     "title": "Number of Sets of K Non-Overlapping Line Segments",
+     "rating": 2198,
+     "contest": "B37",
+     "q": "Q3"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "name": "2200",
+   "range": "2200-2299",
+   "minRating": 2200,
+   "problems": [
+    {
+     "slug": "maximum-number-of-darts-inside-of-a-circular-dartboard",
+     "title": "Maximum Number of Darts Inside of a Circular Dartboard",
+     "rating": 2202,
+     "contest": "W189",
+     "q": "Q4"
+    },
+    {
+     "slug": "palindromic-subarray-sum",
+     "title": "Palindromic Subarray Sum",
+     "rating": 2202,
+     "contest": "W509",
+     "q": "Q4"
+    },
+    {
+     "slug": "palindrome-removal",
+     "title": "Palindrome Removal",
+     "rating": 2203,
+     "contest": "B12",
+     "q": "Q4"
+    },
+    {
+     "slug": "select-k-disjoint-special-substrings",
+     "title": "Select K Disjoint Special Substrings",
+     "rating": 2221,
+     "contest": "W437",
+     "q": "Q3"
+    },
+    {
+     "slug": "graph-connectivity-with-threshold",
+     "title": "Graph Connectivity With Threshold",
+     "rating": 2221,
+     "contest": "W211",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-subgraph-score-in-a-tree",
+     "title": "Maximum Subgraph Score in a Tree",
+     "rating": 2235,
+     "contest": "W479",
+     "q": "Q4"
+    },
+    {
+     "slug": "sum-of-perfect-square-ancestors",
+     "title": "Sum of Perfect Square Ancestors",
+     "rating": 2235,
+     "contest": "W471",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-the-minimum-powered-city",
+     "title": "Maximize the Minimum Powered City",
+     "rating": 2236,
+     "contest": "B95",
+     "q": "Q4"
+    },
+    {
+     "slug": "tiling-a-rectangle-with-the-fewest-squares",
+     "title": "Tiling a Rectangle with the Fewest Squares",
+     "rating": 2242,
+     "contest": "W160",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-the-sum-of-the-power-of-all-subsequences",
+     "title": "Find the Sum of the Power of All Subsequences",
+     "rating": 2242,
+     "contest": "B126",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-numbers-with-non-decreasing-digits",
+     "title": "Count Numbers with Non-Decreasing Digits ",
+     "rating": 2246,
+     "contest": "W445",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-cost-to-hire-k-workers",
+     "title": "Minimum Cost to Hire K Workers",
+     "rating": 2260,
+     "contest": "W90",
+     "q": "Q4"
+    },
+    {
+     "slug": "earliest-second-to-mark-indices-i",
+     "title": "Earliest Second to Mark Indices I",
+     "rating": 2263,
+     "contest": "W386",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-running-time-of-n-computers",
+     "title": "Maximum Running Time of N Computers",
+     "rating": 2265,
+     "contest": "W276",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-the-number-of-inversions",
+     "title": "Count the Number of Inversions",
+     "rating": 2266,
+     "contest": "B133",
+     "q": "Q4"
+    },
+    {
+     "slug": "shortest-distance-after-road-addition-queries-ii",
+     "title": "Shortest Distance After Road Addition Queries II",
+     "rating": 2270,
+     "contest": "W409",
+     "q": "Q3"
+    },
+    {
+     "slug": "largest-component-size-by-common-factor",
+     "title": "Largest Component Size by Common Factor",
+     "rating": 2272,
+     "contest": "W113",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-good-triplets-in-an-array",
+     "title": "Count Good Triplets in an Array",
+     "rating": 2272,
+     "contest": "B72",
+     "q": "Q4"
+    },
+    {
+     "slug": "cracking-the-safe",
+     "title": "Cracking the Safe",
+     "rating": 2274,
+     "contest": "W64",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-servers-that-handled-most-number-of-requests",
+     "title": "Find Servers That Handled Most Number of Requests",
+     "rating": 2276,
+     "contest": "B36",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-number-of-coins-to-place-in-tree-nodes",
+     "title": "Find Number of Coins to Place in Tree Nodes",
+     "rating": 2277,
+     "contest": "B120",
+     "q": "Q4"
+    },
+    {
+     "slug": "stone-game-ix",
+     "title": "Stone Game IX",
+     "rating": 2277,
+     "contest": "W261",
+     "q": "Q3"
+    },
+    {
+     "slug": "trionic-array-ii",
+     "title": "Trionic Array II",
+     "rating": 2278,
+     "contest": "W461",
+     "q": "Q4"
+    },
+    {
+     "slug": "sum-of-imbalance-numbers-of-all-subarrays",
+     "title": "Sum of Imbalance Numbers of All Subarrays",
+     "rating": 2278,
+     "contest": "W352",
+     "q": "Q4"
+    },
+    {
+     "slug": "longest-increasing-subsequence-ii",
+     "title": "Longest Increasing Subsequence II",
+     "rating": 2280,
+     "contest": "W310",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-operations-to-achieve-at-least-k-peaks",
+     "title": "Minimum Operations to Achieve At Least K Peaks",
+     "rating": 2280,
+     "contest": "W496",
+     "q": "Q4"
+    },
+    {
+     "slug": "make-array-empty",
+     "title": "Make Array Empty",
+     "rating": 2282,
+     "contest": "B103",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-interval-to-include-each-query",
+     "title": "Minimum Interval to Include Each Query",
+     "rating": 2286,
+     "contest": "W239",
+     "q": "Q4"
+    },
+    {
+     "slug": "longest-common-prefix-of-k-strings-after-removal",
+     "title": "Longest Common Prefix of K Strings After Removal",
+     "rating": 2290,
+     "contest": "B152",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-element-sum-of-a-complete-subset-of-indices",
+     "title": "Maximum Element-Sum of a Complete Subset of Indices",
+     "rating": 2292,
+     "contest": "W363",
+     "q": "Q4"
+    },
+    {
+     "slug": "total-waviness-of-numbers-in-range-ii",
+     "title": "Total Waviness of Numbers in Range II",
+     "rating": 2297,
+     "contest": "B170",
+     "q": "Q4"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "name": "2300",
+   "range": "2300-2399",
+   "minRating": 2300,
+   "problems": [
+    {
+     "slug": "maximize-spanning-tree-stability-with-upgrades",
+     "title": "Maximize Spanning Tree Stability with Upgrades",
+     "rating": 2301,
+     "contest": "W456",
+     "q": "Q4"
+    },
+    {
+     "slug": "naming-a-company",
+     "title": "Naming a Company",
+     "rating": 2305,
+     "contest": "W297",
+     "q": "Q4"
+    },
+    {
+     "slug": "shortest-subarray-with-sum-at-least-k",
+     "title": "Shortest Subarray with Sum at Least K",
+     "rating": 2307,
+     "contest": "W91",
+     "q": "Q4"
+    },
+    {
+     "slug": "distribute-repeating-integers",
+     "title": "Distribute Repeating Integers",
+     "rating": 2307,
+     "contest": "B39",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-the-number-of-arrays-with-k-matching-adjacent-elements",
+     "title": "Count the Number of Arrays with K Matching Adjacent Elements",
+     "rating": 2310,
+     "contest": "W430",
+     "q": "Q4"
+    },
+    {
+     "slug": "valid-k-unique-subarrays-i",
+     "title": "Valid K-Unique Subarrays I",
+     "rating": 2314,
+     "contest": "W516",
+     "q": "Q4"
+    },
+    {
+     "slug": "check-if-string-is-transformable-with-substring-sort-operations",
+     "title": "Check If String Is Transformable With Substring Sort Operations",
+     "rating": 2333,
+     "contest": "W206",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits",
+     "title": "Minimum Possible Integer After at Most K Adjacent Swaps On Digits",
+     "rating": 2337,
+     "contest": "W196",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-beautiful-partitions",
+     "title": "Number of Beautiful Partitions",
+     "rating": 2344,
+     "contest": "W320",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-partition-score",
+     "title": "Minimum Partition Score",
+     "rating": 2345,
+     "contest": "B175",
+     "q": "Q4"
+    },
+    {
+     "slug": "brace-expansion-ii",
+     "title": "Brace Expansion II",
+     "rating": 2349,
+     "contest": "W142",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-strong-pair-xor-ii",
+     "title": "Maximum Strong Pair XOR II",
+     "rating": 2349,
+     "contest": "W371",
+     "q": "Q4"
+    },
+    {
+     "slug": "new-21-game",
+     "title": "New 21 Game",
+     "rating": 2350,
+     "contest": "W85",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-operations-to-make-a-subsequence",
+     "title": "Minimum Operations to Make a Subsequence",
+     "rating": 2351,
+     "contest": "W222",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-the-number-of-powerful-integers",
+     "title": "Count the Number of Powerful Integers",
+     "rating": 2351,
+     "contest": "B121",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-profit-from-valid-topological-order-in-dag",
+     "title": "Maximum Profit from Valid Topological Order in DAG",
+     "rating": 2353,
+     "contest": "B155",
+     "q": "Q4"
+    },
+    {
+     "slug": "stamping-the-grid",
+     "title": "Stamping the Grid",
+     "rating": 2364,
+     "contest": "B69",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-beautiful-splits-in-an-array",
+     "title": "Count Beautiful Splits in an Array",
+     "rating": 2365,
+     "contest": "W428",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-building-height",
+     "title": "Maximum Building Height",
+     "rating": 2374,
+     "contest": "W238",
+     "q": "Q4"
+    },
+    {
+     "slug": "lexicographically-smallest-string-after-deleting-duplicate-characters",
+     "title": "Lexicographically Smallest String After Deleting Duplicate Characters",
+     "rating": 2377,
+     "contest": "W485",
+     "q": "Q4"
+    },
+    {
+     "slug": "super-egg-drop",
+     "title": "Super Egg Drop",
+     "rating": 2377,
+     "contest": "W97",
+     "q": "Q4"
+    },
+    {
+     "slug": "generate-schedule",
+     "title": "Generate Schedule",
+     "rating": 2378,
+     "contest": "B165",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-time-to-complete-all-tasks",
+     "title": "Minimum Time to Complete All Tasks",
+     "rating": 2381,
+     "contest": "W336",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-substrings-divisible-by-last-digit",
+     "title": "Count Substrings Divisible By Last Digit",
+     "rating": 2387,
+     "contest": "W436",
+     "q": "Q3"
+    },
+    {
+     "slug": "kth-smallest-amount-with-single-denomination-combination",
+     "title": "Kth Smallest Amount With Single Denomination Combination",
+     "rating": 2388,
+     "contest": "W393",
+     "q": "Q3"
+    },
+    {
+     "slug": "minimum-incompatibility",
+     "title": "Minimum Incompatibility",
+     "rating": 2390,
+     "contest": "W218",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-score-with-co-prime-element",
+     "title": "Maximum Score with Co-Prime Element",
+     "rating": 2390,
+     "contest": "B184",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-and-sum-of-array",
+     "title": "Maximum AND Sum of Array",
+     "rating": 2392,
+     "contest": "W280",
+     "q": "Q4"
+    },
+    {
+     "slug": "soup-servings",
+     "title": "Soup Servings",
+     "rating": 2397,
+     "contest": "W78",
+     "q": "Q3"
+    },
+    {
+     "slug": "apply-operations-to-maximize-score",
+     "title": "Apply Operations to Maximize Score",
+     "rating": 2397,
+     "contest": "W358",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-music-playlists",
+     "title": "Number of Music Playlists",
+     "rating": 2400,
+     "contest": "W105",
+     "q": "Q4"
+    }
+   ]
+  },
+  {
+   "id": 14,
+   "name": "2400",
+   "range": "2400-2499",
+   "minRating": 2400,
+   "problems": [
+    {
+     "slug": "find-the-maximum-number-of-fruits-collected",
+     "title": "Find the Maximum Number of Fruits Collected",
+     "rating": 2404,
+     "contest": "B144",
+     "q": "Q4"
+    },
+    {
+     "slug": "pizza-with-3n-slices",
+     "title": "Pizza With 3n Slices",
+     "rating": 2410,
+     "contest": "B22",
+     "q": "Q4"
+    },
+    {
+     "slug": "total-characters-in-string-after-transformations-ii",
+     "title": "Total Characters in String After Transformations II",
+     "rating": 2412,
+     "contest": "W421",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-cost-to-reach-destination-in-time",
+     "title": "Minimum Cost to Reach Destination in Time",
+     "rating": 2413,
+     "contest": "B56",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-the-number-of-possible-ways-for-an-event",
+     "title": "Find the Number of Possible Ways for an Event",
+     "rating": 2414,
+     "contest": "B141",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-great-partitions",
+     "title": "Number of Great Partitions",
+     "rating": 2415,
+     "contest": "W325",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-the-number-of-square-free-subsets",
+     "title": "Count the Number of Square-Free Subsets",
+     "rating": 2420,
+     "contest": "W333",
+     "q": "Q3"
+    },
+    {
+     "slug": "number-of-unique-good-subsequences",
+     "title": "Number of Unique Good Subsequences",
+     "rating": 2422,
+     "contest": "W256",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-cost-to-merge-stones",
+     "title": "Minimum Cost to Merge Stones",
+     "rating": 2423,
+     "contest": "W126",
+     "q": "Q4"
+    },
+    {
+     "slug": "painting-the-walls",
+     "title": "Painting the Walls",
+     "rating": 2425,
+     "contest": "W350",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-weighted-median-node-in-tree",
+     "title": "Find Weighted Median Node in Tree",
+     "rating": 2429,
+     "contest": "W454",
+     "q": "Q4"
+    },
+    {
+     "slug": "longest-duplicate-substring",
+     "title": "Longest Duplicate Substring",
+     "rating": 2429,
+     "contest": "W136",
+     "q": "Q4"
+    },
+    {
+     "slug": "transform-to-chessboard",
+     "title": "Transform to Chessboard",
+     "rating": 2430,
+     "contest": "W71",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-zigzag-arrays-ii",
+     "title": "Number of ZigZag Arrays II",
+     "rating": 2435,
+     "contest": "W469",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-beautiful-substrings-ii",
+     "title": "Count Beautiful Substrings II",
+     "rating": 2445,
+     "contest": "W373",
+     "q": "Q4"
+    },
+    {
+     "slug": "next-special-palindrome-number",
+     "title": "Next Special Palindrome Number",
+     "rating": 2445,
+     "contest": "W462",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-special-subsequences",
+     "title": "Count Special Subsequences",
+     "rating": 2445,
+     "contest": "W430",
+     "q": "Q3"
+    },
+    {
+     "slug": "threshold-majority-queries",
+     "title": "Threshold Majority Queries",
+     "rating": 2451,
+     "contest": "B162",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-the-median-of-the-uniqueness-array",
+     "title": "Find the Median of the Uniqueness Array",
+     "rating": 2451,
+     "contest": "W395",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-total-distance-traveled",
+     "title": "Minimum Total Distance Traveled",
+     "rating": 2454,
+     "contest": "W318",
+     "q": "Q4"
+    },
+    {
+     "slug": "the-earliest-and-latest-rounds-where-players-compete",
+     "title": "The Earliest and Latest Rounds Where Players Compete",
+     "rating": 2455,
+     "contest": "W245",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-profit-from-trading-stocks-with-discounts",
+     "title": "Maximum Profit from Trading Stocks with Discounts",
+     "rating": 2458,
+     "contest": "W451",
+     "q": "Q3"
+    },
+    {
+     "slug": "create-components-with-same-value",
+     "title": "Create Components With Same Value",
+     "rating": 2460,
+     "contest": "B89",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-adjacent-swaps-for-k-consecutive-ones",
+     "title": "Minimum Adjacent Swaps for K Consecutive Ones",
+     "rating": 2467,
+     "contest": "B42",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-number-of-moves-to-kill-all-pawns",
+     "title": "Maximum Number of Moves to Kill All Pawns",
+     "rating": 2473,
+     "contest": "W414",
+     "q": "Q4"
+    },
+    {
+     "slug": "permutations-iv",
+     "title": "Permutations IV",
+     "rating": 2474,
+     "contest": "B151",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-operations-to-equalize-binary-string",
+     "title": "Minimum Operations to Equalize Binary String",
+     "rating": 2477,
+     "contest": "B164",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-pairs-with-xor-in-a-range",
+     "title": "Count Pairs With XOR in a Range",
+     "rating": 2479,
+     "contest": "W233",
+     "q": "Q4"
+    },
+    {
+     "slug": "partition-array-into-two-arrays-to-minimize-sum-difference",
+     "title": "Partition Array Into Two Arrays to Minimize Sum Difference",
+     "rating": 2490,
+     "contest": "W262",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-operations-to-equalize-subarrays",
+     "title": "Minimum Operations to Equalize Subarrays",
+     "rating": 2497,
+     "contest": "W478",
+     "q": "Q4"
+    },
+    {
+     "slug": "groups-of-strings",
+     "title": "Groups of Strings",
+     "rating": 2499,
+     "contest": "W278",
+     "q": "Q4"
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "name": "2500",
+   "range": "2500-2599",
+   "minRating": 2500,
+   "problems": [
+    {
+     "slug": "count-beautiful-numbers",
+     "title": "Count Beautiful Numbers",
+     "rating": 2502,
+     "contest": "W441",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-genetic-difference-query",
+     "title": "Maximum Genetic Difference Query",
+     "rating": 2503,
+     "contest": "W250",
+     "q": "Q4"
+    },
+    {
+     "slug": "path-existence-queries-in-a-graph-ii",
+     "title": "Path Existence Queries in a Graph II",
+     "rating": 2507,
+     "contest": "W447",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-edge-weight-equilibrium-queries-in-a-tree",
+     "title": "Minimum Edge Weight Equilibrium Queries in a Tree",
+     "rating": 2508,
+     "contest": "W361",
+     "q": "Q4"
+    },
+    {
+     "slug": "final-array-state-after-k-multiplication-operations-ii",
+     "title": "Final Array State After K Multiplication Operations II",
+     "rating": 2509,
+     "contest": "W412",
+     "q": "Q3"
+    },
+    {
+     "slug": "block-placement-queries",
+     "title": "Block Placement Queries",
+     "rating": 2513,
+     "contest": "B131",
+     "q": "Q4"
+    },
+    {
+     "slug": "peaks-in-array-ii",
+     "title": "Peaks in Array II",
+     "rating": 2516,
+     "contest": "W514",
+     "q": "Q4"
+    },
+    {
+     "slug": "kth-smallest-product-of-two-sorted-arrays",
+     "title": "Kth Smallest Product of Two Sorted Arrays",
+     "rating": 2518,
+     "contest": "B63",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-effective-subsequences",
+     "title": "Number of Effective Subsequences",
+     "rating": 2519,
+     "contest": "W477",
+     "q": "Q4"
+    },
+    {
+     "slug": "rank-transform-of-a-matrix",
+     "title": "Rank Transform of a Matrix",
+     "rating": 2530,
+     "contest": "W212",
+     "q": "Q4"
+    },
+    {
+     "slug": "car-fleet-ii",
+     "title": "Car Fleet II",
+     "rating": 2531,
+     "contest": "W230",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-connected-components-in-lcm-graph",
+     "title": "Count Connected Components in LCM Graph",
+     "rating": 2532,
+     "contest": "B145",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-different-subsequences-gcds",
+     "title": "Number of Different Subsequences GCDs",
+     "rating": 2540,
+     "contest": "W235",
+     "q": "Q4"
+    },
+    {
+     "slug": "divide-an-array-into-subarrays-with-minimum-cost-ii",
+     "title": "Divide an Array Into Subarrays With Minimum Cost II",
+     "rating": 2540,
+     "contest": "B122",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-the-minimum-area-to-cover-all-ones-ii",
+     "title": "Find the Minimum Area to Cover All Ones II",
+     "rating": 2541,
+     "contest": "W403",
+     "q": "Q4"
+    },
+    {
+     "slug": "subtree-inversion-sum",
+     "title": "Subtree Inversion Sum",
+     "rating": 2545,
+     "contest": "B156",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-almost-equal-pairs-ii",
+     "title": "Count Almost Equal Pairs II",
+     "rating": 2545,
+     "contest": "W412",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-the-maximum-sequence-value-of-array",
+     "title": "Find the Maximum Sequence Value of Array",
+     "rating": 2545,
+     "contest": "B139",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-value-sum-by-placing-three-rooks-ii",
+     "title": "Maximum Value Sum by Placing Three Rooks II",
+     "rating": 2553,
+     "contest": "B137",
+     "q": "Q4"
+    },
+    {
+     "slug": "longest-subsequence-repeated-k-times",
+     "title": "Longest Subsequence Repeated k Times",
+     "rating": 2558,
+     "contest": "W259",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-number-of-groups-getting-fresh-donuts",
+     "title": "Maximum Number of Groups Getting Fresh Donuts",
+     "rating": 2559,
+     "contest": "B49",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-total-beauty-of-the-gardens",
+     "title": "Maximum Total Beauty of the Gardens",
+     "rating": 2562,
+     "contest": "W288",
+     "q": "Q4"
+    },
+    {
+     "slug": "cat-and-mouse",
+     "title": "Cat and Mouse",
+     "rating": 2567,
+     "contest": "W104",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-cost-to-divide-array-into-subarrays",
+     "title": "Minimum Cost to Divide Array Into Subarrays",
+     "rating": 2569,
+     "contest": "B153",
+     "q": "Q3"
+    },
+    {
+     "slug": "string-compression-ii",
+     "title": "String Compression II",
+     "rating": 2576,
+     "contest": "W199",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-number-of-visited-cells-in-a-grid",
+     "title": "Minimum Number of Visited Cells in a Grid",
+     "rating": 2582,
+     "contest": "W340",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-elegance-of-a-k-length-subsequence",
+     "title": "Maximum Elegance of a K-Length Subsequence",
+     "rating": 2582,
+     "contest": "W357",
+     "q": "Q4"
+    },
+    {
+     "slug": "stamping-the-sequence",
+     "title": "Stamping The Sequence",
+     "rating": 2583,
+     "contest": "W109",
+     "q": "Q4"
+    },
+    {
+     "slug": "the-score-of-students-solving-math-expression",
+     "title": "The Score of Students Solving Math Expression",
+     "rating": 2584,
+     "contest": "W260",
+     "q": "Q4"
+    },
+    {
+     "slug": "lexicographically-smallest-string-after-adjacent-removals",
+     "title": "Lexicographically Smallest String After Adjacent Removals",
+     "rating": 2585,
+     "contest": "W451",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-x-sum-of-all-k-long-subarrays-ii",
+     "title": "Find X-Sum of All K-Long Subarrays II",
+     "rating": 2598,
+     "contest": "W419",
+     "q": "Q4"
+    }
+   ]
+  },
+  {
+   "id": 16,
+   "name": "2600",
+   "range": "2600-2699",
+   "minRating": 2600,
+   "problems": [
+    {
+     "slug": "maximize-sum-of-weights-after-edge-removals",
+     "title": "Maximize Sum of Weights after Edge Removals",
+     "rating": 2602,
+     "contest": "W425",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-time-to-transport-all-individuals",
+     "title": "Minimum Time to Transport All Individuals",
+     "rating": 2604,
+     "contest": "W455",
+     "q": "Q4"
+    },
+    {
+     "slug": "lexicographically-smallest-generated-string",
+     "title": "Lexicographically Smallest Generated String",
+     "rating": 2605,
+     "contest": "W439",
+     "q": "Q4"
+    },
+    {
+     "slug": "delivering-boxes-from-storage-to-ports",
+     "title": "Delivering Boxes from Storage to Ports",
+     "rating": 2610,
+     "contest": "B41",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-valid-move-combinations-on-chessboard",
+     "title": "Number of Valid Move Combinations On Chessboard",
+     "rating": 2611,
+     "contest": "B64",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-sum-of-m-non-overlapping-subarrays-ii",
+     "title": "Maximum Sum of M Non-Overlapping Subarrays II",
+     "rating": 2611,
+     "contest": "W505",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-number-of-balanced-permutations",
+     "title": "Count Number of Balanced Permutations",
+     "rating": 2615,
+     "contest": "W422",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-the-number-of-ideal-arrays",
+     "title": "Count the Number of Ideal Arrays",
+     "rating": 2615,
+     "contest": "W301",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-number-of-groups-with-increasing-length",
+     "title": "Maximum Number of Groups With Increasing Length",
+     "rating": 2620,
+     "contest": "W355",
+     "q": "Q3"
+    },
+    {
+     "slug": "find-the-original-typed-string-ii",
+     "title": "Find the Original Typed String II",
+     "rating": 2629,
+     "contest": "B142",
+     "q": "Q4"
+    },
+    {
+     "slug": "longest-substring-of-one-repeating-character",
+     "title": "Longest Substring of One Repeating Character",
+     "rating": 2629,
+     "contest": "W285",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-shadow-pairs-ii",
+     "title": "Count Shadow Pairs II",
+     "rating": 2631,
+     "contest": "W519",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-total-cost-to-make-arrays-unequal",
+     "title": "Minimum Total Cost to Make Arrays Unequal",
+     "rating": 2633,
+     "contest": "B93",
+     "q": "Q4"
+    },
+    {
+     "slug": "make-the-xor-of-all-segments-equal-to-zero",
+     "title": "Make the XOR of All Segments Equal to Zero",
+     "rating": 2640,
+     "contest": "W231",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-x-value-of-array-ii",
+     "title": "Find X Value of Array II",
+     "rating": 2645,
+     "contest": "W446",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-the-number-of-infection-sequences",
+     "title": "Count the Number of Infection Sequences",
+     "rating": 2645,
+     "contest": "W374",
+     "q": "Q4"
+    },
+    {
+     "slug": "kth-smallest-path-xor-sum",
+     "title": "Kth Smallest Path XOR Sum",
+     "rating": 2646,
+     "contest": "B159",
+     "q": "Q4"
+    },
+    {
+     "slug": "sum-of-beautiful-subsequences",
+     "title": "Sum of Beautiful Subsequences",
+     "rating": 2647,
+     "contest": "W465",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-the-k-sum-of-an-array",
+     "title": "Find the K-Sum of an Array",
+     "rating": 2648,
+     "contest": "W307",
+     "q": "Q4"
+    },
+    {
+     "slug": "valid-arrangement-of-pairs",
+     "title": "Valid Arrangement of Pairs",
+     "rating": 2651,
+     "contest": "W270",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-grid-happiness",
+     "title": "Maximize Grid Happiness",
+     "rating": 2655,
+     "contest": "W215",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-number-of-valid-strings-to-form-target-ii",
+     "title": "Minimum Number of Valid Strings to Form Target II",
+     "rating": 2662,
+     "contest": "W415",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-cost-to-equalize-array",
+     "title": "Minimum Cost to Equalize Array",
+     "rating": 2666,
+     "contest": "W396",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-moves-to-pick-k-ones",
+     "title": "Minimum Moves to Pick K Ones",
+     "rating": 2673,
+     "contest": "W389",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-paths-that-can-form-a-palindrome-in-a-tree",
+     "title": "Count Paths That Can Form a Palindrome in a Tree",
+     "rating": 2677,
+     "contest": "W355",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-total-reward-using-operations-ii",
+     "title": "Maximum Total Reward Using Operations II",
+     "rating": 2688,
+     "contest": "W401",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-product-of-the-length-of-two-palindromic-substrings",
+     "title": "Maximum Product of the Length of Two Palindromic Substrings",
+     "rating": 2691,
+     "contest": "B58",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-xor-score-subarray-queries",
+     "title": "Maximum XOR Score Subarray Queries",
+     "rating": 2693,
+     "contest": "W413",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-difference-between-even-and-odd-frequency-ii",
+     "title": "Maximum Difference Between Even and Odd Frequency II",
+     "rating": 2694,
+     "contest": "W435",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-count-of-distinct-primes-after-split",
+     "title": "Maximize Count of Distinct Primes After Split",
+     "rating": 2697,
+     "contest": "W452",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-sum-of-subsequence-with-non-adjacent-elements",
+     "title": "Maximum Sum of Subsequence With Non-adjacent Elements",
+     "rating": 2698,
+     "contest": "W399",
+     "q": "Q4"
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "name": "2700+",
+   "range": "2700+",
+   "minRating": 2700,
+   "problems": [
+    {
+     "slug": "maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
+     "title": "Maximum Product of Subsequences With an Alternating Sum Equal to K",
+     "rating": 2703,
+     "contest": "W444",
+     "q": "Q3"
+    },
+    {
+     "slug": "maximum-score-of-non-overlapping-intervals",
+     "title": "Maximum Score of Non-overlapping Intervals",
+     "rating": 2723,
+     "contest": "W431",
+     "q": "Q4"
+    },
+    {
+     "slug": "partition-array-for-maximum-xor-and-and",
+     "title": "Partition Array for Maximum XOR and AND",
+     "rating": 2744,
+     "contest": "W460",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-the-minimum-game-score",
+     "title": "Maximize the Minimum Game Score",
+     "rating": 2748,
+     "contest": "W436",
+     "q": "Q4"
+    },
+    {
+     "slug": "count-of-sub-multisets-with-bounded-sum",
+     "title": "Count of Sub-Multisets With Bounded Sum",
+     "rating": 2759,
+     "contest": "B115",
+     "q": "Q4"
+    },
+    {
+     "slug": "bricks-falling-when-hit",
+     "title": "Bricks Falling When Hit",
+     "rating": 2765,
+     "contest": "W76",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-value-of-function-in-a-ball-passing-game",
+     "title": "Maximize Value of Function in a Ball Passing Game",
+     "rating": 2769,
+     "contest": "W360",
+     "q": "Q4"
+    },
+    {
+     "slug": "palindrome-rearrangement-queries",
+     "title": "Palindrome Rearrangement Queries",
+     "rating": 2780,
+     "contest": "W378",
+     "q": "Q4"
+    },
+    {
+     "slug": "subsequences-with-a-unique-middle-mode-i",
+     "title": "Subsequences with a Unique Middle Mode I",
+     "rating": 2800,
+     "contest": "B146",
+     "q": "Q4"
+    },
+    {
+     "slug": "check-if-an-original-string-exists-given-two-encoded-strings",
+     "title": "Check if an Original String Exists Given Two Encoded Strings",
+     "rating": 2804,
+     "contest": "W265",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-the-distance-between-points-on-a-square",
+     "title": "Maximize the Distance Between Points on a Square",
+     "rating": 2806,
+     "contest": "W438",
+     "q": "Q4"
+    },
+    {
+     "slug": "subarrays-distinct-element-sum-of-squares-ii",
+     "title": "Subarrays Distinct Element Sum of Squares II",
+     "rating": 2816,
+     "contest": "B116",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-reverse-operations",
+     "title": "Minimum Reverse Operations",
+     "rating": 2824,
+     "contest": "W339",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-subarray-sum-after-removing-all-occurrences-of-one-element",
+     "title": "Maximize Subarray Sum After Removing All Occurrences of One Element",
+     "rating": 2844,
+     "contest": "B147",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-products-of-elements-of-big-array",
+     "title": "Find Products of Elements of Big Array",
+     "rating": 2859,
+     "contest": "B130",
+     "q": "Q4"
+    },
+    {
+     "slug": "basic-calculator-iv",
+     "title": "Basic Calculator IV",
+     "rating": 2863,
+     "contest": "W68",
+     "q": "Q5"
+    },
+    {
+     "slug": "find-array-given-subset-sums",
+     "title": "Find Array Given Subset Sums",
+     "rating": 2872,
+     "contest": "W255",
+     "q": "Q4"
+    },
+    {
+     "slug": "modify-graph-edge-weights",
+     "title": "Modify Graph Edge Weights",
+     "rating": 2874,
+     "contest": "W346",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimize-or-of-remaining-elements-using-operations",
+     "title": "Minimize OR of Remaining Elements Using Operations",
+     "rating": 2918,
+     "contest": "W382",
+     "q": "Q4"
+    },
+    {
+     "slug": "longest-special-path-ii",
+     "title": "Longest Special Path II",
+     "rating": 2925,
+     "contest": "B152",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimum-operations-to-make-character-frequencies-equal",
+     "title": "Minimum Operations to Make Character Frequencies Equal",
+     "rating": 2940,
+     "contest": "W428",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-active-section-with-trade-ii",
+     "title": "Maximize Active Section with Trade II",
+     "rating": 2941,
+     "contest": "B153",
+     "q": "Q4"
+    },
+    {
+     "slug": "find-maximum-non-decreasing-array-length",
+     "title": "Find Maximum Non-decreasing Array Length",
+     "rating": 2943,
+     "contest": "B118",
+     "q": "Q4"
+    },
+    {
+     "slug": "number-of-ways-to-reconstruct-a-tree",
+     "title": "Number Of Ways To Reconstruct A Tree",
+     "rating": 3018,
+     "contest": "B43",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximum-score-from-grid-operations",
+     "title": "Maximum Score From Grid Operations",
+     "rating": 3028,
+     "contest": "B135",
+     "q": "Q4"
+    },
+    {
+     "slug": "frequencies-of-shortest-supersequences",
+     "title": "Frequencies of Shortest Supersequences",
+     "rating": 3028,
+     "contest": "W434",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-the-number-of-partitions-after-operations",
+     "title": "Maximize the Number of Partitions After Operations",
+     "rating": 3039,
+     "contest": "W379",
+     "q": "Q4"
+    },
+    {
+     "slug": "minimize-the-maximum-adjacent-element-difference",
+     "title": "Minimize the Maximum Adjacent Element Difference",
+     "rating": 3077,
+     "contest": "W424",
+     "q": "Q4"
+    },
+    {
+     "slug": "earliest-second-to-mark-indices-ii",
+     "title": "Earliest Second to Mark Indices II",
+     "rating": 3111,
+     "contest": "W386",
+     "q": "Q4"
+    },
+    {
+     "slug": "alternating-groups-iii",
+     "title": "Alternating Groups III",
+     "rating": 3112,
+     "contest": "W409",
+     "q": "Q4"
+    },
+    {
+     "slug": "maximize-cyclic-partition-score",
+     "title": "Maximize Cyclic Partition Score",
+     "rating": 3125,
+     "contest": "W475",
+     "q": "Q4"
+    }
+   ]
+  }
+ ]
+}
