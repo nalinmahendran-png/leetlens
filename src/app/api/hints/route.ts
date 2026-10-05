@@ -6,6 +6,9 @@ import { fetchQuestion, LeetCodeError } from "@/lib/leetcode";
 import { rateLimit } from "@/lib/rateLimit";
 import { USERNAME_PATTERN } from "@/lib/sync";
 
+// Web search + Claude can take a minute or two; Vercel's default limit would cut it off.
+export const maxDuration = 300;
+
 const STATUS: Record<HintsError["code"], number> = { NOT_CONFIGURED: 503, RATE_LIMITED: 429, REFUSED: 422, UPSTREAM: 502 };
 
 /**
