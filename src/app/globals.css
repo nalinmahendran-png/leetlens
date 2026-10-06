@@ -30,44 +30,68 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
-/* ---------- night sky (src/components/Starfield.tsx) ---------- */
-.starfield {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  /* faint nebula glow */
-  background:
-    radial-gradient(ellipse 55% 40% at 12% 8%, rgba(98, 78, 210, 0.16), transparent 70%),
-    radial-gradient(ellipse 45% 35% at 92% 88%, rgba(60, 140, 225, 0.12), transparent 70%),
-    radial-gradient(ellipse 35% 25% at 68% 30%, rgba(255, 143, 171, 0.05), transparent 70%);
-}
-.starfield svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* ---------- night sky (src/components/Starfield.tsx, layers from src/lib/sky.ts) ---------- */
+.starfield { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.sky-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* parallax: near stars drift further than far ones; layers overhang the screen so edges never show */
+.drift { position: absolute; will-change: transform; animation: drift 140s ease-in-out infinite alternate; }
+.drift-far { inset: -60px; --drift-x: -40px; --drift-y: -18px; }
+.drift-near { inset: -130px; --drift-x: -100px; --drift-y: -42px; animation-duration: 100s; }
+@keyframes drift { to { transform: translate3d(var(--drift-x), var(--drift-y), 0); } }
+
 .twinkle { animation: twinkle 5s ease-in-out infinite; }
 .twinkle-1 { animation-duration: 7s; animation-delay: -2.3s; }
 .twinkle-2 { animation-duration: 10s; animation-delay: -5.1s; }
-.bright-star { animation: glow 6s ease-in-out infinite; }
-@keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-@keyframes glow { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+@keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-/* a streak with its bright head on the right, flying down-right, then hidden until the next pass */
+/* nebula clouds that slowly shift and breathe */
+.nebula { position: absolute; border-radius: 50%; will-change: transform, opacity; animation: nebula 45s ease-in-out infinite alternate; }
+.nebula-violet {
+  width: 75vmax; height: 52vmax; top: -20vmax; left: -18vmax;
+  background: radial-gradient(closest-side, rgba(112, 88, 235, 0.24), rgba(112, 88, 235, 0.08) 55%, transparent);
+}
+.nebula-blue {
+  width: 68vmax; height: 48vmax; bottom: -18vmax; right: -16vmax;
+  background: radial-gradient(closest-side, rgba(56, 150, 235, 0.2), rgba(56, 150, 235, 0.06) 55%, transparent);
+  animation-duration: 55s; animation-delay: -14s;
+}
+.nebula-pink {
+  width: 46vmax; height: 30vmax; top: 18%; left: 50%;
+  background: radial-gradient(closest-side, rgba(255, 128, 170, 0.1), transparent);
+  animation-duration: 65s; animation-delay: -30s;
+}
+@keyframes nebula {
+  from { transform: translate3d(0, 0, 0) scale(1); opacity: 0.75; }
+  to { transform: translate3d(3vmax, 2vmax, 0) scale(1.1); opacity: 1; }
+}
+
+/* a distant ringed planet peeking up from the bottom-right corner */
+.far-planet { position: absolute; right: 6%; bottom: -80px; width: 210px; height: 210px; opacity: 0.6; animation: planet-bob 40s ease-in-out infinite alternate; }
+.far-planet-body {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #a596ff 0%, #5d4dc8 30%, #251d60 62%, #0b0a1f 86%);
+  box-shadow: 0 0 70px rgba(120, 100, 255, 0.28);
+}
+.far-planet-ring { position: absolute; left: -48%; right: -48%; top: 39%; height: 22%; border-radius: 50%; border: 3px solid rgba(205, 195, 255, 0.4); transform: rotate(-16deg); }
+.far-planet-ring--back { clip-path: inset(0 0 50% 0); }
+.far-planet-ring--front { clip-path: inset(50% 0 0 0); }
+@keyframes planet-bob { to { transform: translate3d(-14px, -10px, 0); } }
+
+/* a streak with its bright head in front, flying along --angle, then hidden until the next pass */
 .shooting-star {
-  position: absolute;
-  width: 140px;
-  height: 2px;
-  border-radius: 2px;
+  position: absolute; width: 140px; height: 2px; border-radius: 2px;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(220, 230, 255, 0.85) 80%, #fff);
   box-shadow: 0 0 6px rgba(200, 215, 255, 0.6);
   opacity: 0;
-  transform: rotate(25deg);
+  transform: rotate(var(--angle, 25deg));
   animation: shoot var(--duration, 15s) linear var(--delay, 0s) infinite;
 }
 @keyframes shoot {
-  0% { opacity: 0; transform: translate(0, 0) rotate(25deg); }
+  0% { opacity: 0; transform: translate(0, 0) rotate(var(--angle, 25deg)); }
   1% { opacity: 1; }
-  6% { opacity: 0; transform: translate(560px, 261px) rotate(25deg); }
-  100% { opacity: 0; transform: translate(560px, 261px) rotate(25deg); }
+  6% { opacity: 0; transform: translate(var(--dx, 540px), var(--dy, 250px)) rotate(var(--angle, 25deg)); }
+  100% { opacity: 0; transform: translate(var(--dx, 540px), var(--dy, 250px)) rotate(var(--angle, 25deg)); }
 }
 
 a { color: #b9c4ff; text-decoration: none; }
@@ -331,7 +355,7 @@ a.row:hover { background: var(--card-2); color: var(--text); }
 @keyframes pulse { 50% { opacity: 0.55; } }
 @keyframes spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
-  .ring, .planet-inner, .skel, .twinkle, .bright-star { animation: none; }
+  .ring, .planet-inner, .skel, .twinkle, .drift, .nebula, .far-planet { animation: none; }
   .shooting-star { display: none; }
 }
 
@@ -350,6 +374,7 @@ a.row:hover { background: var(--card-2); color: var(--text); }
   .page-head { flex-direction: column; align-items: flex-start; }
   .check-tag { display: none; }
   .compare { grid-template-columns: minmax(0, 1fr); }
+  .far-planet { display: none; }
   .sub-row { flex-wrap: wrap; gap: 8px 14px; }
   .sub-title { flex-basis: 100%; }
   .sub-meta { flex-grow: 1; gap: 12px; }

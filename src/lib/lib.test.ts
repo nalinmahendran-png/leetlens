@@ -8,6 +8,7 @@ import { pickRows, rankEntries } from "./leaderboard";
 import { mockProfile } from "./mock";
 import { CURATED } from "./curated";
 import { startOfDay, startOfNextDay } from "./day";
+import { SKY_LAYERS, skySvg } from "./sky";
 import { pickDaily, pickReplacement } from "./recommend";
 import { CORE_TOPICS } from "./topics";
 import { allProgress, buildRatedLevels, currentLevelId, LADDER, nextUp, spreadEvenly, suggestStartLevel } from "./ladder";
@@ -350,5 +351,19 @@ describe("ladder", () => {
     expect(LADDER.levels[mid].minRating).toBe(1300);
     const strong = suggestStartLevel({ easy: 300, medium: 700, hard: 300 });
     expect(strong).toBeGreaterThan(mid);
+  });
+});
+
+describe("background sky", () => {
+  it("draws every layer as an SVG, identically each time", () => {
+    for (const layer of SKY_LAYERS) {
+      const svg = skySvg(layer);
+      expect(svg.startsWith('<svg xmlns="http://www.w3.org/2000/svg"')).toBe(true);
+      expect(svg.endsWith("</svg>")).toBe(true);
+      expect(skySvg(layer)).toBe(svg);
+    }
+    const stars = (svg: string) => (svg.match(/<circle /g) ?? []).length;
+    expect(stars(skySvg("far-0")) + stars(skySvg("far-1")) + stars(skySvg("far-2"))).toBeGreaterThan(400);
+    expect(skySvg("near")).toContain("<line ");
   });
 });
