@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Starfield from "@/components/Starfield";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <Starfield />
         {children}
         <p className="footer">LeetLens is an independent project and is not affiliated with LeetCode. It only reads public profile data.</p>
       </body>
