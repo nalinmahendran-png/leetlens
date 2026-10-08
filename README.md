@@ -2,7 +2,7 @@
 
 Connect a LeetCode username and see your progress as a **solar system**: every topic is a planet, weak topics drift to the outer orbit, and the app suggests what to solve next. A **leaderboard** shows who is solving the most, a **progress page** charts your trajectory over time, and the **Ladder** is a CP-31-style checklist: fixed sets of 31 problems per difficulty level, worked through in order. The **Submissions** page shows the runtime and memory of each solve, and **Beat this** searches the web for faster solutions and turns them into hints.
 
-**Stack:** Next.js 15 (App Router) · TypeScript · React 19 · Prisma + SQLite (Postgres-ready) · Zod · Vitest · Claude API with web search (hints)
+**Stack:** Next.js 15 (App Router) · TypeScript · React 19 · Prisma + PostgreSQL · Zod · Vitest · Claude API with web search (hints)
 
 > LeetLens is an independent project and is not affiliated with LeetCode. It only reads **public** profile data and never asks for a password or session cookie.
 
@@ -15,7 +15,7 @@ Requires Node.js 20+.
 ```bash
 npm install
 cp .env.example .env        # Windows: copy .env.example .env
-npm run db:push             # creates prisma/dev.db
+npm run db:push             # creates the tables (set DATABASE_URL in .env to a Postgres database first)
 npm run db:seed             # optional: a "demo" user with 12 weeks of history (sample users never appear in rankings)
 npm run dev
 ```
@@ -150,18 +150,14 @@ src/components/           SolarSystem, Leaderboard, TrajectoryChart, ProblemChec
 
 ## Deploying
 
-SQLite is a local file, so it does **not** persist on serverless hosts such as Vercel. For production, switch to PostgreSQL:
+LeetLens stores its data in PostgreSQL. To run it on Vercel:
 
-1. In `prisma/schema.prisma` set `provider = "postgresql"` (and you may change the `...Json` String columns to `Json`).
-2. `npm i @prisma/adapter-pg pg`
-3. In `src/lib/db.ts` replace the adapter:
-   ```ts
-   import { PrismaPg } from "@prisma/adapter-pg";
-   export const db = globalForPrisma.prisma ?? new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }) });
-   ```
-4. Set `DATABASE_URL="postgresql://..."` and run `npm run db:push`.
+1. Import the GitHub repo as a new Vercel project.
+2. In the project's **Storage** tab, add a Postgres database (Prisma Postgres or Neon) and connect it to the project. This sets `DATABASE_URL` automatically.
+3. In **Settings → Environment Variables**, set `CRON_SECRET` (any long random string; Vercel Cron sends it to `/api/cron/sync`) and `DAILY_TIMEZONE` (for example `Asia/Kolkata`; hosts run on UTC otherwise). Add `ANTHROPIC_API_KEY` too if you want the "Beat this" hints.
+4. Redeploy. The build runs `prisma db push`, so the tables are created, and kept in step with `schema.prisma`, on every deploy.
 
-(The Prisma client is generated with `engineType = "client"`, the Rust-free engine, which is why a driver adapter is used in both setups.)
+(The Prisma client is generated with `engineType = "client"`, the Rust-free engine, which is why it connects through the `@prisma/adapter-pg` driver adapter.)
 
 ## Ideas for next steps
 
@@ -178,7 +174,6 @@ Entering a username stores that public username and its stats in your database a
 
 ## Troubleshooting
 
-* **`better-sqlite3` fails to install:** it needs a prebuilt binary or a C++ toolchain. Use Node 20/22 LTS; on Linux install `build-essential python3`.
 * **"Couldn't reach LeetCode":** check your internet, or that your host isn't blocked. Use `USE_MOCK_LEETCODE=1` to develop offline.
 * **Empty leaderboard:** run `npm run db:seed`, or visit a few usernames first.
 * **Ladder shows fewer than 31 problems / looks stale:** run `npm run ladder:build` (needs internet) and restart.
