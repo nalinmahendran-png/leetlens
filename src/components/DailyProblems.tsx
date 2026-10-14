@@ -15,8 +15,9 @@ type Props = {
 };
 
 /**
- * Today's set: Easy and Medium from your strongest topics, then one from a new topic. Problems solved
- * today turn green; "solved it before" swaps in a fresh problem for that slot. The set resets at midnight.
+ * Today's set: Easy and Medium from your strongest topics, then one from a topic you practise less.
+ * Problems solved today turn green; "solved it before" swaps in a fresh problem for that slot. The set
+ * resets at midnight.
  */
 export default function DailyProblems({ username, problems, resetsAt, resetsIn }: Props) {
   const router = useRouter();
@@ -99,7 +100,7 @@ export default function DailyProblems({ username, problems, resetsAt, resetsIn }
           </div>
           <div className="mission-meta">
             <span>
-              <span className={p.kind === "new" ? "kind kind--new" : "kind"}>{p.kind === "new" ? "New topic" : "Strong topic"}</span> · {p.topicName}
+              <span className={p.kind === "practice" ? "kind kind--practice" : "kind"}>{p.kind === "practice" ? "Needs practice" : "Strong topic"}</span> · {p.topicName}
             </span>
             <span className={`diff-${p.difficulty}`}>{p.difficulty}</span>
           </div>

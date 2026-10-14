@@ -60,7 +60,7 @@ Claude hands its findings back through a strict `submit_hints` tool rather than 
 * **A level is complete at 80 % (25 of 31).** Your *current level* is the first incomplete one at or after your start level, and the ladder shows it with a highlight.
 * **Where do I start?** "Start my ladder here" saves a start level. Until you pick one, LeetLens suggests it from your Easy/Medium/Hard counts (`suggestStartLevel` in `src/lib/ladder.ts`).
 * **Ticks:** problems in your last ~20 accepted submissions are ticked **automatically** on every sync. Everything else you tick by hand (older solves cannot be read without logging in, see the limits below). Ticks are stored in `ProblemMark`.
-* **Today's 3** on the Universe page is separate from the ladder: Easy and Medium from your strongest topics, then one from a new topic (see below).
+* **Today's 3** on the Universe page is separate from the ladder: Easy and Medium from your strongest topics, then one from a topic you've started but practise less (see below).
 * **Regenerate the data** with `npm run ladder:build`. It re-downloads the ratings and rewrites `data/ladder.json`. The generated file is committed so the app works without network access at build time.
 
 **Ladder limits**
@@ -97,11 +97,13 @@ Every response is validated with **Zod**. If LeetCode changes a field, you get a
 * **Today's 3** (`DAILY_SLOTS` and `pickDaily` in `src/lib/recommend.ts`, `getDailySet` in `src/lib/sync.ts`), in order:
   1. **Easy** from your strongest topic (most problems solved)
   2. **Medium** from your next strongest topic
-  3. **Easy** (Medium if no Easy is left) from the topic you've touched least, so something new
+  3. **Easy** or **Medium** from a topic you've **started but practise less**, labelled "Needs practice": one with at least 3 solves that isn't solid yet (not on the inner ring). These topics take turns, one per day, weakest first. Besides the planets this includes Queues, Sliding Window, Bit Manipulation, Monotonic Stack, Matrix, Tries and Union Find (`PRACTICE_TOPICS` in `src/lib/topics.ts`). With nothing that far along yet, it rotates through topics you've touched at all; a brand-new topic only if you've touched nothing else.
 
-  The three come from different topics where possible. If a strong topic has nothing left at that difficulty, the next strong topic is tried. Within a topic, the **curated classics come first** (`src/lib/curated.ts`), then live LeetCode problems with the highest acceptance rate; paid, solved and ticked problems are skipped. If LeetCode can't be reached, only the curated list is used.
+  The three come from different topics where possible. If a strong topic has nothing left at that difficulty, the next strong topic is tried. Paid, solved and ticked problems are skipped.
+  * **Only problems you surely haven't solved.** LeetCode's public data lists just your last 20 solves, but it also gives a solved count per tag. If a tag shows 0, you've never solved a problem carrying it, so any such problem is certainly new to you. Picks must carry one of your never-solved tags (for example an Arrays problem that is also tagged Backtracking), easiest first (`COUNTED_TAGS` and `surelyUnsolved` in `src/lib/recommend.ts`). That costs a few extra LeetCode requests when a set is made (up to 6 tags per difficulty, cached for a day).
+  * Only if nothing provably new turns up (say you've solved something in nearly every tag) does it fall back to the easiest live problems, then the **curated classics** (`src/lib/curated.ts`). With LeetCode unreachable, only the curated list is used.
   * A set lasts until **midnight** in `DAILY_TIMEZONE` (an IANA name such as `Asia/Kolkata`; default: the server's timezone, so set it when you deploy, since hosts usually run on UTC). The countdown ticks in the browser and loads the new set at midnight. Problems solved today turn green (the page checks LeetCode when it opens); nothing is swapped in for them.
-  * LeetCode only shows the last ~20 solves, so a strong-topic pick may be one you solved long ago. **"Solved it before? Swap it"** ticks it (so it never comes back) and puts a fresh problem for the same slot in its place (`swapDailyProblem`, `POST /api/daily/swap`).
+  * In that fallback a pick may be one you solved long ago. **"Solved it before? Swap it"** ticks it (so it never comes back) and puts a fresh problem for the same slot in its place (`swapDailyProblem`, `POST /api/daily/swap`).
   * The first visit after midnight makes a new set, which skips anything suggested in the last 14 days (unless nothing else is left). Sets are stored in the `DailyPick` table.
 * **Leaderboard** (`src/lib/leaderboard.ts`): all-time = total solved; week = gain over the last 7 days of snapshots.
 * **Trajectory** (`src/lib/history.ts`): 12 weekly points, pace = average of the last 4 weeks, projected 3 weeks ahead.
@@ -118,7 +120,7 @@ src/lib/sync.ts           fetch -> store -> load dashboard, ticks, ladder state,
 src/lib/ladderBuild.ts    pure ladder builder (bands, even spread across contests)
 src/lib/ladder.ts         loads ladder.json, level progress, current level, start-level suggestion
 src/lib/analysis.ts       topic mastery / weakest topics
-src/lib/recommend.ts      daily set picker (strong-topic Easy + Medium, one new topic)
+src/lib/recommend.ts      daily set picker (strong-topic Easy + Medium, one needs-practice topic)
 src/lib/day.ts            midnight in DAILY_TIMEZONE (when Today's 3 resets)
 src/lib/hints.ts          beat-this hints: Claude + web search (prompt, submit_hints tool, error handling)
 src/lib/history.ts        series, weekly gains, projection
