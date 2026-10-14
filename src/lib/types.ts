@@ -63,7 +63,7 @@ export interface DailyProblem {
   titleSlug: string;
   title: string;
   difficulty: Difficulty;
-  /** "strong": from a topic you've solved a lot; "practice": from a topic you've started but practise less */
+  /** "strong": from a topic you've solved a lot; "practice": from a data structure you've started but practise less */
   kind: "strong" | "practice";
   topicName: string;
   url: string;

@@ -60,7 +60,7 @@ Claude hands its findings back through a strict `submit_hints` tool rather than 
 * **A level is complete at 80 % (25 of 31).** Your *current level* is the first incomplete one at or after your start level, and the ladder shows it with a highlight.
 * **Where do I start?** "Start my ladder here" saves a start level. Until you pick one, LeetLens suggests it from your Easy/Medium/Hard counts (`suggestStartLevel` in `src/lib/ladder.ts`).
 * **Ticks:** problems in your last ~20 accepted submissions are ticked **automatically** on every sync. Everything else you tick by hand (older solves cannot be read without logging in, see the limits below). Ticks are stored in `ProblemMark`.
-* **Today's 3** on the Universe page is separate from the ladder: Easy and Medium from your strongest topics, then one from a topic you've started but practise less (see below).
+* **Today's 3** on the Universe page is separate from the ladder: Easy and Medium from your strongest topics, then one from a data structure you've started but practise less (see below).
 * **Regenerate the data** with `npm run ladder:build`. It re-downloads the ratings and rewrites `data/ladder.json`. The generated file is committed so the app works without network access at build time.
 
 **Ladder limits**
@@ -97,7 +97,7 @@ Every response is validated with **Zod**. If LeetCode changes a field, you get a
 * **Today's 3** (`DAILY_SLOTS` and `pickDaily` in `src/lib/recommend.ts`, `getDailySet` in `src/lib/sync.ts`), in order:
   1. **Easy** from your strongest topic (most problems solved)
   2. **Medium** from your next strongest topic
-  3. **Easy** or **Medium** from a topic you've **started but practise less**, labelled "Needs practice": one with at least 3 solves that isn't solid yet (not on the inner ring). These topics take turns, one per day, weakest first. Besides the planets this includes Queues, Sliding Window, Bit Manipulation, Monotonic Stack, Matrix, Tries and Union Find (`PRACTICE_TOPICS` in `src/lib/topics.ts`). With nothing that far along yet, it rotates through topics you've touched at all; a brand-new topic only if you've touched nothing else.
+  3. **Easy** or **Medium** from a **data structure** you've **started but practise less**, labelled "Needs practice": Linked Lists, Stacks, Queues, Hash Tables, Trees, Graphs, Tries, Union Find, Monotonic Stack, Segment Trees or Binary Indexed Trees (`DATA_STRUCTURES` in `src/lib/topics.ts`). It must have at least 3 solves and not be solid yet (not on the inner ring). These take turns, one per day, fewest solved first. With nothing that far along yet, it rotates through data structures you've touched at all; a brand-new one only if you've touched none. (Heaps are missing: LeetCode's public per-topic counts don't report them reliably.)
 
   The three come from different topics where possible. If a strong topic has nothing left at that difficulty, the next strong topic is tried. Paid, solved and ticked problems are skipped.
   * **Only problems you surely haven't solved.** LeetCode's public data lists just your last 20 solves, but it also gives a solved count per tag. If a tag shows 0, you've never solved a problem carrying it, so any such problem is certainly new to you. Picks must carry one of your never-solved tags (for example an Arrays problem that is also tagged Backtracking), easiest first (`COUNTED_TAGS` and `surelyUnsolved` in `src/lib/recommend.ts`). That costs a few extra LeetCode requests when a set is made (up to 6 tags per difficulty, cached for a day).
@@ -120,7 +120,7 @@ src/lib/sync.ts           fetch -> store -> load dashboard, ticks, ladder state,
 src/lib/ladderBuild.ts    pure ladder builder (bands, even spread across contests)
 src/lib/ladder.ts         loads ladder.json, level progress, current level, start-level suggestion
 src/lib/analysis.ts       topic mastery / weakest topics
-src/lib/recommend.ts      daily set picker (strong-topic Easy + Medium, one needs-practice topic)
+src/lib/recommend.ts      daily set picker (strong-topic Easy + Medium, one needs-practice data structure)
 src/lib/day.ts            midnight in DAILY_TIMEZONE (when Today's 3 resets)
 src/lib/hints.ts          beat-this hints: Claude + web search (prompt, submit_hints tool, error handling)
 src/lib/history.ts        series, weekly gains, projection

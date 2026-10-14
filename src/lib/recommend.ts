@@ -1,6 +1,6 @@
 import { analyzeTopics } from "./analysis";
 import { CURATED } from "./curated";
-import { PRACTICE_TOPICS, RING_THRESHOLDS } from "./topics";
+import { DATA_STRUCTURES, RING_THRESHOLDS } from "./topics";
 import type { CatalogProblem, Difficulty, Recommendation, TopicStat } from "./types";
 
 export type DailyKind = "strong" | "practice";
@@ -15,8 +15,8 @@ export interface DailySlot {
  * The daily set, in display order:
  * 1. Easy, from your strongest topic (most solved): a confident warm-up.
  * 2. Medium, from your next strongest topic: a step up in familiar territory.
- * 3. Easy (Medium if no Easy is left), from a topic you've started but practise less. Each such topic
- *    gets a turn: the slot moves to the next one every day.
+ * 3. Easy (Medium if no Easy is left), from a data structure you've started but practise less. Each
+ *    such one gets a turn, fewest solved first: the slot moves to the next one every day.
  */
 export const DAILY_SLOTS: DailySlot[] = [
   { kind: "strong", difficulties: ["Easy", "Medium"] },
@@ -128,12 +128,12 @@ function topicPool(slot: DailySlot, input: PickInput): TopicStat[] {
       .sort((a, b) => b.solved - a.solved || b.mastery - a.mastery);
   }
 
-  // Practice: topics you've started but that aren't solid yet (not on the inner ring), taking turns
-  // day by day; then other topics you've touched (taking turns themselves when nothing is started yet,
-  // as for beginners). Brand-new topics only if you've touched nothing else.
-  const topics = analyzeTopics(input.tagCounts, PRACTICE_TOPICS)
+  // Practice: data structures you've started but that aren't solid yet (not on the inner ring), taking
+  // turns day by day, fewest solved first; then other data structures you've touched (taking turns
+  // themselves when nothing is started yet, as for beginners). Brand-new ones only if you've touched none.
+  const topics = analyzeTopics(input.tagCounts, DATA_STRUCTURES)
     .filter((t) => !input.usedTopics.has(t.slug))
-    .sort((a, b) => a.mastery - b.mastery || a.solved - b.solved);
+    .sort((a, b) => a.solved - b.solved || a.mastery - b.mastery);
   const learning = topics.filter((t) => t.solved >= MIN_STARTED && t.mastery < RING_THRESHOLDS.inner);
   const touched = topics.filter((t) => t.solved > 0 && !learning.includes(t));
   const [turns, rest] = learning.length ? [learning, touched] : [touched, []];
