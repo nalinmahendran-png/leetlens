@@ -51,8 +51,9 @@ model Snapshot {
   @@index([userId, takenAt])
 }
 
-/// A problem the user has solved (or explicitly un-ticked). Rows with source "auto" come from
-/// LeetCode's recent accepted submissions; "manual" rows come from the user ticking boxes.
+/// A problem the user has solved. Rows with source "auto" come from LeetCode's recent accepted
+/// submissions and tick the ladder; "manual" rows mean the user said they solved it before ("Swap it",
+/// or hand ticks from older versions), which only keeps it out of suggestions.
 model ProblemMark {
   id        Int      @id @default(autoincrement())
   userId    Int

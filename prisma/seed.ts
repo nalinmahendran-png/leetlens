@@ -92,7 +92,7 @@ async function main() {
       ...LADDER.levels[3].problems.slice(0, 12).map((p) => p.slug),
     ];
     for (const titleSlug of solvedSlugs) {
-      await db.problemMark.create({ data: { userId: demo.id, titleSlug, solved: true, source: "manual" } });
+      await db.problemMark.create({ data: { userId: demo.id, titleSlug, solved: true, source: "auto" } });
     }
   }
 
