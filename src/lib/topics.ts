@@ -31,19 +31,25 @@ export const CORE_TOPICS: CoreTopic[] = [
 /** A topic without the planet colour: enough to count solves and pick problems. */
 export type TopicDef = Omit<CoreTopic, "color">;
 
+const planet = (slug: string): TopicDef => CORE_TOPICS.find((t) => t.slug === slug)!;
+
 /**
- * Where the third daily problem ("Needs practice") can come from: the planets plus a few common
- * topics that aren't planets. `goal` means the same as for planets: how many solves count as solid.
+ * The data structures the third daily problem ("Needs practice") comes from: the planets that are data
+ * structures plus a few that aren't planets. `goal` means the same as for planets: how many solves
+ * count as solid. Heaps are missing because LeetCode's public per-topic counts don't report them reliably.
  */
-export const PRACTICE_TOPICS: TopicDef[] = [
-  ...CORE_TOPICS,
+export const DATA_STRUCTURES: TopicDef[] = [
+  planet("linked-list"),
+  planet("stack"),
   { slug: "queue", name: "Queues", short: "Que", goal: 20 },
-  { slug: "sliding-window", name: "Sliding Window", short: "SW", goal: 20 },
-  { slug: "bit-manipulation", name: "Bit Manipulation", short: "Bit", goal: 20 },
-  { slug: "monotonic-stack", name: "Monotonic Stack", short: "MSt", goal: 15 },
-  { slug: "matrix", name: "Matrix", short: "Mtx", goal: 20 },
+  planet("hash-table"),
+  planet("tree"),
+  planet("graph"),
   { slug: "trie", name: "Tries", short: "Tri", goal: 10 },
   { slug: "union-find", name: "Union Find", short: "UF", goal: 15 },
+  { slug: "monotonic-stack", name: "Monotonic Stack", short: "MSt", goal: 15 },
+  { slug: "segment-tree", name: "Segment Trees", short: "Seg", goal: 10 },
+  { slug: "binary-indexed-tree", name: "Binary Indexed Trees", short: "BIT", goal: 10 },
 ];
 
 export const TOPIC_BY_SLUG: Record<string, CoreTopic> = Object.fromEntries(

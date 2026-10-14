@@ -249,8 +249,8 @@ type DailyRows = NonNullable<Awaited<ReturnType<typeof currentDailyRows>>>;
 
 /**
  * Today's three problems (see DAILY_SLOTS): Easy and Medium from your strongest topics, then one from a
- * topic you've started but practise less. A set lasts until midnight (in DAILY_TIMEZONE); problems solved today
- * are ticked rather than replaced, and the first visit after midnight makes a new set.
+ * data structure you've started but practise less. A set lasts until midnight (in DAILY_TIMEZONE);
+ * problems solved today are ticked rather than replaced, and the first visit after midnight makes a new set.
  */
 export async function getDailySet(d: Dashboard, now = new Date()): Promise<DailySet> {
   const solved = await knownSolved(d);

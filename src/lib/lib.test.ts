@@ -10,7 +10,7 @@ import { CURATED } from "./curated";
 import { startOfDay, startOfNextDay } from "./day";
 import { SKY_LAYERS, skySvg } from "./sky";
 import { pickDaily, pickReplacement, surelyUnsolved } from "./recommend";
-import { CORE_TOPICS } from "./topics";
+import { CORE_TOPICS, DATA_STRUCTURES } from "./topics";
 import type { Difficulty } from "./types";
 import { allProgress, buildRatedLevels, currentLevelId, LADDER, nextUp, spreadEvenly, suggestStartLevel } from "./ladder";
 
@@ -41,7 +41,7 @@ describe("daily set", () => {
 
   const daily = (exclude: Set<string> = new Set()) => ({ tagCounts: profile, exclude });
 
-  it("gives Easy and Medium from the strongest topics, then one from a topic you practise less", async () => {
+  it("gives Easy and Medium from the strongest topics, then one from a data structure you practise less", async () => {
     const picks = await pickDaily(daily(), offline);
     expect(picks.map((p) => [p.slot, p.kind, p.difficulty, p.topicSlug])).toEqual([
       [0, "strong", "Easy", "array"],
@@ -94,24 +94,25 @@ describe("daily set", () => {
     expect(new Set(asked).size).toBeLessThanOrEqual(12);
   });
 
-  it("rotates the practice slot through topics you've started but practise less, day by day", async () => {
-    const counts = { array: 95, string: 41, "hash-table": 36, tree: 20, queue: 9, "linked-list": 5, "dynamic-programming": 2 };
+  it("rotates the practice slot through data structures you've started but practise less, fewest solved first", async () => {
+    // weak but not data structures: DP and binary search must never be the practice pick
+    const counts = { array: 95, string: 41, "hash-table": 36, tree: 20, queue: 9, "linked-list": 5, "dynamic-programming": 4, "binary-search": 3, trie: 1 };
     // one surely-new Easy problem per topic (tagged with math, which this user has never solved)
-    const topicSlugs = ["array", "string", "hash-table", "tree", "queue", "linked-list", "dynamic-programming", "graph"];
+    const topicSlugs = ["array", "string", "hash-table", "tree", "queue", "linked-list", "dynamic-programming", "binary-search", "trie", "graph"];
     const catalog = topicSlugs.map((t) => ({ title: t, titleSlug: `${t}-easy`, difficulty: "Easy" as const, acRate: 50, paidOnly: false, tags: [t, "math"] }));
     const deps = { fetchProblems: async (tag: string, difficulty: Difficulty) => catalog.filter((p) => p.tags.includes(tag) && p.difficulty === difficulty) };
 
     const practice = [];
     for (let day = 0; day < 4; day++) practice.push((await pickDaily({ tagCounts: counts, exclude: new Set(), day }, deps))[2]);
-    // weakest first: linked lists (5/20), queues (9/20), trees (20/40); hash tables are solid, DP barely touched, graphs new
+    // linked lists (5), queues (9), trees (20); hash tables are solid, tries barely touched, graphs new
     expect(practice.map((p) => p.topicSlug)).toEqual(["linked-list", "queue", "tree", "linked-list"]);
     expect(practice[1]).toMatchObject({ kind: "practice", topicName: "Queues", titleSlug: "queue-easy" });
   });
 
-  it("uses a brand-new topic for practice only when nothing else has been started", async () => {
-    const picks = await pickDaily({ tagCounts: { array: 10 }, exclude: new Set() }, offline);
+  it("uses a brand-new data structure for practice only when none has been started", async () => {
+    const picks = await pickDaily({ tagCounts: { array: 10, "dynamic-programming": 6 }, exclude: new Set() }, offline);
     expect(picks[2].kind).toBe("practice");
-    expect(analyzeTopics({ array: 10 }).find((t) => t.slug === picks[2].topicSlug)?.solved).toBe(0);
+    expect(DATA_STRUCTURES.map((t) => t.slug)).toContain(picks[2].topicSlug);
   });
 
   it("falls back to the easiest live problems when none is provably new, dropping paid ones", async () => {

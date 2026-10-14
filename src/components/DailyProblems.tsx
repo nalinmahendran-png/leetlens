@@ -15,7 +15,7 @@ type Props = {
 };
 
 /**
- * Today's set: Easy and Medium from your strongest topics, then one from a topic you practise less.
+ * Today's set: Easy and Medium from your strongest topics, then one from a data structure you practise less.
  * Problems solved today turn green; "solved it before" swaps in a fresh problem for that slot. The set
  * resets at midnight.
  */
