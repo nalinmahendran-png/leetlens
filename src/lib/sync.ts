@@ -245,6 +245,8 @@ async function currentDailyRows(userId: number, now: Date) {
   return { setAt: latest.setAt, rows };
 }
 
+type DailyRows = NonNullable<Awaited<ReturnType<typeof currentDailyRows>>>;
+
 /**
  * Today's three problems (see DAILY_SLOTS): Easy and Medium from your strongest topics, then one from a
  * topic you've started but practise less. A set lasts until midnight (in DAILY_TIMEZONE); problems solved today
@@ -256,6 +258,9 @@ export async function getDailySet(d: Dashboard, now = new Date()): Promise<Daily
   if (!current) {
     await createDailySet(d, solved, now);
     current = await currentDailyRows(d.user.id, now);
+  } else if (current.rows.some((r) => r.kind === "new")) {
+    await upgradeOldSet(d, current, solved, now);
+    current = await currentDailyRows(d.user.id, now);
   }
 
   return {
@@ -263,8 +268,7 @@ export async function getDailySet(d: Dashboard, now = new Date()): Promise<Daily
       titleSlug: r.titleSlug,
       title: r.title,
       difficulty: r.difficulty as Difficulty,
-      // sets made before the practice slot existed stored "new" for it
-      kind: (r.kind === "strong" ? "strong" : "practice") satisfies DailyKind,
+      kind: r.kind as DailyKind,
       topicName: r.topicName,
       url: `https://leetcode.com/problems/${r.titleSlug}/`,
       solved: solved.has(r.titleSlug),
@@ -298,17 +302,20 @@ async function createDailySet(d: Dashboard, solved: Set<string>, setAt: Date): P
 }
 
 /**
- * "Solved it before": tick the problem (so it's never suggested again) and put a fresh problem for the
- * same slot in its place. Picks are normally ones the user surely hasn't solved, but when none is left
- * we fall back to a best guess, and LeetCode only shows us the last ~20 solves. Returns false if the
- * problem isn't in today's set.
+ * Sets made before the practice slot existed have a brand-new topic in slot 3 (kind "new"). Put a
+ * practice pick there instead, unless it's solved already; then, or if nothing can replace it, just
+ * relabel it so we don't try again on every visit.
  */
-export async function swapDailyProblem(d: Dashboard, titleSlug: string, now = new Date()): Promise<boolean> {
-  const current = await currentDailyRows(d.user.id, now);
-  const row = current?.rows.find((r) => r.titleSlug === titleSlug);
-  if (!current || !row) return false;
+async function upgradeOldSet(d: Dashboard, current: DailyRows, solved: Set<string>, now: Date): Promise<void> {
+  for (const row of current.rows.filter((r) => r.kind === "new")) {
+    if (solved.has(row.titleSlug) || !(await replaceDailyRow(d, current, row, now))) {
+      await db.dailyPick.update({ where: { id: row.id }, data: { kind: "practice" } });
+    }
+  }
+}
 
-  await setMark(d.user.username, titleSlug, true);
+/** Put a fresh problem for the row's slot in its place, away from today's other topics. False if none is left. */
+async function replaceDailyRow(d: Dashboard, current: DailyRows, row: DailyRows["rows"][number], now: Date): Promise<boolean> {
   const solved = await knownSolved(d);
   const pick = await pickReplacement(
     row.slot,
@@ -320,12 +327,27 @@ export async function swapDailyProblem(d: Dashboard, titleSlug: string, now = ne
     },
     liveDeps(d),
   );
+  if (!pick) return false;
+  await db.dailyPick.update({
+    where: { id: row.id },
+    data: { kind: pick.kind, difficulty: pick.difficulty, titleSlug: pick.titleSlug, title: pick.title, topicSlug: pick.topicSlug, topicName: pick.topicName },
+  });
+  return true;
+}
+
+/**
+ * "Solved it before": tick the problem (so it's never suggested again) and put a fresh problem for the
+ * same slot in its place. Picks are normally ones the user surely hasn't solved, but when none is left
+ * we fall back to a best guess, and LeetCode only shows us the last ~20 solves. Returns false if the
+ * problem isn't in today's set.
+ */
+export async function swapDailyProblem(d: Dashboard, titleSlug: string, now = new Date()): Promise<boolean> {
+  const current = await currentDailyRows(d.user.id, now);
+  const row = current?.rows.find((r) => r.titleSlug === titleSlug);
+  if (!current || !row) return false;
+
+  await setMark(d.user.username, titleSlug, true);
   // Nothing left to swap in: the problem stays in the set, now ticked as solved.
-  if (pick) {
-    await db.dailyPick.update({
-      where: { id: row.id },
-      data: { kind: pick.kind, difficulty: pick.difficulty, titleSlug: pick.titleSlug, title: pick.title, topicSlug: pick.topicSlug, topicName: pick.topicName },
-    });
-  }
+  await replaceDailyRow(d, current, row, now);
   return true;
 }
