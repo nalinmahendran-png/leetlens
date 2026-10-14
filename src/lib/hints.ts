@@ -6,6 +6,8 @@ import type { QuestionDetail } from "./types";
  * "Beat this" hints for one of the user's submissions. We know its language, runtime and memory
  * from LeetCode's public data (never the code). Claude searches the web for faster solutions to the
  * same problem and turns what it finds into 5-6 hints. Needs ANTHROPIC_API_KEY on the server.
+ * src/lib/gemini.ts does the same with Gemini on Google's free tier (GEMINI_API_KEY), sharing the
+ * prompt, schema and errors defined here.
  */
 const MODEL = "claude-opus-5-5";
 /** Each search is billed, so cap them per request. */
@@ -21,6 +23,8 @@ export const HintsSchema = z.object({
   fastestReported: z.string().nullable(),
   hints: z.array(z.string()).min(1),
   sources: z.array(z.object({ title: z.string(), url: z.string() })),
+  /** Google's Search Suggestions HTML, which must be shown with hints made using Google Search */
+  searchSuggestions: z.string().nullable().optional(),
 });
 
 export type Hints = z.infer<typeof HintsSchema>;
@@ -44,19 +48,33 @@ export class HintsError extends Error {
   }
 }
 
-const SYSTEM_PROMPT = `You help someone beat their own accepted LeetCode solution. You get the problem and their submission as LeetCode reported it: language, runtime and memory. You can't see their code; LeetCode keeps it private.
+const RESEARCH = `You help someone beat their own accepted LeetCode solution. You get the problem and their submission as LeetCode reported it: language, runtime and memory. You can't see their code; LeetCode keeps it private.
 
-First, use web search to find solutions to this exact problem that run faster than theirs, ideally in their language: LeetCode solution posts and discussions, GitHub repositories, and well-known tutorial sites. Prefer sources that report a runtime or a "beats X%" figure, and approaches with a better time or space complexity than the straightforward solution. A few searches are enough.
+First, use web search to find solutions to this exact problem that run faster than theirs, ideally in their language: LeetCode solution posts and discussions, GitHub repositories, and well-known tutorial sites. Prefer sources that report a runtime or a "beats X%" figure, and approaches with a better time or space complexity than the straightforward solution. A few searches are enough.`;
 
-Then call submit_hints exactly once:
-- focus: where the realistic gain is. A runtime of 0 ms can't be beaten, so then focus on memory. If their numbers already match the best you found, use "already_optimal" and point them to an alternative approach worth learning.
+const FIELDS = `- focus: where the realistic gain is. A runtime of 0 ms can't be beaten, so then focus on memory. If their numbers already match the best you found, use "already_optimal" and point them to an alternative approach worth learning.
 - focusReason: one or two sentences comparing their numbers with what you found. You don't know what their code does, so say "likely" or "usually" rather than stating it as fact.
 - best: time and space complexity of the best approach you found.
 - fastestReported: the best runtime a source actually reported for this problem, with the language, or null if none did. Never invent a number.
-- hints: 5 or 6 short points that lead them to the faster solution without handing it over. Start with what to notice about the problem, then the technique or data structure and why it is faster, then the implementation details that matter for runtime and memory in their language. One or two sentences each, and no full code.
+- hints: 5 or 6 short points that lead them to the faster solution without handing it over. Start with what to notice about the problem, then the technique or data structure and why it is faster, then the implementation details that matter for runtime and memory in their language. One or two sentences each, and no full code.`;
+
+const STYLE = "Write plain text. Wrap identifiers and short expressions in backticks.";
+
+const SYSTEM_PROMPT = `${RESEARCH}
+
+Then call submit_hints exactly once:
+${FIELDS}
 - sources: the 2-5 pages you relied on, with title and URL. Leave it empty if web search failed, and then base the hints on what you know.
 
-Write plain text. Wrap identifiers and short expressions in backticks.`;
+${STYLE}`;
+
+/** The same task for Gemini, which can't use a strict tool alongside Google Search: it answers in JSON. */
+export const GEMINI_SYSTEM_PROMPT = `${RESEARCH}
+
+Then reply with only a JSON object, with no code fences and no other text, and these fields:
+${FIELDS}
+
+Types: focus is one of "runtime", "memory", "both", "already_optimal"; focusReason is a string; best is {"time": string, "space": string}; fastestReported is a string or null; hints is an array of strings. ${STYLE}`;
 
 const SUBMIT_TOOL: Anthropic.Beta.BetaTool = {
   name: "submit_hints",

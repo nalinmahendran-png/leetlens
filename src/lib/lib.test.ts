@@ -3,7 +3,8 @@ import { analyzeTopics, weakestTopics } from "./analysis";
 import { buildSeries, project, weeklyGains } from "./history";
 import { langName, timeUntil } from "./format";
 import { fetchProfile, htmlToText, normalizeProfile, ProfileResponseSchema, submissionIdFrom } from "./leetcode";
-import { buildHintsPrompt, tidyHints } from "./hints";
+import { buildHintsPrompt, HintsError, tidyHints } from "./hints";
+import { parseGeminiReply } from "./gemini";
 import { pickRows, rankEntries } from "./leaderboard";
 import { mockProfile } from "./mock";
 import { CURATED } from "./curated";
@@ -292,6 +293,37 @@ describe("submissions and hints", () => {
     });
     expect(tidy.hints).toEqual(["a", "b", "c", "d", "e", "f"]);
     expect(tidy.sources.map((x) => x.title)).toEqual(["LeetCode post"]);
+  });
+
+  const answer = { focus: "runtime", focusReason: "Likely O(n log n).", best: { time: "O(n)", space: "O(n)" }, fastestReported: "0 ms in C++", hints: ["Notice the sum.", "Use a hash map."] };
+  const geminiReply = (text: string, extra: object = {}) => ({
+    candidates: [
+      {
+        finishReason: "STOP",
+        content: { parts: [{ text: "thinking out loud", thought: true }, { text }] },
+        groundingMetadata: {
+          searchEntryPoint: { renderedContent: "<div class=\"chip\">two sum</div>" },
+          groundingChunks: [
+            { web: { uri: "https://vertexaisearch.cloud.google.com/grounding-api-redirect/a", title: "leetcode.com" } },
+            { web: { uri: "https://vertexaisearch.cloud.google.com/grounding-api-redirect/a", title: "leetcode.com" } },
+            { web: { uri: "https://vertexaisearch.cloud.google.com/grounding-api-redirect/b", title: "github.com" } },
+          ],
+        },
+      },
+    ],
+    ...extra,
+  });
+
+  it("reads Gemini's JSON answer, with sources and Search Suggestions from the search metadata", () => {
+    const hints = parseGeminiReply(geminiReply("Here you go:\n```json\n" + JSON.stringify(answer) + "\n```"));
+    expect(hints).toMatchObject({ ...answer, searchSuggestions: '<div class="chip">two sum</div>' });
+    expect(hints?.sources.map((x) => x.title)).toEqual(["leetcode.com", "github.com"]);
+  });
+
+  it("asks Gemini again on a malformed answer, but stops when it declines", () => {
+    expect(parseGeminiReply(geminiReply("Sorry, no JSON here."))).toBeNull();
+    expect(parseGeminiReply(geminiReply(JSON.stringify({ ...answer, focus: "speed" })))).toBeNull();
+    expect(() => parseGeminiReply(geminiReply("", { promptFeedback: { blockReason: "SAFETY" } }))).toThrow(HintsError);
   });
 });
 

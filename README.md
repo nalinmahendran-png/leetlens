@@ -2,7 +2,7 @@
 
 Connect a LeetCode username and see your progress as a **solar system**: every topic is a planet, weak topics drift to the outer orbit, and the app suggests what to solve next. A **leaderboard** shows who is solving the most, a **progress page** charts your trajectory over time, and the **Ladder** is a CP-31-style checklist: fixed sets of 31 problems per difficulty level, worked through in order. The **Submissions** page shows the runtime and memory of each solve, and **Beat this** searches the web for faster solutions and turns them into hints.
 
-**Stack:** Next.js 15 (App Router) · TypeScript · React 19 · Prisma + PostgreSQL · Zod · Vitest · Claude API with web search (hints)
+**Stack:** Next.js 15 (App Router) · TypeScript · React 19 · Prisma + PostgreSQL · Zod · Vitest · Gemini with Google Search, or Claude with web search (hints)
 
 > LeetLens is an independent project and is not affiliated with LeetCode. It only reads **public** profile data and never asks for a password or session cookie.
 
@@ -25,7 +25,7 @@ Open <http://localhost:3000>.
 * Type any real LeetCode username to try live data. `/u/demo` shows a fake profile that works fully offline.
 * Only real profiles are ranked: demo and mock users are left out of the leaderboard and the top-solvers list.
 * No internet, or LeetCode blocking you? Set `USE_MOCK_LEETCODE=1` in `.env` and every username gets fake data.
-* For the "Beat this" hints, add a Claude API key as `ANTHROPIC_API_KEY` in `.env`. Everything else works without it.
+* For the "Beat this" hints, add a free Gemini API key as `GEMINI_API_KEY` in `.env` (or a Claude key as `ANTHROPIC_API_KEY`). Everything else works without it.
 
 ## The pages
 
@@ -42,14 +42,21 @@ The top bar switches between them. The landing page (`/`) has the username form 
 
 Every sync also saves the user's public recent submissions (`recentSubmissionList`): problem, language, runtime and memory, but never code, which LeetCode keeps private. LeetCode only lists the newest 20 (and, for other people, appears to list accepted ones only), so LeetLens keeps every submission it has seen in the `Submission` table and the history grows from the first visit on. Someone who submits more than 20 times between two syncs loses the ones in between, which is one more reason to run the daily sync.
 
-**Beat this** on a submission sends the problem and the submission's language, runtime and memory (never code) to Claude (`claude-opus-5-5`, via `src/lib/hints.ts`). Claude uses **web search** (at most 5 searches) to find faster solutions to that problem, preferring LeetCode posts, GitHub and tutorials that report a runtime, and returns:
+**Beat this** on a submission sends the problem and the submission's language, runtime and memory (never code) to an AI that searches the web for faster solutions to that problem, preferring LeetCode posts, GitHub and tutorials that report a runtime:
+
+* **Gemini** (`gemini-2.5-flash` with Grounding with Google Search, `src/lib/gemini.ts`) when `GEMINI_API_KEY` is set. Its free tier includes 500 Google-searched requests a day; get a key at [aistudio.google.com](https://aistudio.google.com) and keep billing off for that Google project so it stays free. On the free tier Google may use the requests (public problem text and the numbers) to improve its products. Google requires its **Search Suggestions** to be shown with the answer, so the hint panel shows them.
+* otherwise **Claude** (`claude-opus-5-5` with web search, at most 5 searches, `src/lib/hints.ts`) when `ANTHROPIC_API_KEY` is set. Every new hint set is a paid call.
+
+Both follow the same instructions and return:
 
 * where the realistic gain is (runtime, memory, both, or already near optimal) and why. A 0 ms runtime can't be beaten, so the hints then target memory
 * the best known time and space complexity, and the fastest runtime a source actually reported
 * **5-6 hint points** leading to the faster solution without giving the code
 * the sources it used, collapsed because they contain full solutions
 
-Claude hands its findings back through a strict `submit_hints` tool rather than structured output, because structured output can't be combined with the citations that web search adds. Each submission's hints are generated once and cached in `Submission.hintsJson`; new hint sets are limited to 20 per hour per IP. Each one is a paid Claude call plus the web searches.
+Claude hands its findings back through a strict `submit_hints` tool rather than structured output, because structured output can't be combined with the citations that web search adds. Gemini can't be held to a schema while searching either, so it answers in JSON that is validated (and asked for once more if malformed); its sources come from the search metadata, resolved from Google's redirect links to the real pages.
+
+Each submission's hints are generated once and cached in `Submission.hintsJson`, so reopening them is free. **Each profile gets 3 new hint sets a day** (`HINTS_PER_DAY` in `src/lib/hintQuota.ts`), resetting at midnight in `DAILY_TIMEZONE`; the Submissions page shows how many are left. The count is kept in the database (`Submission.hintsAt`) under a Postgres lock, so it holds on serverless hosts and with parallel clicks, and a failed attempt doesn't count. There's also a softer limit of 20 per hour per IP.
 
 ## The Ladder (CP-31 for LeetCode)
 
@@ -122,7 +129,9 @@ src/lib/ladder.ts         loads ladder.json, level progress, current level, star
 src/lib/analysis.ts       topic mastery / weakest topics
 src/lib/recommend.ts      daily set picker (strong-topic Easy + Medium, one needs-practice data structure)
 src/lib/day.ts            midnight in DAILY_TIMEZONE (when Today's 3 resets)
-src/lib/hints.ts          beat-this hints: Claude + web search (prompt, submit_hints tool, error handling)
+src/lib/hints.ts          beat-this hints: shared prompt and schema; Claude + web search (submit_hints tool, errors)
+src/lib/gemini.ts         beat-this hints with Gemini + Google Search (free tier)
+src/lib/hintQuota.ts      3 new hint sets per profile per day
 src/lib/history.ts        series, weekly gains, projection
 src/lib/leaderboard.ts    ranking
 src/lib/mock.ts           offline fake data ("demo" user)
@@ -156,7 +165,7 @@ LeetLens stores its data in PostgreSQL. To run it on Vercel:
 
 1. Import the GitHub repo as a new Vercel project.
 2. In the project's **Storage** tab, add a Postgres database (Prisma Postgres or Neon) and connect it to the project. This sets `DATABASE_URL` automatically.
-3. In **Settings → Environment Variables**, set `CRON_SECRET` (any long random string; Vercel Cron sends it to `/api/cron/sync`) and `DAILY_TIMEZONE` (for example `Asia/Kolkata`; hosts run on UTC otherwise). Add `ANTHROPIC_API_KEY` too if you want the "Beat this" hints.
+3. In **Settings → Environment Variables**, set `CRON_SECRET` (any long random string; Vercel Cron sends it to `/api/cron/sync`) and `DAILY_TIMEZONE` (for example `Asia/Kolkata`; hosts run on UTC otherwise). Add `GEMINI_API_KEY` (free) too if you want the "Beat this" hints.
 4. Redeploy. The build runs `prisma db push`, so the tables are created, and kept in step with `schema.prisma`, on every deploy.
 
 (The Prisma client is generated with `engineType = "client"`, the Rust-free engine, which is why it connects through the `@prisma/adapter-pg` driver adapter.)

@@ -26,7 +26,16 @@ const FOCUS: Record<Hints["focus"], { label: string; cls: string }> = {
   already_optimal: { label: "Already near optimal", cls: "verdict--optimal" },
 };
 
-export default function SubmissionList({ username, rows }: { username: string; rows: SubmissionRow[] }) {
+interface Props {
+  username: string;
+  rows: SubmissionRow[];
+  /** new hint sets this profile can still make today */
+  hintsLeft: number;
+  hintsPerDay: number;
+}
+
+export default function SubmissionList({ username, rows, hintsLeft, hintsPerDay }: Props) {
+  const [left, setLeft] = useState(hintsLeft);
   const [open, setOpen] = useState<string | null>(null);
   const [hints, setHints] = useState<Record<string, Hints>>({});
   const [loading, setLoading] = useState<string | null>(null);
@@ -44,8 +53,11 @@ export default function SubmissionList({ username, rows }: { username: string; r
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, submissionId: id }),
       });
-      const data = (await res.json().catch(() => null)) as { ok: true; hints: Hints } | { ok: false; error: string } | null;
-      if (data?.ok) setHints((h) => ({ ...h, [id]: data.hints }));
+      const data = (await res.json().catch(() => null)) as { ok: true; hints: Hints; left?: number } | { ok: false; error: string } | null;
+      if (data?.ok) {
+        setHints((h) => ({ ...h, [id]: data.hints }));
+        if (data.left !== undefined) setLeft(data.left);
+      }
       else setError({ id, message: data?.error ?? "Something went wrong. Please try again." });
     } catch {
       setError({ id, message: "Couldn't reach the server." });
@@ -60,6 +72,12 @@ export default function SubmissionList({ username, rows }: { username: string; r
 
   return (
     <div className="card subs">
+      <p className={`hints-left ${left === 0 ? "hints-left--out" : ""}`}>
+        <b>
+          {left} of {hintsPerDay}
+        </b>{" "}
+        new hint sets left today · opening saved hints is free · resets at midnight
+      </p>
       {rows.map((r) => {
         const isOpen = open === r.id;
         return (
@@ -155,7 +173,16 @@ function HintPanel({ row, hints }: { row: SubmissionRow; hints: Hints }) {
           </ul>
         </details>
       ) : (
-        <p className="note">The web search found nothing usable this time, so these hints come from Claude&apos;s own knowledge.</p>
+        <p className="note">The web search found nothing usable this time, so these hints come from the AI&apos;s own knowledge.</p>
+      )}
+      {hints.searchSuggestions && (
+        // Google requires its Search Suggestions to be shown, unchanged, with hints made using Google Search
+        <iframe
+          className="search-suggestions"
+          title="Google Search suggestions"
+          sandbox="allow-popups allow-popups-to-escape-sandbox"
+          srcDoc={`<base target="_blank">${hints.searchSuggestions}`}
+        />
       )}
       <p className="note">LeetCode&apos;s runtimes vary a little between runs, so resubmit a couple of times to compare.</p>
     </>

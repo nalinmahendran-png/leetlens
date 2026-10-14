@@ -82,8 +82,10 @@ model Submission {
   runtime     String
   memory      String
   submittedAt DateTime
-  /// JSON: cached Claude hints for beating this submission (null until someone asks)
+  /// JSON: cached "Beat this" hints for this submission (null until someone asks)
   hintsJson   String?
+  /// When hints were requested: counts toward the user's daily "Beat this" limit. Null if never, or if generating failed
+  hintsAt     DateTime?
 
   @@index([userId, submittedAt])
 }

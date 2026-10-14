@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ErrorPanel from "@/components/ErrorPanel";
 import SubmissionList, { type SubmissionRow } from "@/components/SubmissionList";
 import TopNav from "@/components/TopNav";
+import { hintsLeftToday, HINTS_PER_DAY } from "@/lib/hintQuota";
 import { loadDashboard } from "@/lib/load";
 import { getSubmissions } from "@/lib/sync";
 
@@ -48,7 +49,7 @@ export default async function SubmissionsPage({ params }: Props) {
           so LeetLens keeps each one it sees
         </div>
       </div>
-      <SubmissionList username={username} rows={rows} />
+      <SubmissionList username={username} rows={rows} hintsLeft={await hintsLeftToday(d.user.id)} hintsPerDay={HINTS_PER_DAY} />
     </main>
   );
 }
