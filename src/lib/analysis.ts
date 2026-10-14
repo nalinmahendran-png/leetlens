@@ -1,4 +1,4 @@
-import { CORE_TOPICS, RING_THRESHOLDS } from "./topics";
+import { CORE_TOPICS, RING_THRESHOLDS, type TopicDef } from "./topics";
 import type { TopicStat } from "./types";
 
 export function ringFor(mastery: number): TopicStat["ring"] {
@@ -7,9 +7,9 @@ export function ringFor(mastery: number): TopicStat["ring"] {
   return "outer";
 }
 
-/** Turn raw per-tag solved counts into the planet data. */
-export function analyzeTopics(tagCounts: Record<string, number>): TopicStat[] {
-  return CORE_TOPICS.map((t) => {
+/** Turn raw per-tag solved counts into the planet data (or stats for another topic list). */
+export function analyzeTopics(tagCounts: Record<string, number>, topics: TopicDef[] = CORE_TOPICS): TopicStat[] {
+  return topics.map((t) => {
     const solved = tagCounts[t.slug] ?? 0;
     const mastery = Math.min(1, solved / t.goal);
     return { slug: t.slug, name: t.name, short: t.short, solved, goal: t.goal, mastery, ring: ringFor(mastery) };

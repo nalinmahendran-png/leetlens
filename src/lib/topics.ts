@@ -28,6 +28,24 @@ export const CORE_TOPICS: CoreTopic[] = [
   { slug: "dynamic-programming", name: "Dynamic Programming", short: "DP", goal: 50, color: "#ffb0c8" },
 ];
 
+/** A topic without the planet colour: enough to count solves and pick problems. */
+export type TopicDef = Omit<CoreTopic, "color">;
+
+/**
+ * Where the third daily problem ("Needs practice") can come from: the planets plus a few common
+ * topics that aren't planets. `goal` means the same as for planets: how many solves count as solid.
+ */
+export const PRACTICE_TOPICS: TopicDef[] = [
+  ...CORE_TOPICS,
+  { slug: "queue", name: "Queues", short: "Que", goal: 20 },
+  { slug: "sliding-window", name: "Sliding Window", short: "SW", goal: 20 },
+  { slug: "bit-manipulation", name: "Bit Manipulation", short: "Bit", goal: 20 },
+  { slug: "monotonic-stack", name: "Monotonic Stack", short: "MSt", goal: 15 },
+  { slug: "matrix", name: "Matrix", short: "Mtx", goal: 20 },
+  { slug: "trie", name: "Tries", short: "Tri", goal: 10 },
+  { slug: "union-find", name: "Union Find", short: "UF", goal: 15 },
+];
+
 export const TOPIC_BY_SLUG: Record<string, CoreTopic> = Object.fromEntries(
   CORE_TOPICS.map((t) => [t.slug, t]),
 );

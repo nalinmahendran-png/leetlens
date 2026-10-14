@@ -222,7 +222,7 @@ const PROBLEMS_QUERY = /* GraphQL */ `
   query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $filters: QuestionListFilterInput) {
     problemsetQuestionList: questionList(categorySlug: $categorySlug, limit: $limit, skip: $skip, filters: $filters) {
       total: totalNum
-      questions: data { title titleSlug difficulty acRate isPaidOnly }
+      questions: data { title titleSlug difficulty acRate isPaidOnly topicTags { slug } }
     }
   }
 `;
@@ -237,6 +237,7 @@ const ProblemsResponseSchema = z.object({
         difficulty: z.enum(["Easy", "Medium", "Hard"]),
         acRate: z.number().nullable().optional(),
         isPaidOnly: z.boolean().nullable().optional(),
+        topicTags: z.array(z.object({ slug: z.string() })).nullable().optional(),
       }),
     ),
   }),
@@ -244,11 +245,14 @@ const ProblemsResponseSchema = z.object({
 
 const catalogCache = new TtlCache<CatalogProblem[]>(24 * 60 * 60 * 1000);
 
-/** Problems for one topic + difficulty. Cached for a day; the catalog barely changes. */
+/**
+ * Problems for one topic + difficulty, easiest (highest acceptance rate) first, with their tags.
+ * 100 is the most LeetCode returns per request. Cached for a day; the catalog barely changes.
+ */
 export async function fetchProblemsByTag(
   tagSlug: string,
   difficulty: Difficulty,
-  limit = 50,
+  limit = 100,
 ): Promise<CatalogProblem[]> {
   const key = `${tagSlug}:${difficulty}:${limit}`;
   const cached = catalogCache.get(key);
@@ -258,7 +262,7 @@ export async function fetchProblemsByTag(
     categorySlug: "",
     limit,
     skip: 0,
-    filters: { tags: [tagSlug], difficulty: difficulty.toUpperCase() },
+    filters: { tags: [tagSlug], difficulty: difficulty.toUpperCase(), orderBy: "AC_RATE", sortOrder: "DESCENDING" },
   });
   const parsed = ProblemsResponseSchema.safeParse(raw);
   if (!parsed.success) throw schemaError("problem list", parsed.error);
@@ -269,6 +273,7 @@ export async function fetchProblemsByTag(
     difficulty: q.difficulty,
     acRate: q.acRate ?? null,
     paidOnly: Boolean(q.isPaidOnly),
+    tags: (q.topicTags ?? []).map((t) => t.slug),
   }));
   catalogCache.set(key, result);
   return result;

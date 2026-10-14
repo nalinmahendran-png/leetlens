@@ -3,7 +3,6 @@ import { db } from "./db";
 import { dailyTimeZone, startOfDay, startOfNextDay } from "./day";
 import { fetchProfile, fetchProblemsByTag, fetchRecentSubmissions } from "./leetcode";
 import { isMockUser, mockProfile } from "./mock";
-import { analyzeTopics } from "./analysis";
 import { DAILY_SLOTS, pickDaily, pickReplacement, type DailyKind } from "./recommend";
 import { allProgress, currentLevelId, suggestStartLevel, type LevelProgress } from "./ladder";
 import type { DailyProblem, Difficulty, NormalizedProfile, RecentAc } from "./types";
@@ -211,6 +210,9 @@ const DAY_MS = 24 * HOUR;
 /** A new daily set skips problems suggested this recently (unless nothing else is left). */
 const DAILY_NO_REPEAT_MS = 14 * DAY_MS;
 
+/** One number per day in DAILY_TIMEZONE; it decides which topic the practice slot is on. */
+const dayNumber = (at: Date) => Math.round(startOfDay(at, dailyTimeZone()).getTime() / DAY_MS);
+
 export interface DailySet {
   /** in DAILY_SLOTS order (fewer only if nothing unsolved is left for a slot) */
   problems: DailyProblem[];
@@ -245,7 +247,7 @@ async function currentDailyRows(userId: number, now: Date) {
 
 /**
  * Today's three problems (see DAILY_SLOTS): Easy and Medium from your strongest topics, then one from a
- * topic you've barely touched. A set lasts until midnight (in DAILY_TIMEZONE); problems solved today
+ * topic you've started but practise less. A set lasts until midnight (in DAILY_TIMEZONE); problems solved today
  * are ticked rather than replaced, and the first visit after midnight makes a new set.
  */
 export async function getDailySet(d: Dashboard, now = new Date()): Promise<DailySet> {
@@ -261,7 +263,8 @@ export async function getDailySet(d: Dashboard, now = new Date()): Promise<Daily
       titleSlug: r.titleSlug,
       title: r.title,
       difficulty: r.difficulty as Difficulty,
-      kind: r.kind as DailyKind,
+      // sets made before the practice slot existed stored "new" for it
+      kind: (r.kind === "strong" ? "strong" : "practice") satisfies DailyKind,
       topicName: r.topicName,
       url: `https://leetcode.com/problems/${r.titleSlug}/`,
       solved: solved.has(r.titleSlug),
@@ -272,11 +275,12 @@ export async function getDailySet(d: Dashboard, now = new Date()): Promise<Daily
 
 async function createDailySet(d: Dashboard, solved: Set<string>, setAt: Date): Promise<void> {
   const recent = await recentDailySlugs(d.user.id, setAt);
-  const topics = analyzeTopics(d.tagCounts);
+  const { tagCounts } = d;
+  const day = dayNumber(setAt);
 
-  let picks = await pickDaily({ topics, exclude: new Set([...solved, ...recent]) }, liveDeps(d));
+  let picks = await pickDaily({ tagCounts, day, exclude: new Set([...solved, ...recent]) }, liveDeps(d));
   // Ran out of fresh problems somewhere: allow earlier suggestions again, but never solved ones.
-  if (picks.length < DAILY_SLOTS.length) picks = await pickDaily({ topics, exclude: solved }, liveDeps(d));
+  if (picks.length < DAILY_SLOTS.length) picks = await pickDaily({ tagCounts, day, exclude: solved }, liveDeps(d));
 
   await db.dailyPick.createMany({
     data: picks.map((p) => ({
@@ -295,8 +299,9 @@ async function createDailySet(d: Dashboard, solved: Set<string>, setAt: Date): P
 
 /**
  * "Solved it before": tick the problem (so it's never suggested again) and put a fresh problem for the
- * same slot in its place. LeetCode only shows us the last ~20 solves, so suggestions from strong
- * topics are sometimes old ones. Returns false if the problem isn't in today's set.
+ * same slot in its place. Picks are normally ones the user surely hasn't solved, but when none is left
+ * we fall back to a best guess, and LeetCode only shows us the last ~20 solves. Returns false if the
+ * problem isn't in today's set.
  */
 export async function swapDailyProblem(d: Dashboard, titleSlug: string, now = new Date()): Promise<boolean> {
   const current = await currentDailyRows(d.user.id, now);
@@ -308,7 +313,8 @@ export async function swapDailyProblem(d: Dashboard, titleSlug: string, now = ne
   const pick = await pickReplacement(
     row.slot,
     {
-      topics: analyzeTopics(d.tagCounts),
+      tagCounts: d.tagCounts,
+      day: dayNumber(current.setAt),
       exclude: new Set([...solved, ...(await recentDailySlugs(d.user.id, now))]),
       usedTopics: new Set(current.rows.filter((r) => r.id !== row.id).map((r) => r.topicSlug)),
     },

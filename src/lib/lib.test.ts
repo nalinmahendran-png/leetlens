@@ -9,8 +9,9 @@ import { mockProfile } from "./mock";
 import { CURATED } from "./curated";
 import { startOfDay, startOfNextDay } from "./day";
 import { SKY_LAYERS, skySvg } from "./sky";
-import { pickDaily, pickReplacement } from "./recommend";
+import { pickDaily, pickReplacement, surelyUnsolved } from "./recommend";
 import { CORE_TOPICS } from "./topics";
+import type { Difficulty } from "./types";
 import { allProgress, buildRatedLevels, currentLevelId, LADDER, nextUp, spreadEvenly, suggestStartLevel } from "./ladder";
 
 const DAY = 86_400_000;
@@ -35,48 +36,99 @@ describe("analysis", () => {
 
 describe("daily set", () => {
   const offline = { fetchProblems: async () => { throw new Error("offline"); } };
-  // strong in arrays and strings, a little hash table, nothing else
+  // strong in arrays and strings, solid hash tables, linked lists started, nothing else
   const profile = { array: 95, string: 41, "hash-table": 36, "linked-list": 5 };
 
-  it("gives Easy and Medium from the strongest topics, then one from an untouched topic", async () => {
-    const picks = await pickDaily({ topics: analyzeTopics(profile), exclude: new Set() }, offline);
+  const daily = (exclude: Set<string> = new Set()) => ({ tagCounts: profile, exclude });
+
+  it("gives Easy and Medium from the strongest topics, then one from a topic you practise less", async () => {
+    const picks = await pickDaily(daily(), offline);
     expect(picks.map((p) => [p.slot, p.kind, p.difficulty, p.topicSlug])).toEqual([
       [0, "strong", "Easy", "array"],
       [1, "strong", "Medium", "string"],
-      [2, "new", "Easy", picks[2].topicSlug],
+      [2, "practice", "Easy", "linked-list"],
     ]);
-    expect(analyzeTopics(profile).find((t) => t.slug === picks[2].topicSlug)?.solved).toBe(0);
     expect(picks.every((p) => p.url === `https://leetcode.com/problems/${p.titleSlug}/`)).toBe(true);
   });
 
   it("moves to the next strong topic when one has nothing left at that difficulty", async () => {
     const arrayEasy = CURATED.array.filter((c) => c.difficulty === "Easy").map((c) => c.titleSlug);
-    const picks = await pickDaily({ topics: analyzeTopics(profile), exclude: new Set(arrayEasy) }, offline);
+    const picks = await pickDaily(daily(new Set(arrayEasy)), offline);
     expect(picks[0]).toMatchObject({ difficulty: "Easy", kind: "strong" });
     expect(picks[0].topicSlug).not.toBe("array");
     expect(new Set(picks.map((p) => p.topicSlug)).size).toBe(3);
   });
 
-  it("uses live problems by acceptance rate when the classics run out, dropping paid ones", async () => {
-    const allCurated = new Set(Object.values(CURATED).flat().map((c) => c.titleSlug));
-    const picks = await pickDaily(
-      { topics: analyzeTopics(profile), exclude: allCurated },
-      {
-        fetchProblems: async (tag, difficulty) => [
-          { title: "Meh", titleSlug: `meh-${tag}-${difficulty}`, difficulty, acRate: 30, paidOnly: false },
-          { title: "Paid", titleSlug: `paid-${tag}-${difficulty}`, difficulty, acRate: 99, paidOnly: true },
-          { title: "Friendly", titleSlug: `friendly-${tag}-${difficulty}`, difficulty, acRate: 80, paidOnly: false },
-        ],
+  it("knows a problem is unsolved only from a counted tag with 0 solves", () => {
+    expect(surelyUnsolved({ tags: ["array", "math"] }, profile)).toBe(true); // never solved a math problem
+    expect(surelyUnsolved({ tags: ["array", "hash-table"] }, profile)).toBe(false); // might be an old solve
+    expect(surelyUnsolved({ tags: ["array", "counting"] }, profile)).toBe(false); // LeetCode doesn't count "counting"
+    expect(surelyUnsolved({ tags: ["heap-priority-queue"] }, profile)).toBe(false);
+  });
+
+  it("only suggests problems the user surely hasn't solved, even over easier ones", async () => {
+    const problem = (titleSlug: string, difficulty: Difficulty, acRate: number, tags: string[]) => ({ title: titleSlug, titleSlug, difficulty, acRate, paidOnly: false, tags });
+    const catalog = [
+      problem("two-sum-ish", "Easy", 95, ["array", "hash-table"]), // easiest, but could be an old solve
+      problem("array-and-math", "Easy", 80, ["array", "math"]),
+      problem("paid-array-and-math", "Easy", 99, ["array", "math"]),
+      problem("anagram-ish", "Medium", 70, ["string", "hash-table"]),
+      problem("string-dp", "Medium", 45, ["string", "dynamic-programming"]),
+      problem("pointer-walk", "Easy", 60, ["two-pointers", "string"]), // untouched topic: not for the practice slot
+      problem("list-sort", "Easy", 50, ["linked-list", "sorting"]),
+    ];
+    catalog[2].paidOnly = true;
+    const asked: string[] = [];
+    const picks = await pickDaily(daily(), {
+      fetchProblems: async (tag, difficulty) => {
+        asked.push(`${tag}:${difficulty}`);
+        return catalog.filter((p) => p.tags.includes(tag) && p.difficulty === difficulty);
       },
-    );
+    });
+    expect(picks.map((p) => [p.titleSlug, p.topicSlug])).toEqual([
+      ["array-and-math", "array"],
+      ["string-dp", "string"],
+      ["list-sort", "linked-list"],
+    ]);
+    // one list per never-solved tag searched (6) per difficulty
+    expect(new Set(asked).size).toBeLessThanOrEqual(12);
+  });
+
+  it("rotates the practice slot through topics you've started but practise less, day by day", async () => {
+    const counts = { array: 95, string: 41, "hash-table": 36, tree: 20, queue: 9, "linked-list": 5, "dynamic-programming": 2 };
+    // one surely-new Easy problem per topic (tagged with math, which this user has never solved)
+    const topicSlugs = ["array", "string", "hash-table", "tree", "queue", "linked-list", "dynamic-programming", "graph"];
+    const catalog = topicSlugs.map((t) => ({ title: t, titleSlug: `${t}-easy`, difficulty: "Easy" as const, acRate: 50, paidOnly: false, tags: [t, "math"] }));
+    const deps = { fetchProblems: async (tag: string, difficulty: Difficulty) => catalog.filter((p) => p.tags.includes(tag) && p.difficulty === difficulty) };
+
+    const practice = [];
+    for (let day = 0; day < 4; day++) practice.push((await pickDaily({ tagCounts: counts, exclude: new Set(), day }, deps))[2]);
+    // weakest first: linked lists (5/20), queues (9/20), trees (20/40); hash tables are solid, DP barely touched, graphs new
+    expect(practice.map((p) => p.topicSlug)).toEqual(["linked-list", "queue", "tree", "linked-list"]);
+    expect(practice[1]).toMatchObject({ kind: "practice", topicName: "Queues", titleSlug: "queue-easy" });
+  });
+
+  it("uses a brand-new topic for practice only when nothing else has been started", async () => {
+    const picks = await pickDaily({ tagCounts: { array: 10 }, exclude: new Set() }, offline);
+    expect(picks[2].kind).toBe("practice");
+    expect(analyzeTopics({ array: 10 }).find((t) => t.slug === picks[2].topicSlug)?.solved).toBe(0);
+  });
+
+  it("falls back to the easiest live problems when none is provably new, dropping paid ones", async () => {
+    const picks = await pickDaily(daily(), {
+      fetchProblems: async (tag, difficulty) => [
+        { title: "Meh", titleSlug: `meh-${tag}-${difficulty}`, difficulty, acRate: 30, paidOnly: false, tags: [] },
+        { title: "Paid", titleSlug: `paid-${tag}-${difficulty}`, difficulty, acRate: 99, paidOnly: true, tags: [] },
+        { title: "Friendly", titleSlug: `friendly-${tag}-${difficulty}`, difficulty, acRate: 80, paidOnly: false, tags: [] },
+      ],
+    });
     expect(picks.map((p) => p.titleSlug.split("-")[0])).toEqual(["friendly", "friendly", "friendly"]);
     expect(picks[0].titleSlug).toBe("friendly-array-Easy");
   });
 
   it("swaps in a replacement for the same slot, avoiding today's other topics", async () => {
-    const topics = analyzeTopics(profile);
-    const [first] = await pickDaily({ topics, exclude: new Set() }, offline);
-    const replacement = await pickReplacement(0, { topics, exclude: new Set([first.titleSlug]), usedTopics: new Set(["string", "graph"]) }, offline);
+    const [first] = await pickDaily(daily(), offline);
+    const replacement = await pickReplacement(0, { tagCounts: profile, exclude: new Set([first.titleSlug]), usedTopics: new Set(["string", "graph"]) }, offline);
     expect(replacement).toMatchObject({ slot: 0, kind: "strong", difficulty: "Easy", topicSlug: "array" });
     expect(replacement?.titleSlug).not.toBe(first.titleSlug);
   });
