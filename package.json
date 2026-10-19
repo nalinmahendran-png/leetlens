@@ -16,7 +16,6 @@
     "ladder:build": "tsx scripts/build-ladder.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.129.0",
     "@prisma/adapter-pg": "^6.19.3",
     "@prisma/client": "6.19.3",
     "next": "^15.5.0",

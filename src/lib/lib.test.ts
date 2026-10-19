@@ -4,7 +4,7 @@ import { buildSeries, project, weeklyGains } from "./history";
 import { langName, timeUntil } from "./format";
 import { fetchProfile, htmlToText, normalizeProfile, ProfileResponseSchema, submissionIdFrom } from "./leetcode";
 import { buildHintsPrompt, HintsError, tidyHints } from "./hints";
-import { parseGeminiReply } from "./gemini";
+import { geminiHints, parseGeminiReply } from "./gemini";
 import { pickRows, rankEntries } from "./leaderboard";
 import { mockProfile } from "./mock";
 import { CURATED } from "./curated";
@@ -324,6 +324,26 @@ describe("submissions and hints", () => {
     expect(parseGeminiReply(geminiReply("Sorry, no JSON here."))).toBeNull();
     expect(parseGeminiReply(geminiReply(JSON.stringify({ ...answer, focus: "speed" })))).toBeNull();
     expect(() => parseGeminiReply(geminiReply("", { promptFeedback: { blockReason: "SAFETY" } }))).toThrow(HintsError);
+  });
+
+  it("answers without Google Search when the free tier refuses it, and then shows no runtime", async () => {
+    vi.stubEnv("GEMINI_API_KEY", "test-key");
+    const bodies: { tools?: unknown; generationConfig?: unknown }[] = [];
+    vi.stubGlobal("fetch", async (_url: string, init: RequestInit) => {
+      bodies.push(JSON.parse(String(init.body)));
+      if (bodies.length === 1) return new Response(JSON.stringify({ error: { message: "Grounding with Google Search is not available on the free tier." } }), { status: 400 });
+      return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(answer) }] } }] }), { status: 200 });
+    });
+    try {
+      const question = { title: "Two Sum", titleSlug: "two-sum", difficulty: "Easy" as const, paidOnly: false, statement: "Find two numbers.", tags: ["Array"] };
+      const hints = await geminiHints({ question, language: "C++", status: "Accepted", runtime: "4 ms", memory: "10 MB" });
+      expect(bodies.map((b) => Boolean(b.tools))).toEqual([true, false]);
+      expect(bodies[1].generationConfig).toEqual({ responseMimeType: "application/json" });
+      expect(hints).toMatchObject({ hints: answer.hints, sources: [], fastestReported: null });
+    } finally {
+      vi.unstubAllGlobals();
+      vi.unstubAllEnvs();
+    }
   });
 });
 

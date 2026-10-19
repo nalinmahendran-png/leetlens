@@ -1,16 +1,24 @@
 import * as z from "zod/v4";
-import { buildHintsPrompt, GEMINI_SYSTEM_PROMPT, HintsError, HintsSchema, tidyHints, type Hints, type HintsInput } from "./hints";
+import { buildHintsPrompt, SYSTEM_PROMPT, HintsError, HintsSchema, tidyHints, type Hints, type HintsInput } from "./hints";
 
 /**
- * "Beat this" hints from Gemini with Grounding with Google Search, on Google's free tier. Needs
- * GEMINI_API_KEY (free from aistudio.google.com); keep billing off for that Google project so it
- * stays free. Gemini 2.5 Flash is the model whose free tier includes Google Search (500 a day).
+ * "Beat this" hints from Gemini 3.8 Flash. Needs GEMINI_API_KEY (free from aistudio.google.com).
+ * It asks for Grounding with Google Search, but Google only allows that for 3.8 Flash when billing is
+ * on for the key's project. On the free tier Google refuses the search, so we answer from the
+ * model's own knowledge instead: no sources, and no "fastest reported" runtime.
  */
-const MODEL = "gemini-2.5-flash";
+const MODEL = "gemini-3.8-flash";
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 const TIMEOUT_MS = 150_000;
 /** Gemini can't be held to a schema while searching, so a reply may be malformed: ask once more. */
 const MAX_ATTEMPTS = 2;
+const NO_SEARCH_NOTE = "Web search isn't available this time. Base the hints on what you know about this problem, and set fastestReported to null.";
+
+/** Set once Google has refused the search tool (free tier), so this server stops asking for it. */
+let searchUnavailable = false;
+
+/** Google turned down the search tool itself (not the request as a whole). */
+class SearchRefused extends Error {}
 
 const ReplySchema = z.object({
   promptFeedback: z.object({ blockReason: z.string().optional() }).optional(),
@@ -80,16 +88,18 @@ async function resolveLink(url: string): Promise<string> {
   }
 }
 
-async function ask(input: HintsInput, key: string): Promise<unknown> {
+async function ask(input: HintsInput, key: string, search: boolean): Promise<unknown> {
+  const prompt = buildHintsPrompt(input);
   let res: Response;
   try {
     res = await fetch(ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": key },
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: GEMINI_SYSTEM_PROMPT }] },
-        contents: [{ role: "user", parts: [{ text: buildHintsPrompt(input) }] }],
-        tools: [{ google_search: {} }],
+        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents: [{ role: "user", parts: [{ text: search ? prompt : `${prompt}\n\n${NO_SEARCH_NOTE}` }] }],
+        // without tools, Gemini can be told to answer in JSON
+        ...(search ? { tools: [{ google_search: {} }] } : { generationConfig: { responseMimeType: "application/json" } }),
       }),
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
@@ -99,6 +109,7 @@ async function ask(input: HintsInput, key: string): Promise<unknown> {
 
   if (res.ok) return res.json().catch(() => null);
   const detail = await res.text().catch(() => "");
+  if (search && [400, 403, 429].includes(res.status) && /google_search|grounding|search/i.test(detail)) throw new SearchRefused();
   if (res.status === 429) {
     throw new HintsError("RATE_LIMITED", "Gemini's free limit is used up for now. Try again in a minute, or tomorrow if it keeps happening.");
   }
@@ -113,11 +124,20 @@ export async function geminiHints(input: HintsInput): Promise<Hints> {
   if (!key) throw new HintsError("NOT_CONFIGURED", "Hints aren't set up yet: add GEMINI_API_KEY and restart the server.");
 
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-    const hints = parseGeminiReply(await ask(input, key));
-    if (hints) {
-      const urls = await Promise.all(hints.sources.map((s) => resolveLink(s.url)));
-      return { ...hints, sources: uniqueUrls(hints.sources.map((s, i) => ({ ...s, url: urls[i] }))) };
+    let raw: unknown;
+    try {
+      raw = await ask(input, key, !searchUnavailable);
+    } catch (err) {
+      if (!(err instanceof SearchRefused)) throw err;
+      searchUnavailable = true;
+      raw = await ask(input, key, false);
     }
+    const hints = parseGeminiReply(raw);
+    if (!hints) continue;
+    // a runtime is only worth showing if a source reported it
+    if (hints.sources.length === 0) return { ...hints, fastestReported: null };
+    const urls = await Promise.all(hints.sources.map((s) => resolveLink(s.url)));
+    return { ...hints, sources: uniqueUrls(hints.sources.map((s, i) => ({ ...s, url: urls[i] }))) };
   }
   throw new HintsError("UPSTREAM", "Gemini's answer came back in an unexpected shape. Please try again.");
 }
