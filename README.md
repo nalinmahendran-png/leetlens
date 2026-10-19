@@ -66,7 +66,7 @@ Each submission's hints are generated once and cached in `Submission.hintsJson`,
 * **Levels 1 to 17, rated 1100 to 2700+:** each level is a 100-point rating band with **31 problems**, sorted easiest to hardest and spread evenly across contest history, so a level is not 31 problems from one month. LeetCode does not publish difficulty ratings, so these come from the community dataset [zerotrac/leetcode_problem_rating](https://github.com/zerotrac/leetcode_problem_rating) (MIT, (c) 2021 Shuxin Chen), which estimates Elo-style ratings from Weekly and Biweekly Contest results.
 * **A level is complete at 80 % (25 of 31).** Your *current level* is the first incomplete one at or after your start level, and the ladder shows it with a highlight.
 * **Where do I start?** "Start my ladder here" saves a start level. Until you pick one, LeetLens suggests it from your Easy/Medium/Hard counts (`suggestStartLevel` in `src/lib/ladder.ts`).
-* **Ticks are automatic only:** a problem is ticked once LeetCode shows an accepted submission for it, and stays ticked after it drops out of LeetCode's last-20 list. There is no ticking by hand. Opening the Ladder checks LeetCode for new solves. Ticks are `ProblemMark` rows with source `"auto"`, plus accepted rows in `Submission` (`getVerifiedSolves` in `src/lib/sync.ts`).
+* **Ticks:** problems in your last ~20 accepted submissions are ticked **automatically** on every sync. Everything else you tick by hand (older solves cannot be read without logging in, see the limits below). Ticks are stored in `ProblemMark`.
 * **Today's 3** on the Universe page is separate from the ladder: Easy and Medium from your strongest topics, then one from a data structure you've started but practise less (see below).
 * **Regenerate the data** with `npm run ladder:build`. It re-downloads the ratings and rewrites `data/ladder.json`. The generated file is committed so the app works without network access at build time.
 
@@ -74,8 +74,8 @@ Each submission's hints are generated once and cached in `Submission.hintsJson`,
 
 1. Ratings exist **only for contest problems** (about 2,600 of LeetCode's 3,000+). Non-contest problems only appear in Foundations.
 2. Ratings are **community estimates**, not official, and the dataset is only as fresh as its last update.
-3. Without a login, LeetLens only sees your last ~20 accepted problems, so a problem solved before LeetLens first saw you ticks only once you submit it again on LeetCode.
-4. There is no sign-in yet, so anyone who knows a username can add it to the leaderboard or change its ladder start level. Add the ownership check under "Ideas for next steps" before going public.
+3. Without a login, LeetLens can only auto-tick the last ~20 accepted problems, so you tick older solves yourself.
+4. There is no sign-in yet, so anyone who knows a username can tick problems for it. Add the ownership check under "Ideas for next steps" before going public.
 
 ## How data is fetched from LeetCode
 
@@ -93,7 +93,7 @@ Every response is validated with **Zod**. If LeetCode changes a field, you get a
 
 **Honest limits**
 
-1. **No full "solved" list without logging in.** Public data gives per-topic *counts* and only the last ~20 accepted submissions. Today's 3 works around it by only suggesting problems you can't have solved (see below); if one slips through, **"Solved it before? Swap it"** and LeetLens remembers it. (An opt-in session-cookie mode is possible, but risky for users and possibly against LeetCode's terms, so it is not built.)
+1. **No full "solved" list without logging in.** Public data gives per-topic *counts* and only the last ~20 accepted submissions. So a suggestion may be something you already solved: use **"I already solved this"** (or tick it on the Ladder) and LeetLens remembers it. (An opt-in session-cookie mode is possible, but risky for users and possibly against LeetCode's terms, so it is not built.)
 2. **No history endpoint.** The progress graph is built from **daily snapshots we store** after someone first visits. Before that, earlier weeks are *estimated* from the yearly activity calendar and drawn dashed. Run the daily sync so snapshots accumulate (see below).
 3. **Unofficial API.** It can change or rate-limit at any time, and scraping may go against LeetCode's ToS. Keep the caching and delays in place. If LeetCode returns HTTP 403 to your server (some hosts get blocked), the UI says so and shows the last saved data.
 
@@ -110,7 +110,7 @@ Every response is validated with **Zod**. If LeetCode changes a field, you get a
   * **Only problems you surely haven't solved.** LeetCode's public data lists just your last 20 solves, but it also gives a solved count per tag. If a tag shows 0, you've never solved a problem carrying it, so any such problem is certainly new to you. Picks must carry one of your never-solved tags (for example an Arrays problem that is also tagged Backtracking), easiest first (`COUNTED_TAGS` and `surelyUnsolved` in `src/lib/recommend.ts`). That costs a few extra LeetCode requests when a set is made (up to 6 tags per difficulty, cached for a day).
   * Only if nothing provably new turns up (say you've solved something in nearly every tag) does it fall back to the easiest live problems, then the **curated classics** (`src/lib/curated.ts`). With LeetCode unreachable, only the curated list is used.
   * A set lasts until **midnight** in `DAILY_TIMEZONE` (an IANA name such as `Asia/Kolkata`; default: the server's timezone, so set it when you deploy, since hosts usually run on UTC). The countdown ticks in the browser and loads the new set at midnight. Problems solved today turn green (the page checks LeetCode when it opens); nothing is swapped in for them.
-  * In that fallback a pick may be one you solved long ago. **"Solved it before? Swap it"** remembers it (so it never comes back; it isn't a Ladder tick, since LeetCode hasn't confirmed it) and puts a fresh problem for the same slot in its place (`swapDailyProblem`, `POST /api/daily/swap`).
+  * In that fallback a pick may be one you solved long ago. **"Solved it before? Swap it"** ticks it (so it never comes back) and puts a fresh problem for the same slot in its place (`swapDailyProblem`, `POST /api/daily/swap`).
   * The first visit after midnight makes a new set, which skips anything suggested in the last 14 days (unless nothing else is left). Sets are stored in the `DailyPick` table.
 * **Leaderboard** (`src/lib/leaderboard.ts`): all-time = total solved; week = gain over the last 7 days of snapshots.
 * **Trajectory** (`src/lib/history.ts`): 12 weekly points, pace = average of the last 4 weeks, projected 3 weeks ahead.
@@ -118,7 +118,7 @@ Every response is validated with **Zod**. If LeetCode changes a field, you get a
 ## Project layout
 
 ```
-prisma/schema.prisma      User (+ ladderStart), Snapshot (one per user per day), ProblemMark (solves: confirmed or "solved before"), Submission (runtime/memory + cached hints), DailyPick (daily sets)
+prisma/schema.prisma      User (+ ladderStart), Snapshot (one per user per day), ProblemMark (ticks), Submission (runtime/memory + cached hints), DailyPick (daily sets)
 prisma/seed.ts            sample users + demo history + demo ladder ticks
 data/ladder.json          generated ladder: 18 levels x 31 problems (from zerotrac ratings)
 scripts/build-ladder.ts   regenerates data/ladder.json  (npm run ladder:build)
@@ -135,7 +135,7 @@ src/lib/hintQuota.ts      3 new hint sets per profile per day
 src/lib/history.ts        series, weekly gains, projection
 src/lib/leaderboard.ts    ranking
 src/lib/mock.ts           offline fake data ("demo" user)
-src/app/                  pages + API routes (sync, start, leaderboard, hints, daily/swap, cron/sync)
+src/app/                  pages + API routes (sync, mark, start, leaderboard, hints, daily/swap, cron/sync)
 src/components/           SolarSystem, Leaderboard, TrajectoryChart, ProblemChecklist, DailyProblems, SubmissionList, ...
 ```
 
@@ -172,7 +172,7 @@ LeetLens stores its data in PostgreSQL. To run it on Vercel:
 
 ## Ideas for next steps
 
-* **Sign-in + ownership check:** verify a username by asking the user to paste a short code into their LeetCode "About" text, so nobody can add someone else to the leaderboard or change their ladder start.
+* **Sign-in + ownership check:** verify a username by asking the user to paste a short code into their LeetCode "About" text, so nobody can add someone else to the leaderboard or tick their ladder.
 * Prerequisite ordering inside a level, and topic tags on ladder problems so you can filter a level by topic.
 * Groups / friends leaderboards, private profiles, opt-out of the public ranking.
 * Redis + BullMQ for queued syncs and shared caching once you run several servers.

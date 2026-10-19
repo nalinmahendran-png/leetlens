@@ -72,13 +72,13 @@ export async function syncUser(username: string, opts: { minIntervalMs?: number 
     update: snapshotData,
   });
 
-  // Recent accepted submissions are solves LeetCode itself confirms: they become ladder ticks
-  // ("auto" marks), and stay ticked after they drop out of LeetCode's last-20 list.
+  // Recent accepted submissions become "solved" ticks automatically. `update: {}` means a tick
+  // the user removed by hand is never re-added.
   for (const r of profile.recentAc) {
     await db.problemMark.upsert({
       where: { userId_titleSlug: { userId: user.id, titleSlug: r.titleSlug } },
       create: { userId: user.id, titleSlug: r.titleSlug, solved: true, source: "auto" },
-      update: { solved: true, source: "auto" },
+      update: {},
     });
   }
 
@@ -159,31 +159,21 @@ export async function getDashboard(username: string, maxAgeMs = DEFAULT_MAX_AGE_
   };
 }
 
-/** Everything known to be solved, including problems the user said they solved before: kept out of suggestions. */
 export async function getSolvedSlugs(userId: number): Promise<Set<string>> {
   const marks = await db.problemMark.findMany({ where: { userId, solved: true }, select: { titleSlug: true } });
   return new Set(marks.map((m) => m.titleSlug));
 }
 
-/** Only solves LeetCode itself confirmed (accepted submissions we've seen): the ladder ticks these. */
-export async function getVerifiedSolves(userId: number): Promise<Set<string>> {
-  const [marks, accepted] = await Promise.all([
-    db.problemMark.findMany({ where: { userId, solved: true, source: "auto" }, select: { titleSlug: true } }),
-    db.submission.findMany({ where: { userId, status: "Accepted" }, select: { titleSlug: true }, distinct: ["titleSlug"] }),
-  ]);
-  return new Set([...marks, ...accepted].map((m) => m.titleSlug));
-}
-
-/**
- * The user says they solved this before ("Solved it before? Swap it"): never suggest it again. It isn't
- * a ladder tick, since LeetCode hasn't confirmed it, and it never downgrades a confirmed solve.
- */
-async function rememberSolvedBefore(userId: number, titleSlug: string): Promise<void> {
+/** Tick or un-tick a problem by hand. */
+export async function setMark(username: string, titleSlug: string, solved: boolean): Promise<boolean> {
+  const user = await db.user.findUnique({ where: { usernameKey: username.toLowerCase() } });
+  if (!user) return false;
   await db.problemMark.upsert({
-    where: { userId_titleSlug: { userId, titleSlug } },
-    create: { userId, titleSlug, solved: true, source: "manual" },
-    update: { solved: true },
+    where: { userId_titleSlug: { userId: user.id, titleSlug } },
+    create: { userId: user.id, titleSlug, solved, source: "manual" },
+    update: { solved, source: "manual", updatedAt: new Date() },
   });
+  return true;
 }
 
 export async function setLadderStart(username: string, level: number): Promise<boolean> {
@@ -203,7 +193,7 @@ export interface LadderState {
 }
 
 export async function getLadderState(d: Dashboard): Promise<LadderState> {
-  const solved = await getVerifiedSolves(d.user.id);
+  const solved = await getSolvedSlugs(d.user.id);
   const progress = allProgress(solved);
   const suggested = suggestStartLevel({ easy: d.latest.easy, medium: d.latest.medium, hard: d.latest.hard });
   const startLevel = d.user.ladderStart ?? suggested;
@@ -356,7 +346,7 @@ export async function swapDailyProblem(d: Dashboard, titleSlug: string, now = ne
   const row = current?.rows.find((r) => r.titleSlug === titleSlug);
   if (!current || !row) return false;
 
-  await rememberSolvedBefore(d.user.id, titleSlug);
+  await setMark(d.user.username, titleSlug, true);
   // Nothing left to swap in: the problem stays in the set, now ticked as solved.
   await replaceDailyRow(d, current, row, now);
   return true;

@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { timeUntil } from "@/lib/format";
 import type { DailyProblem } from "@/lib/types";
-import { useSyncOnOpen } from "./useSyncOnOpen";
 
 type Props = {
   username: string;
@@ -23,12 +22,28 @@ type Props = {
 export default function DailyProblems({ username, problems, resetsAt, resetsIn }: Props) {
   const router = useRouter();
   const [left, setLeft] = useState(resetsIn);
+  const [checking, setChecking] = useState(false);
   const [swapping, setSwapping] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [, startTransition] = useTransition();
   const allSolved = problems.every((p) => p.solved);
-  // new solves on LeetCode turn green without pressing Refresh
-  const checking = useSyncOnOpen(username, allSolved);
+
+  // Solved one on LeetCode since the last sync? Ask the server to re-sync (it skips if it synced in the
+  // last 5 minutes), then reload the page data so new solves turn green without pressing Refresh.
+  useEffect(() => {
+    if (allSolved) return;
+    let cancelled = false;
+    setChecking(true);
+    fetch("/api/sync", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username }) })
+      .then((res) => {
+        if (res.ok && !cancelled) startTransition(() => router.refresh());
+      })
+      .catch(() => undefined)
+      .finally(() => !cancelled && setChecking(false));
+    return () => {
+      cancelled = true;
+    };
+  }, [username]); // once per page visit, not again after each refresh
 
   // Tick the countdown every 30 s; at midnight, load the new set.
   useEffect(() => {
