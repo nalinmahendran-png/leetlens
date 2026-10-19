@@ -77,7 +77,7 @@ export default async function LadderPage({ params, searchParams }: Props) {
           levelName={level.name}
           levelRange={level.range}
           problems={level.problems}
-          solved={level.problems.filter((p) => state.solved.has(p.slug)).map((p) => p.slug)}
+          initiallySolved={level.problems.filter((p) => state.solved.has(p.slug)).map((p) => p.slug)}
           needed={needed}
         />
 
@@ -115,7 +115,7 @@ export default async function LadderPage({ params, searchParams }: Props) {
             <h2 className="card-title" style={{ fontSize: 16 }}>How it works</h2>
             <ul className="plain-list">
               <li><b>Ratings, not topics.</b> Each level mixes topics so you don&apos;t grind one pattern.</li>
-              <li><b>Auto-ticks only.</b> A problem ticks once LeetCode shows your accepted submission; opening this page checks for new ones. Solved one before LeetLens saw it? Submit it again on LeetCode.</li>
+              <li><b>Auto-ticks.</b> Problems you solve on LeetCode tick themselves at your next sync. Older solves: tick them by hand.</li>
               <li><b>Foundations</b> are 31 classics for warming up before contest-rated problems.</li>
               <li><b>Ratings</b> are community estimates from Weekly and Biweekly contests, not official.</li>
             </ul>

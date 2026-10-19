@@ -1,20 +1,12 @@
-import Anthropic from "@anthropic-ai/sdk";
 import * as z from "zod/v4";
 import type { QuestionDetail } from "./types";
 
 /**
  * "Beat this" hints for one of the user's submissions. We know its language, runtime and memory
- * from LeetCode's public data (never the code). Claude searches the web for faster solutions to the
- * same problem and turns what it finds into 5-6 hints. Needs ANTHROPIC_API_KEY on the server.
- * src/lib/gemini.ts does the same with Gemini on Google's free tier (GEMINI_API_KEY), sharing the
- * prompt, schema and errors defined here.
+ * from LeetCode's public data (never the code). Gemini searches the web for faster solutions to the
+ * same problem and turns what it finds into 5-6 hints (src/lib/gemini.ts). This file holds what the
+ * rest of the app shares: the hints' shape, the instructions, and the errors.
  */
-const MODEL = "claude-opus-5-5";
-/** Each search is billed, so cap them per request. */
-const MAX_SEARCHES = 5;
-/** Server-side tool loops can pause (stop_reason "pause_turn"); resume at most this many times. */
-const MAX_CONTINUATIONS = 4;
-
 export const HintsSchema = z.object({
   focus: z.enum(["runtime", "memory", "both", "already_optimal"]),
   focusReason: z.string(),
@@ -60,53 +52,13 @@ const FIELDS = `- focus: where the realistic gain is. A runtime of 0 ms can't be
 
 const STYLE = "Write plain text. Wrap identifiers and short expressions in backticks.";
 
-const SYSTEM_PROMPT = `${RESEARCH}
-
-Then call submit_hints exactly once:
-${FIELDS}
-- sources: the 2-5 pages you relied on, with title and URL. Leave it empty if web search failed, and then base the hints on what you know.
-
-${STYLE}`;
-
-/** The same task for Gemini, which can't use a strict tool alongside Google Search: it answers in JSON. */
-export const GEMINI_SYSTEM_PROMPT = `${RESEARCH}
+/** Gemini can't be held to a schema while it uses Google Search, so it answers in JSON that we validate. */
+export const SYSTEM_PROMPT = `${RESEARCH}
 
 Then reply with only a JSON object, with no code fences and no other text, and these fields:
 ${FIELDS}
 
 Types: focus is one of "runtime", "memory", "both", "already_optimal"; focusReason is a string; best is {"time": string, "space": string}; fastestReported is a string or null; hints is an array of strings. ${STYLE}`;
-
-const SUBMIT_TOOL: Anthropic.Beta.BetaTool = {
-  name: "submit_hints",
-  description: "Submit the finished hints for beating the user's submission. Call once, after researching.",
-  strict: true,
-  input_schema: {
-    type: "object",
-    properties: {
-      focus: { type: "string", enum: ["runtime", "memory", "both", "already_optimal"] },
-      focusReason: { type: "string" },
-      best: {
-        type: "object",
-        properties: { time: { type: "string" }, space: { type: "string" } },
-        required: ["time", "space"],
-        additionalProperties: false,
-      },
-      fastestReported: { type: ["string", "null"] },
-      hints: { type: "array", items: { type: "string" } },
-      sources: {
-        type: "array",
-        items: {
-          type: "object",
-          properties: { title: { type: "string" }, url: { type: "string" } },
-          required: ["title", "url"],
-          additionalProperties: false,
-        },
-      },
-    },
-    required: ["focus", "focusReason", "best", "fastestReported", "hints", "sources"],
-    additionalProperties: false,
-  },
-};
 
 function problemBlock(q: QuestionDetail): string {
   const statement = q.statement ?? "(Premium problem: the statement isn't available. Infer the task from the title and tags.)";
@@ -137,67 +89,4 @@ export function tidyHints(h: Hints): Hints {
     hints: h.hints.map((s) => s.trim()).filter(Boolean).slice(0, 6),
     sources: h.sources.filter((s) => /^https?:\/\//i.test(s.url)).slice(0, 5),
   };
-}
-
-export async function hintsToBeat(input: HintsInput): Promise<Hints> {
-  const client = new Anthropic();
-  const messages: Anthropic.Beta.BetaMessageParam[] = [{ role: "user", content: buildHintsPrompt(input) }];
-  let nudged = false;
-
-  try {
-    for (let turn = 0; turn <= MAX_CONTINUATIONS; turn++) {
-      const response = await client.beta.messages.create({
-        model: MODEL,
-        max_tokens: 16000,
-        thinking: { type: "adaptive" },
-        output_config: { effort: "high" },
-        // if a safety classifier declines, retry server-side on Anthropic's recommended fallback model
-        betas: ["server-side-fallback-2026-07-01"],
-        fallbacks: "default",
-        system: SYSTEM_PROMPT,
-        tools: [{ type: "web_search_20260209", name: "web_search", max_uses: MAX_SEARCHES }, SUBMIT_TOOL],
-        messages,
-      });
-
-      if (response.stop_reason === "refusal") {
-        throw new HintsError("REFUSED", "Claude declined this request. Please try again.");
-      }
-      const submitted = response.content.find((b) => b.type === "tool_use" && b.name === "submit_hints");
-      if (submitted && submitted.type === "tool_use") {
-        const parsed = HintsSchema.safeParse(submitted.input);
-        if (!parsed.success) throw new HintsError("UPSTREAM", "The hints came back in an unexpected shape. Please try again.");
-        return tidyHints(parsed.data);
-      }
-      if (response.stop_reason === "max_tokens") {
-        throw new HintsError("UPSTREAM", "The hints came back incomplete. Please try again.");
-      }
-
-      // Keep the assistant turn unchanged (thinking and search blocks included) and continue.
-      messages.push({ role: "assistant", content: response.content });
-      if (response.stop_reason === "pause_turn") continue; // the server resumes a paused search loop on its own
-      if (nudged) break;
-      nudged = true; // finished without submitting: ask once more
-      messages.push({ role: "user", content: "Please call submit_hints with your findings now." });
-    }
-    throw new HintsError("UPSTREAM", "Claude didn't finish the hints. Please try again.");
-  } catch (err) {
-    if (err instanceof HintsError) throw err;
-    if (err instanceof Anthropic.AuthenticationError || err instanceof Anthropic.PermissionDeniedError) {
-      throw new HintsError("NOT_CONFIGURED", "The Claude API key is invalid. Check ANTHROPIC_API_KEY in .env.");
-    }
-    if (err instanceof Anthropic.RateLimitError) {
-      throw new HintsError("RATE_LIMITED", "Claude is busy right now. Try again in a minute.");
-    }
-    if (err instanceof Anthropic.APIConnectionError) {
-      throw new HintsError("UPSTREAM", "Couldn't reach Claude. Check your internet connection.");
-    }
-    if (err instanceof Anthropic.APIError) {
-      throw new HintsError("UPSTREAM", `Claude returned an error (HTTP ${err.status ?? "?"}). Please try again.`);
-    }
-    // The SDK throws a plain Error before sending anything when no credentials are configured.
-    if (err instanceof Error && /authentication/i.test(err.message)) {
-      throw new HintsError("NOT_CONFIGURED", "Hints aren't set up yet: add ANTHROPIC_API_KEY to .env and restart the server.");
-    }
-    throw err;
-  }
 }
