@@ -5,6 +5,7 @@ import { langName, timeUntil } from "./format";
 import { fetchProfile, htmlToText, normalizeProfile, ProfileResponseSchema, submissionIdFrom } from "./leetcode";
 import { buildHintsPrompt, HintsError, tidyHints } from "./hints";
 import { geminiHints, parseGeminiReply } from "./gemini";
+import { viewerKey } from "./hintQuota";
 import { pickRows, rankEntries } from "./leaderboard";
 import { mockProfile } from "./mock";
 import { CURATED } from "./curated";
@@ -324,6 +325,17 @@ describe("submissions and hints", () => {
     expect(parseGeminiReply(geminiReply("Sorry, no JSON here."))).toBeNull();
     expect(parseGeminiReply(geminiReply(JSON.stringify({ ...answer, focus: "speed" })))).toBeNull();
     expect(() => parseGeminiReply(geminiReply("", { promptFeedback: { blockReason: "SAFETY" } }))).toThrow(HintsError);
+  });
+
+  it("treats one IPv4 address, or one IPv6 /64 network, as one person", () => {
+    const key = (ip: string) => viewerKey(new Headers({ "x-forwarded-for": `${ip}, 10.0.0.1` }));
+    expect(key("49.36.10.7")).toBe(key("49.36.10.7"));
+    expect(key("49.36.10.7")).not.toBe(key("49.36.10.8"));
+    expect(key("::ffff:49.36.10.7")).toBe(key("49.36.10.7"));
+    // a phone rotating its IPv6 address inside its network's /64
+    expect(key("2401:4900:1c3a:91d2:a1b2:c3d4:e5f6:1")).toBe(key("2401:4900:1c3a:91d2::9"));
+    expect(key("2401:4900:1c3a:91d2::9")).not.toBe(key("2401:4900:1c3a:91d3::9"));
+    expect(key("49.36.10.7")).not.toContain("49.36"); // stored as a hash, never the address
   });
 
   it("answers without Google Search when the free tier refuses it, and then shows no runtime", async () => {

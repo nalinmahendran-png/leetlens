@@ -86,6 +86,8 @@ model Submission {
   hintsJson   String?
   /// When hints were requested: counts toward the user's daily "Beat this" limit. Null if never, or if generating failed
   hintsAt     DateTime?
+  /// Who requested them: a hash of their IP address (never the address), for the per-person daily limit
+  hintsBy     String?
 
   @@index([userId, submittedAt])
 }

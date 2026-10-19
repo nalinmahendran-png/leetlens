@@ -53,7 +53,13 @@ Every sync also saves the user's public recent submissions (`recentSubmissionLis
 
 Gemini can't be held to a schema while searching, so it answers in JSON that is validated (and asked for once more if malformed); sources come from the search metadata, resolved from Google's redirect links to the real pages.
 
-Each submission's hints are generated once and cached in `Submission.hintsJson`, so reopening them is free. **Each profile gets 3 new hint sets a day** (`HINTS_PER_DAY` in `src/lib/hintQuota.ts`), resetting at midnight in `DAILY_TIMEZONE`; the Submissions page shows how many are left. The count is kept in the database (`Submission.hintsAt`) under a Postgres lock, so it holds on serverless hosts and with parallel clicks, and a failed attempt doesn't count. There's also a softer limit of 20 per hour per IP.
+Each submission's hints are generated once and cached in `Submission.hintsJson`, so reopening them is free. **New hint sets have daily limits** (`src/lib/hintQuota.ts`), all resetting at midnight in `DAILY_TIMEZONE`:
+
+* **3 per profile** (`HINTS_PER_DAY`)
+* **3 per person** (`HINTS_PER_PERSON_PER_DAY`), across every profile they look at. With no sign-in, a person is their IP address (an IPv6 /64 network counts as one, since phones rotate addresses inside it), stored only as a hash in `Submission.hintsBy`
+* **50 for the whole site** (`HINTS_PER_DAY_SITEWIDE`), a safety net against someone with many addresses
+
+The Submissions page shows how many the viewer has left (the tightest of the three). The checks and the claim run under one Postgres advisory lock, so parallel clicks can't get past a limit, and a failed attempt doesn't count. A softer in-memory limit of 20 requests per hour per IP keeps floods away from the database.
 
 ## The Ladder (CP-31 for LeetCode)
 
@@ -128,7 +134,7 @@ src/lib/recommend.ts      daily set picker (strong-topic Easy + Medium, one need
 src/lib/day.ts            midnight in DAILY_TIMEZONE (when Today's 3 resets)
 src/lib/hints.ts          beat-this hints: shape, instructions, errors
 src/lib/gemini.ts         beat-this hints from Gemini 3.8 Flash (Google Search when the key allows it)
-src/lib/hintQuota.ts      3 new hint sets per profile per day
+src/lib/hintQuota.ts      daily limits on new hint sets (per profile, per person, site-wide)
 src/lib/history.ts        series, weekly gains, projection
 src/lib/leaderboard.ts    ranking
 src/lib/mock.ts           offline fake data ("demo" user)
